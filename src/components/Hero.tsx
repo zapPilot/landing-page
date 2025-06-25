@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Play, Sparkles } from 'lucide-react';
 import { LINKS, openExternalLink } from '@/config/links';
+import { PhoneMockup } from './PhoneMockup';
 
 export function Hero() {
 
@@ -140,69 +141,7 @@ export function Hero() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.6, duration: 1 }}
         >
-          {/* Phone Mockup */}
-          <div className="relative mx-auto w-80 h-[600px] bg-gradient-to-b from-gray-800 to-gray-900 rounded-3xl p-2 shadow-2xl">
-            <div className="w-full h-full bg-gray-950 rounded-2xl overflow-hidden relative">
-              {/* Screen Content */}
-              <div className="p-6 h-full flex flex-col">
-                {/* Header */}
-                <div className="text-center mb-8">
-                  <div className="text-gray-400 text-sm mb-2">Your Portfolio</div>
-                  <motion.div
-                    className="text-3xl font-bold text-white"
-                    animate={{ opacity: [0.7, 1, 0.7] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    $12,450.85
-                  </motion.div>
-                </div>
-
-                {/* Chart Area */}
-                <div className="flex-1 bg-gradient-to-b from-purple-500/10 to-blue-500/10 rounded-2xl p-4 mb-6 relative overflow-hidden">
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20"
-                    animate={{
-                      backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                    }}
-                    style={{
-                      backgroundSize: '200% 200%',
-                    }}
-                  />
-                  <div className="relative z-10 h-full flex items-end justify-center">
-                    <motion.div
-                      className="w-full h-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"
-                      initial={{ scaleX: 0 }}
-                      animate={{ scaleX: 1 }}
-                      transition={{ delay: 1, duration: 1.5 }}
-                    />
-                  </div>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="grid grid-cols-2 gap-3">
-                  <motion.button
-                    className="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-3 rounded-xl font-medium"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    Zap In
-                  </motion.button>
-                  <motion.button
-                    className="bg-gray-800 text-gray-300 py-3 rounded-xl font-medium border border-gray-700"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    Rebalance
-                  </motion.button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <PhoneMockup />
 
           {/* Floating Cards */}
           <motion.div

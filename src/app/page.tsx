@@ -9,7 +9,6 @@ import { UseCases } from '@/components/UseCases';
 import { HowItWorks } from '@/components/HowItWorks';
 import { CTA } from '@/components/CTA';
 import { Footer } from '@/components/Footer';
-import { DeFiStats } from '@/components/DeFiStats';
 
 export default function HomePage() {
   const [mounted, setMounted] = useState(false);
@@ -72,7 +71,6 @@ export default function HomePage() {
 
       <Navbar />
       <Hero />
-      <DeFiStats />
       <Features />
       <UseCases />
       <HowItWorks />

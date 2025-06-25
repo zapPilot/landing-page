@@ -93,8 +93,8 @@ export function LinksDashboard() {
           {/* Legal */}
           <LinkSection title="Legal Pages" links={LINKS.legal} isObject />
           
-          {/* External */}
-          <LinkSection title="External Integrations" links={LINKS.external} isObject />
+          {/* Development */}
+          <LinkSection title="Development" links={LINKS.development} isObject />
         </div>
       </div>
 

@@ -57,7 +57,6 @@ src/
 ├── components/
 │   ├── Navbar.tsx
 │   ├── Hero.tsx
-│   ├── DeFiStats.tsx
 │   ├── Features.tsx
 │   ├── UseCases.tsx
 │   ├── HowItWorks.tsx
@@ -120,7 +119,6 @@ Update content in the component files:
 - `Hero.tsx` - Main headline and subtitle
 - `Features.tsx` - Feature descriptions
 - `UseCases.tsx` - Use case examples
-- `DeFiStats.tsx` - Metrics and labels
 
 ### Animations
 
