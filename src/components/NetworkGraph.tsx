@@ -2,42 +2,11 @@
 
 import { motion } from 'framer-motion';
 import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
-import { Zap, TrendingUp, Shield, Activity, Brain, DollarSign } from 'lucide-react';
+import { Activity, Brain } from 'lucide-react';
+import { getNetworkNodes, initialConnections, type Connection } from '@/data/networkNodes';
+import { getCurrentIntentFlow, getIntentFlowsCount } from '@/data/intentFlows';
+import { getPerformanceMetrics } from '@/data/performanceMetrics';
 
-interface Node {
-  id: string;
-  x: number;
-  y: number;
-  label: string;
-  type: 'protocol' | 'chain' | 'user' | 'intent';
-  color: string;
-  size: number;
-  icon?: string;
-  apy?: string;
-  tvl?: string;
-  status?: string;
-}
-
-interface Connection {
-  from: string;
-  to: string;
-  animated: boolean;
-  color: string;
-  strength: number;
-}
-
-interface IntentFlow {
-  id: string;
-  name: string;
-  userIntent: string;
-  path: string[];
-  value: string;
-  apy: string;
-  executionTime: string;
-  gasOptimized: string;
-  status: 'executing' | 'completed' | 'optimizing';
-  steps: string[];
-}
 
 export function NetworkGraph() {
   const [activeNode, setActiveNode] = useState<string | null>(null);
@@ -70,226 +39,14 @@ export function NetworkGraph() {
     };
   }, []);
 
-  // Enhanced network nodes with responsive positioning
-  const getResponsiveNodes = useCallback((): Node[] => {
-    const baseNodes = [
-      // User/Portfolio Intent node (center)
-      { 
-        id: 'user', 
-        x: isMobile ? 200 : 300, 
-        y: isMobile ? 200 : 250, 
-        label: 'Portfolio Intent', 
-        type: 'intent' as const, 
-        color: '#8B5CF6', 
-        size: isMobile ? 50 : 70, 
-        icon: '💼' 
-      },
-      
-      // DeFi Protocol nodes with responsive positioning
-      { 
-        id: 'uniswap', 
-        x: isMobile ? 100 : 150, 
-        y: isMobile ? 120 : 150, 
-        label: 'Uniswap V3', 
-        type: 'protocol' as const, 
-        color: '#FF007A', 
-        size: isMobile ? 32 : 45, 
-        icon: '🦄',
-        apy: '18.4%',
-        tvl: '$3.2B',
-        status: 'active'
-      },
-      { 
-        id: 'aave', 
-        x: isMobile ? 300 : 450, 
-        y: isMobile ? 120 : 150, 
-        label: 'Aave V3', 
-        type: 'protocol' as const, 
-        color: '#B6509E', 
-        size: isMobile ? 32 : 45, 
-        icon: '👻',
-        apy: '5.8%',
-        tvl: '$5.1B',
-        status: 'active'
-      },
-      { 
-        id: 'compound', 
-        x: isMobile ? 100 : 150, 
-        y: isMobile ? 280 : 350, 
-        label: 'Compound', 
-        type: 'protocol' as const, 
-        color: '#00D395', 
-        size: isMobile ? 28 : 40, 
-        icon: '🏛️',
-        apy: '4.2%',
-        tvl: '$1.8B',
-        status: 'active'
-      },
-      { 
-        id: 'curve', 
-        x: isMobile ? 300 : 450, 
-        y: isMobile ? 280 : 350, 
-        label: 'Curve', 
-        type: 'protocol' as const, 
-        color: '#FD0D2C', 
-        size: isMobile ? 30 : 42, 
-        icon: '📈',
-        apy: '12.1%',
-        tvl: '$2.9B',
-        status: 'active'
-      },
-      { 
-        id: 'morpho', 
-        x: isMobile ? 60 : 100, 
-        y: isMobile ? 200 : 250, 
-        label: 'Morpho', 
-        type: 'protocol' as const, 
-        color: '#00C4FF', 
-        size: isMobile ? 25 : 35, 
-        icon: '🔷',
-        apy: '8.9%',
-        tvl: '$890M',
-        status: 'active'
-      },
-      
-      // Chain nodes with responsive positioning
-      { 
-        id: 'ethereum', 
-        x: isMobile ? 150 : 200, 
-        y: isMobile ? 80 : 100, 
-        label: 'Ethereum', 
-        type: 'chain' as const, 
-        color: '#627EEA', 
-        size: isMobile ? 28 : 38, 
-        icon: 'Ξ',
-        status: 'mainnet'
-      },
-      { 
-        id: 'polygon', 
-        x: isMobile ? 340 : 500, 
-        y: isMobile ? 200 : 250, 
-        label: 'Polygon', 
-        type: 'chain' as const, 
-        color: '#8247E5', 
-        size: isMobile ? 26 : 36, 
-        icon: '⬟',
-        status: 'l2'
-      },
-      { 
-        id: 'arbitrum', 
-        x: isMobile ? 250 : 350, 
-        y: isMobile ? 80 : 100, 
-        label: 'Arbitrum', 
-        type: 'chain' as const, 
-        color: '#213147', 
-        size: isMobile ? 26 : 36, 
-        icon: '🔷',
-        status: 'l2'
-      },
-      { 
-        id: 'base', 
-        x: isMobile ? 270 : 400, 
-        y: isMobile ? 320 : 400, 
-        label: 'Base', 
-        type: 'chain' as const, 
-        color: '#0052FF', 
-        size: isMobile ? 24 : 34, 
-        icon: '🔵',
-        status: 'l2'
-      },
-    ];
-    
-    return baseNodes;
-  }, [isMobile]);
-
   // Memoize nodes to prevent unnecessary re-renders
-  const nodes = useMemo(() => getResponsiveNodes(), [getResponsiveNodes]);
+  const nodes = useMemo(() => getNetworkNodes(isMobile), [isMobile]);
 
   // Enhanced connections with strength and routing data
-  const [connections, setConnections] = useState<Connection[]>([
-    { from: 'user', to: 'uniswap', animated: false, color: '#8B5CF6', strength: 0.8 },
-    { from: 'user', to: 'aave', animated: false, color: '#8B5CF6', strength: 0.9 },
-    { from: 'user', to: 'compound', animated: false, color: '#8B5CF6', strength: 0.6 },
-    { from: 'user', to: 'curve', animated: false, color: '#8B5CF6', strength: 0.7 },
-    { from: 'user', to: 'morpho', animated: false, color: '#8B5CF6', strength: 0.5 },
-    { from: 'uniswap', to: 'ethereum', animated: false, color: '#627EEA', strength: 0.9 },
-    { from: 'aave', to: 'polygon', animated: false, color: '#8247E5', strength: 0.8 },
-    { from: 'compound', to: 'arbitrum', animated: false, color: '#213147', strength: 0.7 },
-    { from: 'curve', to: 'base', animated: false, color: '#0052FF', strength: 0.6 },
-    { from: 'morpho', to: 'ethereum', animated: false, color: '#627EEA', strength: 0.5 },
-  ]);
+  const [connections, setConnections] = useState<Connection[]>(
+    initialConnections.map(conn => ({ ...conn, animated: false }))
+  );
 
-  // Portfolio-based intent execution flows
-  const intentFlows: IntentFlow[] = useMemo(() => [
-    {
-      id: 'multi-chain-diversification',
-      name: 'Multi-Chain Stablecoin Portfolio',
-      userIntent: '"Diversify my stablecoins across multiple chains and pools"',
-      path: ['user', 'aave', 'polygon'],
-      value: '$25,000',
-      apy: '9.8%',
-      executionTime: '1.4s',
-      gasOptimized: '78%',
-      status: 'executing',
-      steps: [
-        'Analyzing optimal chain allocation',
-        'Splitting funds across Polygon, Arbitrum, Base',
-        'Deploying to highest-yield stable pools',
-        'Setting up cross-chain rebalancing'
-      ]
-    },
-    {
-      id: 'crypto-index-fund',
-      name: 'Crypto Index Fund + Liquidity Mining',
-      userIntent: '"Create a crypto index fund with liquidity mining rewards"',
-      path: ['user', 'uniswap', 'ethereum'],
-      value: '$50,000',
-      apy: '14.2%',
-      executionTime: '2.1s',
-      gasOptimized: '65%',
-      status: 'completed',
-      steps: [
-        'Building diversified crypto portfolio',
-        'Allocating to top 10 assets by market cap',
-        'Adding liquidity to high-yield pairs',
-        'Optimizing for farming rewards'
-      ]
-    },
-    {
-      id: 'custom-portfolio',
-      name: 'Custom Portfolio Strategy',
-      userIntent: '"Build my own portfolio with specific chains and pools"',
-      path: ['user', 'curve', 'base'],
-      value: '$35,750',
-      apy: '11.6%',
-      executionTime: '1.8s',
-      gasOptimized: '82%',
-      status: 'optimizing',
-      steps: [
-        'Processing custom allocation preferences',
-        'Selecting Ethereum, Base, and Arbitrum',
-        'Deploying to chosen DeFi protocols',
-        'Implementing automated rebalancing'
-      ]
-    },
-    {
-      id: 'yield-portfolio',
-      name: 'High-Yield Portfolio Optimization',
-      userIntent: '"Maximize yields across my entire portfolio automatically"',
-      path: ['user', 'morpho', 'ethereum'],
-      value: '$42,500',
-      apy: '13.7%',
-      executionTime: '1.6s',
-      gasOptimized: '73%',
-      status: 'executing',
-      steps: [
-        'Scanning all available yield opportunities',
-        'Optimizing allocation across protocols',
-        'Implementing dynamic yield farming',
-        'Setting up automated compounding'
-      ]
-    }
-  ], []);
 
   // Animate intent execution flows
   useEffect(() => {
@@ -302,7 +59,7 @@ export function NetworkGraph() {
       
       // Start new flow animation
       setTimeout(() => {
-        const currentFlowData = intentFlows[currentFlow];
+        const currentFlowData = getCurrentIntentFlow(currentFlow);
         const progressInterval = setInterval(() => {
           setExecutionProgress(prev => {
             if (prev >= 100) {
@@ -330,13 +87,13 @@ export function NetworkGraph() {
         
         // Move to next flow
         setTimeout(() => {
-          setCurrentFlow((prev) => (prev + 1) % intentFlows.length);
+          setCurrentFlow((prev) => (prev + 1) % getIntentFlowsCount());
         }, 1000);
       }, 500);
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [currentFlow, intentFlows]);
+  }, [currentFlow]);
 
   // Memoized node position helper for performance
   const getNodePosition = useCallback((nodeId: string) => {
@@ -345,15 +102,10 @@ export function NetworkGraph() {
   }, [nodes]);
 
   // Memoize current flow data to prevent unnecessary re-renders
-  const currentFlowData = useMemo(() => intentFlows[currentFlow], [currentFlow, intentFlows]);
+  const currentFlowData = useMemo(() => getCurrentIntentFlow(currentFlow), [currentFlow]);
   
   // Memoize performance metrics to prevent unnecessary re-renders
-  const performanceMetrics = useMemo(() => [
-    { icon: TrendingUp, label: 'Avg APY', value: '11.8%', color: 'text-green-400' },
-    { icon: Shield, label: 'Success Rate', value: '99.7%', color: 'text-blue-400' },
-    { icon: Zap, label: 'Avg Speed', value: '1.4s', color: 'text-yellow-400' },
-    { icon: DollarSign, label: 'Gas Saved', value: '73%', color: 'text-purple-400' },
-  ], []);
+  const performanceMetrics = useMemo(() => getPerformanceMetrics(), []);
 
   // Keyboard navigation for accessibility
   useEffect(() => {
