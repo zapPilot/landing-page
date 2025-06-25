@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight, BookOpen, Github, MessageCircle } from 'lucide-react';
-import Link from "next/link";
+import { LINKS, openExternalLink } from '@/config/links';
 
 export function CTA() {
   return (
@@ -86,7 +86,7 @@ export function CTA() {
                 className="group bg-white text-purple-600 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => window.open('http://app.zap-pilot.org', '_blank')}
+                onClick={() => openExternalLink(LINKS.app)}
               >
                 <span className="flex items-center justify-center">
                   Launch Zap Pilot
@@ -98,6 +98,7 @@ export function CTA() {
               className="group bg-white/10 backdrop-blur-lg text-white px-8 py-4 rounded-xl font-semibold text-lg border border-white/20 hover:bg-white/20 transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => openExternalLink(LINKS.documentation)}
             >
               <span className="flex items-center justify-center">
                 <BookOpen className="mr-2 w-5 h-5" />
@@ -114,35 +115,35 @@ export function CTA() {
             transition={{ duration: 0.8, delay: 0.6 }}
             viewport={{ once: true }}
           >
-            <motion.a
-              href="#"
-              className="group bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300"
+            <motion.div
+              className="group bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer"
               whileHover={{ scale: 1.03, y: -5 }}
+              onClick={() => openExternalLink(LINKS.social.github)}
             >
               <Github className="w-8 h-8 text-white mb-4 mx-auto group-hover:scale-110 transition-transform" />
               <h3 className="text-white font-semibold mb-2">Open Source</h3>
               <p className="text-white/80 text-sm">Explore our codebase and contribute to the future of DeFi</p>
-            </motion.a>
+            </motion.div>
 
-            <motion.a
-              href="#"
-              className="group bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300"
+            <motion.div
+              className="group bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer"
               whileHover={{ scale: 1.03, y: -5 }}
+              onClick={() => openExternalLink(LINKS.social.discord)}
             >
               <MessageCircle className="w-8 h-8 text-white mb-4 mx-auto group-hover:scale-110 transition-transform" />
               <h3 className="text-white font-semibold mb-2">Community</h3>
               <p className="text-white/80 text-sm">Join our Discord and connect with fellow DeFi enthusiasts</p>
-            </motion.a>
+            </motion.div>
 
-            <motion.a
-              href="#"
-              className="group bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300"
+            <motion.div
+              className="group bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer"
               whileHover={{ scale: 1.03, y: -5 }}
+              onClick={() => openExternalLink(LINKS.documentation)}
             >
               <BookOpen className="w-8 h-8 text-white mb-4 mx-auto group-hover:scale-110 transition-transform" />
               <h3 className="text-white font-semibold mb-2">Learn More</h3>
               <p className="text-white/80 text-sm">Deep dive into intent-based execution and DeFi strategies</p>
-            </motion.a>
+            </motion.div>
           </motion.div>
 
           {/* Stats Row */}

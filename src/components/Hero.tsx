@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { ArrowRight, Play, Sparkles } from 'lucide-react';
+import { LINKS, openExternalLink } from '@/config/links';
 
 export function Hero() {
 
@@ -72,7 +73,7 @@ export function Hero() {
               className="group bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-purple-500/25 transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => window.open('http://app.zap-pilot.org', '_blank')}
+              onClick={() => openExternalLink(LINKS.app)}
             >
               <span className="flex items-center justify-center">
                 Start Zapping
@@ -84,6 +85,7 @@ export function Hero() {
               className="group flex items-center justify-center px-8 py-4 rounded-xl border border-gray-600 text-gray-300 hover:border-gray-500 hover:text-white transition-all duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => openExternalLink(LINKS.social.youtube)}
             >
               <Play className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform" />
               Watch Demo

@@ -1,35 +1,19 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Zap, Github, Twitter, MessageCircle, Mail } from 'lucide-react';
+import { Github, X, MessageCircle, Mail } from 'lucide-react';
+import { LINKS, NAVIGATION } from '@/config/links';
 
 export function Footer() {
-  const productLinks = [
-    { label: 'Features', href: '#features' },
-    { label: 'Use Cases', href: '#use-cases' },
-    { label: 'How It Works', href: '#how-it-works' },
-    { label: 'Pricing', href: '#' },
-  ];
-
-  const resourceLinks = [
-    { label: 'Documentation', href: '#' },
-    { label: 'API Reference', href: '#' },
-    { label: 'Tutorials', href: '#' },
-    { label: 'Support', href: '#' },
-  ];
-
+  const productLinks = NAVIGATION.footer.product;
+  const resourceLinks = NAVIGATION.footer.resources;
   const communityLinks = [
-    { label: 'Discord', href: '#', icon: MessageCircle },
-    { label: 'Twitter', href: '#', icon: Twitter },
-    { label: 'GitHub', href: '#', icon: Github },
-    { label: 'Newsletter', href: '#', icon: Mail },
+    { label: 'Discord', href: LINKS.social.discord, icon: MessageCircle },
+    { label: 'X', href: LINKS.social.twitter, icon: X },
+    { label: 'GitHub', href: LINKS.social.github, icon: Github },
+    { label: 'Email', href: LINKS.support.contactUs, icon: Mail },
   ];
-
-  const legalLinks = [
-    { label: 'Privacy Policy', href: '#' },
-    { label: 'Terms of Service', href: '#' },
-    { label: 'Cookie Policy', href: '#' },
-  ];
+  const legalLinks = NAVIGATION.footer.legal;
 
   return (
     <footer className="bg-gray-950/80 backdrop-blur-lg border-t border-gray-800">
@@ -46,6 +30,7 @@ export function Footer() {
               className="lg:col-span-1"
             >
               <div className="flex items-center space-x-2 mb-6">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img 
                   src="/zap-pilot-icon.svg" 
                   alt="Zap Pilot Logo" 

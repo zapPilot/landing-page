@@ -1,8 +1,9 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Zap } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { LINKS, NAVIGATION, openExternalLink } from '@/config/links';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,11 +17,7 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = [
-    { href: '#features', label: 'Features' },
-    { href: '#use-cases', label: 'Use Cases' },
-    { href: '#how-it-works', label: 'How It Works' },
-  ];
+  const navItems = NAVIGATION.internal;
 
   return (
     <motion.nav
@@ -41,6 +38,7 @@ export function Navbar() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               src="/zap-pilot-icon.svg" 
               alt="Zap Pilot Logo" 
@@ -79,7 +77,7 @@ export function Navbar() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.6 }}
-              onClick={() => window.open('http://app.zap-pilot.org', '_blank')}
+              onClick={() => openExternalLink(LINKS.app)}
             >
               Launch App
             </motion.button>
@@ -126,7 +124,7 @@ export function Navbar() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                onClick={() => window.open('http://app.zap-pilot.org', '_blank')}
+                onClick={() => openExternalLink(LINKS.app)}
               >
                 Launch App
               </motion.button>
