@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Github, X, MessageCircle, Mail } from 'lucide-react';
+import { Github, Twitter, MessageCircle, Mail } from 'lucide-react';
 import { LINKS, NAVIGATION } from '@/config/links';
 
 export function Footer() {
@@ -9,7 +9,7 @@ export function Footer() {
   const resourceLinks = NAVIGATION.footer.resources;
   const communityLinks = [
     { label: 'Discord', href: LINKS.social.discord, icon: MessageCircle },
-    { label: 'X', href: LINKS.social.twitter, icon: X },
+    { label: 'X', href: LINKS.social.twitter, icon: Twitter },
     { label: 'GitHub', href: LINKS.social.github, icon: Github },
     { label: 'Email', href: LINKS.support.contactUs, icon: Mail },
   ];
@@ -51,6 +51,7 @@ export function Footer() {
                   <motion.a
                     key={link.label}
                     href={link.href}
+                    target="_blank"
                     className="w-10 h-10 bg-gray-800 hover:bg-gray-700 rounded-lg flex items-center justify-center text-gray-400 hover:text-white transition-all duration-200"
                     whileHover={{ scale: 1.1, y: -2 }}
                     whileTap={{ scale: 0.9 }}
