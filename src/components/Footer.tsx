@@ -46,9 +46,11 @@ export function Footer() {
               className="lg:col-span-1"
             >
               <div className="flex items-center space-x-2 mb-6">
-                <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl flex items-center justify-center">
-                  <Zap className="w-6 h-6 text-white" />
-                </div>
+                <img 
+                  src="/zap-pilot-icon.svg" 
+                  alt="Zap Pilot Logo" 
+                  className="w-12 h-12"
+                />
                 <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
                   Zap Pilot
                 </span>

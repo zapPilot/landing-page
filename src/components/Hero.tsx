@@ -72,6 +72,7 @@ export function Hero() {
               className="group bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-purple-500/25 transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => window.open('http://app.zap-pilot.org', '_blank')}
             >
               <span className="flex items-center justify-center">
                 Start Zapping

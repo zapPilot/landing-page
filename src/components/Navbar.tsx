@@ -37,13 +37,15 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <motion.div 
-            className="flex items-center space-x-2"
+            className="flex items-center"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
-              <Zap className="w-5 h-5 text-white" />
-            </div>
+            <img 
+              src="/zap-pilot-icon.svg" 
+              alt="Zap Pilot Logo" 
+              className="w-10 h-10 mr-3"
+            />
             <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
               Zap Pilot
             </span>
@@ -77,6 +79,7 @@ export function Navbar() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.6 }}
+              onClick={() => window.open('http://app.zap-pilot.org', '_blank')}
             >
               Launch App
             </motion.button>
@@ -123,6 +126,7 @@ export function Navbar() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
+                onClick={() => window.open('http://app.zap-pilot.org', '_blank')}
               >
                 Launch App
               </motion.button>
