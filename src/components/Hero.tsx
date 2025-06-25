@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Play, Sparkles } from 'lucide-react';
 import { LINKS, openExternalLink } from '@/config/links';
-import { VisualizationDemo } from './VisualizationDemo';
+import { NetworkGraph } from './NetworkGraph';
 
 export function Hero() {
   const containerVariants = {
@@ -27,14 +27,14 @@ export function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-16">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <motion.div
-            className="text-center"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
+      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+        {/* Left Content */}
+        <motion.div
+          className="text-center lg:text-left"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
             {/* Badge */}
             <motion.div
               variants={itemVariants}
@@ -58,7 +58,7 @@ export function Hero() {
             {/* Subtitle */}
             <motion.p
               variants={itemVariants}
-              className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto"
+              className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0"
             >
               Transform your investment intent into automated, cross-chain actions — all in one click. 
               Your funds stay in your wallet, we handle the complexity.
@@ -67,7 +67,7 @@ export function Hero() {
             {/* CTA Buttons */}
             <motion.div
               variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12"
             >
               <motion.button
                 className="group bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-purple-500/25 transition-all duration-300"
@@ -95,7 +95,7 @@ export function Hero() {
             {/* Stats */}
             <motion.div
               variants={itemVariants}
-              className="grid grid-cols-3 gap-8 text-center"
+              className="grid grid-cols-3 gap-8 text-center lg:text-left"
             >
               <div>
                 <motion.div
@@ -131,17 +131,16 @@ export function Hero() {
                 <div className="text-sm text-gray-400 mt-1">Supported Chains</div>
               </div>
             </motion.div>
-          </motion.div>
-        </div>
+        </motion.div>
 
-        {/* Visualization Demo */}
+        {/* Right Visual */}
         <motion.div
-          className="relative mt-12"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
+          className="relative"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.6, duration: 1 }}
         >
-          <VisualizationDemo />
+          <NetworkGraph />
         </motion.div>
       </div>
     </section>
