@@ -106,7 +106,7 @@ export function NetworkGraph() {
   
   // Memoize performance metrics to prevent unnecessary re-renders
   const performanceMetrics = useMemo(() => getPerformanceMetrics(), []);
-
+  
   // Keyboard navigation for accessibility
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -363,18 +363,18 @@ export function NetworkGraph() {
         </motion.div>
       ))}
 
-      {/* Enhanced Intent Execution Panel */}
+      {/* Compact Intent Execution Panel - Bottom */}
       <motion.div
         key={currentFlow}
-        className={`absolute ${isMobile ? 'top-3 left-3 p-3 min-w-[280px]' : 'top-6 left-6 p-6 min-w-[320px]'} bg-gray-900/95 backdrop-blur-lg border border-purple-500/30 rounded-2xl shadow-2xl`}
-        initial={{ opacity: 0, y: -20 }}
+        className={`absolute ${isMobile ? 'bottom-3 left-3 right-3 p-2' : 'bottom-4 left-4 right-4 p-3'} bg-gray-900/95 backdrop-blur-lg border border-purple-500/30 rounded-xl shadow-2xl`}
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-2">
           <div className="flex items-center space-x-2">
-            <Brain className="w-5 h-5 text-purple-400" />
-            <h3 className="text-white font-bold text-sm">Intent Execution</h3>
+            <Brain className="w-4 h-4 text-purple-400" />
+            <h3 className="text-white font-bold text-xs">Intent Execution</h3>
           </div>
           <div className="flex items-center space-x-2">
             <div className={`w-2 h-2 rounded-full animate-pulse ${
@@ -388,41 +388,37 @@ export function NetworkGraph() {
           </div>
         </div>
 
-        <div className="space-y-4">
-          {/* User Intent */}
-          <div className="bg-purple-500/10 rounded-lg p-3 border border-purple-500/20">
-            <div className="text-purple-300 text-xs font-medium mb-1">User Intent</div>
-            <div className="text-white text-sm italic">{currentFlowData.userIntent}</div>
+        <div className="flex flex-col lg:flex-row lg:items-center lg:space-x-4 space-y-2 lg:space-y-0">
+          {/* User Intent - Compact */}
+          <div className="flex-1 bg-purple-500/10 rounded-lg p-2 border border-purple-500/20">
+            <div className="text-purple-300 text-xs font-medium mb-1">Intent</div>
+            <div className="text-white text-xs italic truncate">{currentFlowData.userIntent}</div>
           </div>
 
-          {/* Execution Details */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="bg-gray-800/50 rounded-lg p-3">
+          {/* Execution Details - Horizontal */}
+          <div className="flex space-x-2 lg:space-x-3">
+            <div className="bg-gray-800/50 rounded-lg p-2 min-w-[60px]">
               <div className="text-gray-400 text-xs">Value</div>
-              <div className="text-white font-bold">{currentFlowData.value}</div>
+              <div className="text-white font-bold text-xs">{currentFlowData.value}</div>
             </div>
-            <div className="bg-gray-800/50 rounded-lg p-3">
-              <div className="text-gray-400 text-xs">Expected APY</div>
-              <div className="text-green-400 font-bold">{currentFlowData.apy}</div>
+            <div className="bg-gray-800/50 rounded-lg p-2 min-w-[50px]">
+              <div className="text-gray-400 text-xs">APY</div>
+              <div className="text-green-400 font-bold text-xs">{currentFlowData.apy}</div>
             </div>
-            <div className="bg-gray-800/50 rounded-lg p-3">
-              <div className="text-gray-400 text-xs">Execution Time</div>
-              <div className="text-blue-400 font-bold">{currentFlowData.executionTime}</div>
+            <div className="bg-gray-800/50 rounded-lg p-2 min-w-[50px]">
+              <div className="text-gray-400 text-xs">Time</div>
+              <div className="text-blue-400 font-bold text-xs">{currentFlowData.executionTime}</div>
             </div>
-            <div className="bg-gray-800/50 rounded-lg p-3">
-              <div className="text-gray-400 text-xs">Gas Optimized</div>
-              <div className="text-purple-400 font-bold">{currentFlowData.gasOptimized}</div>
+            <div className="bg-gray-800/50 rounded-lg p-2 min-w-[50px]">
+              <div className="text-gray-400 text-xs">Gas</div>
+              <div className="text-purple-400 font-bold text-xs">{currentFlowData.gasOptimized}</div>
             </div>
           </div>
 
-          {/* Execution Progress */}
+          {/* Execution Progress - Compact */}
           {isExecuting && (
-            <div className="space-y-2">
-              <div className="flex justify-between text-xs">
-                <span className="text-gray-400">Progress</span>
-                <span className="text-white">{Math.round(executionProgress)}%</span>
-              </div>
-              <div className="w-full bg-gray-700 rounded-full h-2">
+            <div className="flex items-center space-x-2 min-w-[100px]">
+              <div className="flex-1 bg-gray-700 rounded-full h-2">
                 <motion.div
                   className="h-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"
                   initial={{ width: 0 }}
@@ -430,17 +426,15 @@ export function NetworkGraph() {
                   transition={{ duration: 0.1 }}
                 />
               </div>
-              <div className="text-xs text-gray-400">
-                {currentFlowData.steps[Math.floor(executionProgress / 25)] || 'Finalizing...'}
-              </div>
+              <span className="text-white text-xs font-medium">{Math.round(executionProgress)}%</span>
             </div>
           )}
         </div>
       </motion.div>
 
-      {/* Enhanced Performance Metrics */}
+      {/* Performance Metrics - Right Side */}
       <motion.div
-        className={`absolute ${isMobile ? 'bottom-3 right-3 space-y-2' : 'bottom-6 right-6 space-y-3'}`}
+        className={`absolute ${isMobile ? 'top-12 right-3 space-y-2' : 'top-16 right-6 space-y-3'}`}
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 1.2 }}
@@ -448,7 +442,7 @@ export function NetworkGraph() {
         {performanceMetrics.map((metric, index) => (
           <motion.div
             key={metric.label}
-            className={`bg-gray-900/90 backdrop-blur-lg border border-gray-700/50 rounded-lg ${isMobile ? 'p-2 min-w-[100px]' : 'p-3 min-w-[130px]'} shadow-lg`}
+            className={`bg-gray-900/90 backdrop-blur-lg border border-gray-700/50 rounded-lg ${isMobile ? 'p-2 min-w-[90px]' : 'p-3 min-w-[120px]'} shadow-lg`}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 1.4 + index * 0.1 }}
@@ -488,7 +482,7 @@ export function NetworkGraph() {
       {/* Interaction Hint */}
       {!isMobile && (
         <motion.div
-          className="absolute bottom-6 left-6 text-gray-400 text-xs flex items-center space-x-2"
+          className="absolute top-6 left-6 text-gray-400 text-xs flex items-center space-x-2"
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 3, repeat: Infinity }}
         >
