@@ -25,7 +25,7 @@ export async function getCryptoPrices(): Promise<{
     const response = await axios.get(
       `${COINGECKO_API}/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true`
     );
-    
+
     return {
       bitcoin: response.data.bitcoin.usd,
       ethereum: response.data.ethereum.usd,
@@ -47,7 +47,7 @@ export async function getDeFiTVL(): Promise<{
 }> {
   try {
     const response = await axios.get(`${DEFILLAMA_API}/tvl`);
-    
+
     return {
       tvl: response.data.totalLiquidityUSD || 87200000000,
       change24h: response.data.change24h || 5.2,
@@ -70,12 +70,12 @@ export async function getDeFiMarketCap(): Promise<number> {
     const response = await axios.get(
       `${COINGECKO_API}/coins/markets?vs_currency=usd&category=decentralized-finance-defi&order=market_cap_desc&per_page=50&page=1`
     );
-    
+
     const totalMarketCap = response.data.reduce(
       (sum: number, coin: { market_cap?: number }) => sum + (coin.market_cap || 0),
       0
     );
-    
+
     return totalMarketCap;
   } catch (error) {
     console.error('Failed to fetch DeFi market cap:', error);
@@ -116,10 +116,10 @@ export async function fetchDeFiMetrics(): Promise<DeFiMetrics> {
     };
   } catch (error) {
     console.error('Failed to fetch DeFi metrics:', error);
-    
+
     // Return fallback data with some randomization for demo
     const randomVariation = () => (Math.random() - 0.5) * 0.1; // ±5% variation
-    
+
     return {
       totalValueLocked: `$${(87.2 * (1 + randomVariation())).toFixed(1)}B`,
       bitcoinPrice: `$${(43250 * (1 + randomVariation())).toFixed(0)}`,
@@ -138,17 +138,14 @@ export async function fetchDeFiMetrics(): Promise<DeFiMetrics> {
 const cache = new Map<string, { data: DeFiMetrics; timestamp: number }>();
 const CACHE_DURATION = 30000; // 30 seconds
 
-export async function cachedFetch<T>(
-  key: string,
-  fetchFn: () => Promise<T>
-): Promise<T> {
+export async function cachedFetch<T>(key: string, fetchFn: () => Promise<T>): Promise<T> {
   const cached = cache.get(key);
   const now = Date.now();
-  
+
   if (cached && now - cached.timestamp < CACHE_DURATION) {
     return cached.data as T;
   }
-  
+
   try {
     const data = await fetchFn();
     cache.set(key, { data: data as DeFiMetrics, timestamp: now });
@@ -163,5 +160,4 @@ export async function cachedFetch<T>(
 }
 
 // Cached version of fetchDeFiMetrics
-export const getCachedDeFiMetrics = () =>
-  cachedFetch('defi-metrics', fetchDeFiMetrics);
+export const getCachedDeFiMetrics = () => cachedFetch('defi-metrics', fetchDeFiMetrics);

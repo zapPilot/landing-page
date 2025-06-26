@@ -104,7 +104,7 @@ NEXT_PUBLIC_HOTJAR_ID=your_id
 export const LINKS = {
   app: 'https://new-app-url.com', // ← Update here
   // ... other links
-}
+};
 ```
 
 ### 2. Multiple Links Update
@@ -142,11 +142,7 @@ openExternalLink(LINKS.social.twitter);
 Creates mailto links with optional subject and body:
 
 ```typescript
-openEmail(
-  'support@zap-pilot.org',
-  'Bug Report',
-  'I found an issue with...'
-);
+openEmail('support@zap-pilot.org', 'Bug Report', 'I found an issue with...');
 ```
 
 ## Link Categories

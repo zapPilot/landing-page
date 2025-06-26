@@ -13,7 +13,6 @@ export function Footer() {
     { label: 'GitHub', href: LINKS.social.github, icon: Github },
     { label: 'Email', href: LINKS.support.contactUs, icon: Mail },
   ];
-  const legalLinks = NAVIGATION.footer.legal;
 
   return (
     <footer className="bg-gray-950/80 backdrop-blur-lg border-t border-gray-800">
@@ -31,16 +30,12 @@ export function Footer() {
             >
               <div className="flex items-center space-x-2 mb-6">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img 
-                  src="/zap-pilot-icon.svg" 
-                  alt="Zap Pilot Logo" 
-                  className="w-12 h-12"
-                />
+                <img src="/zap-pilot-icon.svg" alt="Zap Pilot Logo" className="w-12 h-12" />
                 <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
                   Zap Pilot
                 </span>
               </div>
-              
+
               <p className="text-gray-400 mb-6 leading-relaxed">
                 The future of DeFi execution is here. Simple, secure, and always in your control.
               </p>
@@ -137,7 +132,7 @@ export function Footer() {
               <p className="text-gray-400 mb-4">
                 Get the latest updates on new features and DeFi insights.
               </p>
-              
+
               <div className="space-y-3">
                 <div className="flex">
                   <input
@@ -153,9 +148,7 @@ export function Footer() {
                     Subscribe
                   </motion.button>
                 </div>
-                <p className="text-gray-500 text-sm">
-                  No spam, unsubscribe at any time.
-                </p>
+                <p className="text-gray-500 text-sm">No spam, unsubscribe at any time.</p>
               </div>
             </motion.div>
           </div>
@@ -171,26 +164,7 @@ export function Footer() {
         >
           <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
             {/* Copyright */}
-            <div className="text-gray-400 text-sm">
-              © 2024 Zap Pilot. All rights reserved.
-            </div>
-
-            {/* Legal Links */}
-            <div className="flex space-x-6">
-              {legalLinks.map((link, index) => (
-                <motion.a
-                  key={link.label}
-                  href={link.href}
-                  className="text-gray-400 hover:text-white text-sm transition-colors duration-200"
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  {link.label}
-                </motion.a>
-              ))}
-            </div>
+            <div className="text-gray-400 text-sm">© 2023 Zap Pilot. All rights reserved.</div>
 
             {/* Built with love */}
             <motion.div

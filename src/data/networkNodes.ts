@@ -40,10 +40,10 @@ const networkNodeData: BaseNodeData[] = [
     icon: '💼',
     responsive: {
       desktop: { x: 300, y: 250, size: 70 },
-      mobile: { x: 200, y: 200, size: 50 }
-    }
+      mobile: { x: 200, y: 200, size: 50 },
+    },
   },
-  
+
   // DeFi Protocol nodes
   {
     id: 'uniswap',
@@ -56,8 +56,8 @@ const networkNodeData: BaseNodeData[] = [
     status: 'active',
     responsive: {
       desktop: { x: 150, y: 150, size: 45 },
-      mobile: { x: 100, y: 120, size: 32 }
-    }
+      mobile: { x: 100, y: 120, size: 32 },
+    },
   },
   {
     id: 'aave',
@@ -70,8 +70,8 @@ const networkNodeData: BaseNodeData[] = [
     status: 'active',
     responsive: {
       desktop: { x: 450, y: 150, size: 45 },
-      mobile: { x: 300, y: 120, size: 32 }
-    }
+      mobile: { x: 300, y: 120, size: 32 },
+    },
   },
   {
     id: 'compound',
@@ -84,8 +84,8 @@ const networkNodeData: BaseNodeData[] = [
     status: 'active',
     responsive: {
       desktop: { x: 150, y: 350, size: 40 },
-      mobile: { x: 100, y: 280, size: 28 }
-    }
+      mobile: { x: 100, y: 280, size: 28 },
+    },
   },
   {
     id: 'curve',
@@ -98,8 +98,8 @@ const networkNodeData: BaseNodeData[] = [
     status: 'active',
     responsive: {
       desktop: { x: 450, y: 350, size: 42 },
-      mobile: { x: 300, y: 280, size: 30 }
-    }
+      mobile: { x: 300, y: 280, size: 30 },
+    },
   },
   {
     id: 'morpho',
@@ -112,10 +112,10 @@ const networkNodeData: BaseNodeData[] = [
     status: 'active',
     responsive: {
       desktop: { x: 100, y: 250, size: 35 },
-      mobile: { x: 60, y: 200, size: 25 }
-    }
+      mobile: { x: 60, y: 200, size: 25 },
+    },
   },
-  
+
   // Chain nodes
   {
     id: 'ethereum',
@@ -126,8 +126,8 @@ const networkNodeData: BaseNodeData[] = [
     status: 'mainnet',
     responsive: {
       desktop: { x: 200, y: 100, size: 38 },
-      mobile: { x: 150, y: 80, size: 28 }
-    }
+      mobile: { x: 150, y: 80, size: 28 },
+    },
   },
   {
     id: 'polygon',
@@ -138,8 +138,8 @@ const networkNodeData: BaseNodeData[] = [
     status: 'l2',
     responsive: {
       desktop: { x: 500, y: 250, size: 36 },
-      mobile: { x: 340, y: 200, size: 26 }
-    }
+      mobile: { x: 340, y: 200, size: 26 },
+    },
   },
   {
     id: 'arbitrum',
@@ -150,8 +150,8 @@ const networkNodeData: BaseNodeData[] = [
     status: 'l2',
     responsive: {
       desktop: { x: 350, y: 100, size: 36 },
-      mobile: { x: 250, y: 80, size: 26 }
-    }
+      mobile: { x: 250, y: 80, size: 26 },
+    },
   },
   {
     id: 'base',
@@ -162,9 +162,9 @@ const networkNodeData: BaseNodeData[] = [
     status: 'l2',
     responsive: {
       desktop: { x: 400, y: 400, size: 34 },
-      mobile: { x: 270, y: 320, size: 24 }
-    }
-  }
+      mobile: { x: 270, y: 320, size: 24 },
+    },
+  },
 ];
 
 /**
@@ -175,7 +175,7 @@ const networkNodeData: BaseNodeData[] = [
 export function getNetworkNodes(isMobile: boolean): Node[] {
   return networkNodeData.map(nodeData => {
     const config = isMobile ? nodeData.responsive.mobile : nodeData.responsive.desktop;
-    
+
     return {
       id: nodeData.id,
       x: config.x,
@@ -187,7 +187,7 @@ export function getNetworkNodes(isMobile: boolean): Node[] {
       icon: nodeData.icon,
       apy: nodeData.apy,
       tvl: nodeData.tvl,
-      status: nodeData.status
+      status: nodeData.status,
     };
   });
 }
@@ -211,5 +211,5 @@ export const initialConnections: Omit<Connection, 'animated'>[] = [
   { from: 'aave', to: 'polygon', color: '#8247E5', strength: 0.8 },
   { from: 'compound', to: 'arbitrum', color: '#213147', strength: 0.7 },
   { from: 'curve', to: 'base', color: '#0052FF', strength: 0.6 },
-  { from: 'morpho', to: 'ethereum', color: '#627EEA', strength: 0.5 }
+  { from: 'morpho', to: 'ethereum', color: '#627EEA', strength: 0.5 },
 ];

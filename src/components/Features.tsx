@@ -8,31 +8,35 @@ export function Features() {
     {
       icon: ArrowRightLeft,
       title: 'Intent-Centric Execution',
-      description: 'You tell us what you want — we do the rest. Zap into predefined strategies or build your own. One click, one pipeline, no headache.',
+      description:
+        'You tell us what you want — we do the rest. Zap into predefined strategies or build your own. One click, one pipeline, no headache.',
       gradient: 'from-purple-500 to-violet-600',
-      delay: 0.1
+      delay: 0.1,
     },
     {
       icon: Shield,
       title: 'Non-Custodial by Design',
-      description: 'We never touch your funds. All zaps are executed directly from your own Account Abstraction (AA) wallet, giving you full control and ownership.',
+      description:
+        'We never touch your funds. All zaps are executed directly from your own Account Abstraction (AA) wallet, giving you full control and ownership.',
       gradient: 'from-blue-500 to-cyan-600',
-      delay: 0.2
+      delay: 0.2,
     },
     {
       icon: Network,
       title: 'Cross-Chain by Default',
-      description: 'No more juggling bridges, swaps, or interfaces. Zap Pilot seamlessly handles swaps, bridges, and protocol interactions — behind the scenes.',
+      description:
+        'No more juggling bridges, swaps, or interfaces. Zap Pilot seamlessly handles swaps, bridges, and protocol interactions — behind the scenes.',
       gradient: 'from-green-500 to-emerald-600',
-      delay: 0.3
+      delay: 0.3,
     },
     {
       icon: TrendingUp,
       title: 'From Vaults to Indices to Memes',
-      description: 'Choose a passive yield strategy, a curated meme portfolio, or create your own. Zap Pilot supports any investment &quot;intent&quot; that can be codified.',
+      description:
+        'Choose a passive yield strategy, a curated meme portfolio, or create your own. Zap Pilot supports any investment &quot;intent&quot; that can be codified.',
       gradient: 'from-orange-500 to-red-600',
-      delay: 0.4
-    }
+      delay: 0.4,
+    },
   ];
 
   return (
@@ -57,7 +61,7 @@ export function Features() {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {features.map((feature) => (
+          {features.map(feature => (
             <motion.div
               key={feature.title}
               initial={{ opacity: 0, y: 30 }}
@@ -69,8 +73,10 @@ export function Features() {
             >
               <div className="bg-gray-900/50 backdrop-blur-lg border border-gray-800 rounded-3xl p-8 hover:border-gray-700 transition-all duration-300 relative overflow-hidden">
                 {/* Animated background gradient */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
-                
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
+                />
+
                 {/* Animated border effect */}
                 <motion.div
                   className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -86,7 +92,7 @@ export function Features() {
                     ease: 'linear',
                   }}
                 />
-                
+
                 <div className="relative z-10">
                   {/* Icon */}
                   <motion.div
@@ -100,7 +106,7 @@ export function Features() {
                   <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-blue-400 group-hover:bg-clip-text transition-all duration-300">
                     {feature.title}
                   </h3>
-                  
+
                   <p className="text-gray-400 text-lg leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
                     {feature.description}
                   </p>

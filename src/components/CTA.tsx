@@ -12,7 +12,8 @@ export function CTA() {
       <motion.div
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(45deg, rgba(147, 51, 234, 0.1) 0%, rgba(59, 130, 246, 0.1) 50%, rgba(147, 51, 234, 0.1) 100%)',
+          background:
+            'linear-gradient(45deg, rgba(147, 51, 234, 0.1) 0%, rgba(59, 130, 246, 0.1) 50%, rgba(147, 51, 234, 0.1) 100%)',
           backgroundSize: '400% 400%',
         }}
         animate={{
@@ -24,7 +25,7 @@ export function CTA() {
           ease: 'easeInOut',
         }}
       />
-      
+
       {/* Floating orbs */}
       <motion.div
         className="absolute top-20 left-20 w-32 h-32 bg-white/10 rounded-full blur-xl"
@@ -51,7 +52,7 @@ export function CTA() {
           delay: 2,
         }}
       />
-      
+
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -63,7 +64,7 @@ export function CTA() {
             Ready to Simplify
             <span className="block">DeFi?</span>
           </h2>
-          
+
           <motion.p
             className="text-xl text-white/90 mb-12 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
@@ -71,7 +72,8 @@ export function CTA() {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            Join thousands of users who&apos;ve already simplified their DeFi experience with intent-based execution
+            Join thousands of users who&apos;ve already simplified their DeFi experience with
+            intent-based execution
           </motion.p>
 
           {/* Main CTA Buttons */}
@@ -82,18 +84,18 @@ export function CTA() {
             transition={{ duration: 0.8, delay: 0.4 }}
             viewport={{ once: true }}
           >
-              <motion.button
-                className="group bg-white text-purple-600 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => openExternalLink(LINKS.app)}
-              >
-                <span className="flex items-center justify-center">
-                  Launch Zap Pilot
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </span>
-              </motion.button>
-            
+            <motion.button
+              className="group bg-white text-purple-600 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => openExternalLink(LINKS.app)}
+            >
+              <span className="flex items-center justify-center">
+                Launch Zap Pilot
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </span>
+            </motion.button>
+
             <motion.button
               className="group bg-white/10 backdrop-blur-lg text-white px-8 py-4 rounded-xl font-semibold text-lg border border-white/20 hover:bg-white/20 transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
@@ -122,7 +124,9 @@ export function CTA() {
             >
               <Github className="w-8 h-8 text-white mb-4 mx-auto group-hover:scale-110 transition-transform" />
               <h3 className="text-white font-semibold mb-2">Open Source</h3>
-              <p className="text-white/80 text-sm">Explore our codebase and contribute to the future of DeFi</p>
+              <p className="text-white/80 text-sm">
+                Explore our codebase and contribute to the future of DeFi
+              </p>
             </motion.div>
 
             <motion.div
@@ -132,7 +136,9 @@ export function CTA() {
             >
               <MessageCircle className="w-8 h-8 text-white mb-4 mx-auto group-hover:scale-110 transition-transform" />
               <h3 className="text-white font-semibold mb-2">Community</h3>
-              <p className="text-white/80 text-sm">Join our Discord and connect with fellow DeFi enthusiasts</p>
+              <p className="text-white/80 text-sm">
+                Join our Discord and connect with fellow DeFi enthusiasts
+              </p>
             </motion.div>
 
             <motion.div
@@ -142,7 +148,9 @@ export function CTA() {
             >
               <BookOpen className="w-8 h-8 text-white mb-4 mx-auto group-hover:scale-110 transition-transform" />
               <h3 className="text-white font-semibold mb-2">Learn More</h3>
-              <p className="text-white/80 text-sm">Deep dive into intent-based execution and DeFi strategies</p>
+              <p className="text-white/80 text-sm">
+                Deep dive into intent-based execution and DeFi strategies
+              </p>
             </motion.div>
           </motion.div>
 

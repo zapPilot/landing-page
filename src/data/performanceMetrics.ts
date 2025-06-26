@@ -13,26 +13,26 @@ export const performanceMetrics: PerformanceMetric[] = [
     icon: TrendingUp,
     label: 'Avg APY',
     value: '11.8%',
-    color: 'text-green-400'
+    color: 'text-green-400',
   },
   {
     icon: Shield,
     label: 'Success Rate',
     value: '99.7%',
-    color: 'text-blue-400'
+    color: 'text-blue-400',
   },
   {
     icon: Zap,
     label: 'Avg Speed',
     value: '1.4s',
-    color: 'text-yellow-400'
+    color: 'text-yellow-400',
   },
   {
     icon: DollarSign,
     label: 'Gas Saved',
     value: '73%',
-    color: 'text-purple-400'
-  }
+    color: 'text-purple-400',
+  },
 ];
 
 /**

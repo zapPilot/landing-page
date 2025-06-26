@@ -10,26 +10,29 @@ export function HowItWorks() {
       number: 1,
       icon: MessageSquare,
       title: 'Define Your Intent',
-      description: 'Tell us what you want to achieve — earn yield, diversify, or follow a specific strategy.',
+      description:
+        'Tell us what you want to achieve — earn yield, diversify, or follow a specific strategy.',
       color: 'from-purple-500 to-violet-600',
-      details: ['Describe your investment goals', 'Set risk preferences', 'Choose target returns']
+      details: ['Describe your investment goals', 'Set risk preferences', 'Choose target returns'],
     },
     {
       number: 2,
       icon: Zap,
       title: 'We Execute',
-      description: 'Our engine finds the optimal path across chains and protocols to fulfill your intent.',
+      description:
+        'Our engine finds the optimal path across chains and protocols to fulfill your intent.',
       color: 'from-blue-500 to-cyan-600',
-      details: ['Cross-chain routing', 'Protocol optimization', 'Gas efficiency']
+      details: ['Cross-chain routing', 'Protocol optimization', 'Gas efficiency'],
     },
     {
       number: 3,
       icon: Shield,
       title: 'You Stay in Control',
-      description: 'Your funds remain in your wallet while we handle the complex multi-chain execution.',
+      description:
+        'Your funds remain in your wallet while we handle the complex multi-chain execution.',
       color: 'from-green-500 to-emerald-600',
-      details: ['Non-custodial execution', 'Full transparency', 'Complete ownership']
-    }
+      details: ['Non-custodial execution', 'Full transparency', 'Complete ownership'],
+    },
   ];
 
   return (
@@ -58,7 +61,7 @@ export function HowItWorks() {
           <div className="relative">
             {/* Connection Lines */}
             <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-purple-500 via-blue-500 to-green-500 transform -translate-y-1/2 z-0" />
-            
+
             {/* Steps */}
             <div className="relative z-10 grid grid-cols-3 gap-8">
               {steps.map((step, index) => (
@@ -76,7 +79,7 @@ export function HowItWorks() {
                     whileHover={{ rotate: 5 }}
                   >
                     {step.number}
-                    
+
                     {/* Pulsing ring */}
                     <motion.div
                       className={`absolute inset-0 rounded-full bg-gradient-to-r ${step.color} opacity-30`}
@@ -102,13 +105,9 @@ export function HowItWorks() {
                       <step.icon className="w-8 h-8 text-white" />
                     </motion.div>
 
-                    <h3 className="text-2xl font-bold text-white mb-4">
-                      {step.title}
-                    </h3>
+                    <h3 className="text-2xl font-bold text-white mb-4">{step.title}</h3>
 
-                    <p className="text-gray-400 mb-6 leading-relaxed">
-                      {step.description}
-                    </p>
+                    <p className="text-gray-400 mb-6 leading-relaxed">{step.description}</p>
 
                     {/* Details */}
                     <div className="space-y-3">
@@ -121,7 +120,9 @@ export function HowItWorks() {
                           viewport={{ once: true }}
                           className="flex items-center text-gray-300 text-sm"
                         >
-                          <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${step.color} mr-3`} />
+                          <div
+                            className={`w-2 h-2 rounded-full bg-gradient-to-r ${step.color} mr-3`}
+                          />
                           {detail}
                         </motion.div>
                       ))}
@@ -157,23 +158,23 @@ export function HowItWorks() {
                 <div className="flex-1">
                   <div className="bg-gray-900/50 backdrop-blur-lg border border-gray-800 rounded-2xl p-6">
                     <div className="flex items-center mb-4">
-                      <div className={`w-12 h-12 rounded-lg bg-gradient-to-r ${step.color} flex items-center justify-center mr-4`}>
+                      <div
+                        className={`w-12 h-12 rounded-lg bg-gradient-to-r ${step.color} flex items-center justify-center mr-4`}
+                      >
                         <step.icon className="w-6 h-6 text-white" />
                       </div>
-                      <h3 className="text-xl font-bold text-white">
-                        {step.title}
-                      </h3>
+                      <h3 className="text-xl font-bold text-white">{step.title}</h3>
                     </div>
 
-                    <p className="text-gray-400 mb-4">
-                      {step.description}
-                    </p>
+                    <p className="text-gray-400 mb-4">{step.description}</p>
 
                     {/* Details */}
                     <div className="space-y-2">
                       {step.details.map((detail, detailIndex) => (
                         <div key={detailIndex} className="flex items-center text-gray-300 text-sm">
-                          <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${step.color} mr-3`} />
+                          <div
+                            className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${step.color} mr-3`}
+                          />
                           {detail}
                         </div>
                       ))}

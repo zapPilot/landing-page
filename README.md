@@ -110,12 +110,14 @@ The landing page fetches real-time DeFi data from:
 ### Colors
 
 The design uses a purple-blue gradient theme. Update colors in:
+
 - `tailwind.config.js` for global color scheme
 - Component files for specific gradient combinations
 
 ### Content
 
 Update content in the component files:
+
 - `Hero.tsx` - Main headline and subtitle
 - `Features.tsx` - Feature descriptions
 - `UseCases.tsx` - Use case examples
@@ -123,6 +125,7 @@ Update content in the component files:
 ### Animations
 
 Framer Motion animations can be customized in each component:
+
 - Adjust `duration`, `delay`, and `ease` properties
 - Modify `variants` for different animation patterns
 - Add new animations using `motion` components
@@ -164,6 +167,7 @@ This project is part of the Zap Pilot ecosystem. See the main repository for lic
 ## 📞 Support
 
 For questions or issues:
+
 - Create an issue in the repository
 - Join our Discord community
 - Check the documentation

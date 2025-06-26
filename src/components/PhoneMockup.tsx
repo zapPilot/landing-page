@@ -19,8 +19,8 @@ export function PhoneMockup() {
         { label: 'APR', value: '12.4%', trend: 'up' },
         { label: 'Max Drawdown', value: '4.2%', trend: 'down' },
         { label: 'Sharpe Ratio', value: '1.87', trend: 'up' },
-        { label: 'Risk Score', value: '6.3/10', trend: 'neutral' }
-      ]
+        { label: 'Risk Score', value: '6.3/10', trend: 'neutral' },
+      ],
     },
     {
       title: 'Asset Allocation',
@@ -32,8 +32,8 @@ export function PhoneMockup() {
         { name: 'BTC', allocation: 35, value: '$43,598.76', color: '#F7931A' },
         { name: 'ETH', allocation: 25, value: '$31,141.97', color: '#627EEA' },
         { name: 'Stablecoins', allocation: 20, value: '$24,913.58', color: '#26A17B' },
-        { name: 'DeFi Tokens', allocation: 20, value: '$24,913.58', color: '#8B5CF6' }
-      ]
+        { name: 'DeFi Tokens', allocation: 20, value: '$24,913.58', color: '#8B5CF6' },
+      ],
     },
     {
       title: 'Strategy Performance',
@@ -45,15 +45,15 @@ export function PhoneMockup() {
         { name: 'BTC Vault', apy: '8.2%', tvl: '$43,598.76', status: 'active' },
         { name: 'ETH Staking', apy: '4.8%', tvl: '$31,141.97', status: 'active' },
         { name: 'Stable Yield', apy: '12.1%', tvl: '$24,913.58', status: 'active' },
-        { name: 'Index500', apy: '15.6%', tvl: '$24,913.58', status: 'active' }
-      ]
-    }
+        { name: 'Index500', apy: '15.6%', tvl: '$24,913.58', status: 'active' },
+      ],
+    },
   ];
 
   // Auto-cycle through views
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentView((prev) => (prev + 1) % portfolioViews.length);
+      setCurrentView(prev => (prev + 1) % portfolioViews.length);
     }, 4000);
     return () => clearInterval(interval);
   }, [portfolioViews.length]);
@@ -73,15 +73,15 @@ export function PhoneMockup() {
         {/* Outer Frame */}
         <motion.div
           className="absolute inset-0 bg-gradient-to-b from-gray-800 to-gray-900 rounded-[3rem] p-2 shadow-2xl"
-          whileHover={{ 
+          whileHover={{
             scale: 1.02,
             rotateY: 5,
-            rotateX: 2
+            rotateX: 2,
           }}
           transition={{ duration: 0.3 }}
           style={{
             perspective: '1000px',
-            transformStyle: 'preserve-3d'
+            transformStyle: 'preserve-3d',
           }}
         >
           {/* Screen */}
@@ -106,15 +106,13 @@ export function PhoneMockup() {
                 transition={{ duration: 0.5 }}
                 className="mb-6"
               >
-                <h3 className="text-white text-lg font-semibold mb-2">
-                  {currentData.title}
-                </h3>
-                <div className="text-3xl font-bold text-white mb-1">
-                  {currentData.totalValue}
-                </div>
-                <div className={`flex items-center text-sm ${
-                  currentData.isPositive ? 'text-green-400' : 'text-red-400'
-                }`}>
+                <h3 className="text-white text-lg font-semibold mb-2">{currentData.title}</h3>
+                <div className="text-3xl font-bold text-white mb-1">{currentData.totalValue}</div>
+                <div
+                  className={`flex items-center text-sm ${
+                    currentData.isPositive ? 'text-green-400' : 'text-red-400'
+                  }`}
+                >
                   {currentData.isPositive ? (
                     <TrendingUp className="w-4 h-4 mr-1" />
                   ) : (
@@ -147,9 +145,15 @@ export function PhoneMockup() {
                           <span className="text-gray-400 text-sm">{metric.label}</span>
                           <div className="flex items-center">
                             <span className="text-white font-semibold mr-2">{metric.value}</span>
-                            {metric.trend === 'up' && <TrendingUp className="w-4 h-4 text-green-400" />}
-                            {metric.trend === 'down' && <TrendingDown className="w-4 h-4 text-red-400" />}
-                            {metric.trend === 'neutral' && <Activity className="w-4 h-4 text-yellow-400" />}
+                            {metric.trend === 'up' && (
+                              <TrendingUp className="w-4 h-4 text-green-400" />
+                            )}
+                            {metric.trend === 'down' && (
+                              <TrendingDown className="w-4 h-4 text-red-400" />
+                            )}
+                            {metric.trend === 'neutral' && (
+                              <Activity className="w-4 h-4 text-yellow-400" />
+                            )}
                           </div>
                         </div>
                       </motion.div>
@@ -170,7 +174,7 @@ export function PhoneMockup() {
                       >
                         <div className="flex justify-between items-center mb-2">
                           <div className="flex items-center">
-                            <div 
+                            <div
                               className="w-3 h-3 rounded-full mr-3"
                               style={{ backgroundColor: asset.color }}
                             />

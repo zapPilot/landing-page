@@ -7,7 +7,6 @@ import { getNetworkNodes, initialConnections, type Connection } from '@/data/net
 import { getCurrentIntentFlow, getIntentFlowsCount } from '@/data/intentFlows';
 import { getPerformanceMetrics } from '@/data/performanceMetrics';
 
-
 export function NetworkGraph() {
   const [activeNode, setActiveNode] = useState<string | null>(null);
   const [currentFlow, setCurrentFlow] = useState(0);
@@ -22,16 +21,16 @@ export function NetworkGraph() {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
-    
+
     // Throttle resize events for better performance
     let timeoutId: NodeJS.Timeout;
     const throttledResize = () => {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(checkMobile, 150);
     };
-    
+
     window.addEventListener('resize', throttledResize);
     return () => {
       window.removeEventListener('resize', throttledResize);
@@ -47,16 +46,15 @@ export function NetworkGraph() {
     initialConnections.map(conn => ({ ...conn, animated: false }))
   );
 
-
   // Animate intent execution flows
   useEffect(() => {
     const interval = setInterval(() => {
       setIsExecuting(true);
       setExecutionProgress(0);
-      
+
       // Reset all connections
       setConnections(prev => prev.map(conn => ({ ...conn, animated: false })));
-      
+
       // Start new flow animation
       setTimeout(() => {
         const currentFlowData = getCurrentIntentFlow(currentFlow);
@@ -70,24 +68,29 @@ export function NetworkGraph() {
             return prev + 2;
           });
         }, 40);
-        
+
         // Animate current flow path
-        setConnections(prev => prev.map(conn => {
-          const isInPath = currentFlowData.path.some((node, index) => {
-            const nextNode = currentFlowData.path[index + 1];
-            return nextNode && ((conn.from === node && conn.to === nextNode) || 
-                                 (conn.from === nextNode && conn.to === node));
-          });
-          return { 
-            ...conn, 
-            animated: isInPath,
-            strength: isInPath ? 1 : conn.strength
-          };
-        }));
-        
+        setConnections(prev =>
+          prev.map(conn => {
+            const isInPath = currentFlowData.path.some((node, index) => {
+              const nextNode = currentFlowData.path[index + 1];
+              return (
+                nextNode &&
+                ((conn.from === node && conn.to === nextNode) ||
+                  (conn.from === nextNode && conn.to === node))
+              );
+            });
+            return {
+              ...conn,
+              animated: isInPath,
+              strength: isInPath ? 1 : conn.strength,
+            };
+          })
+        );
+
         // Move to next flow
         setTimeout(() => {
-          setCurrentFlow((prev) => (prev + 1) % getIntentFlowsCount());
+          setCurrentFlow(prev => (prev + 1) % getIntentFlowsCount());
         }, 1000);
       }, 500);
     }, 4000);
@@ -96,36 +99,35 @@ export function NetworkGraph() {
   }, [currentFlow]);
 
   // Memoized node position helper for performance
-  const getNodePosition = useCallback((nodeId: string) => {
-    const node = nodes.find(n => n.id === nodeId);
-    return node ? { x: node.x, y: node.y } : { x: 0, y: 0 };
-  }, [nodes]);
+  const getNodePosition = useCallback(
+    (nodeId: string) => {
+      const node = nodes.find(n => n.id === nodeId);
+      return node ? { x: node.x, y: node.y } : { x: 0, y: 0 };
+    },
+    [nodes]
+  );
 
   // Memoize current flow data to prevent unnecessary re-renders
   const currentFlowData = useMemo(() => getCurrentIntentFlow(currentFlow), [currentFlow]);
-  
+
   // Memoize performance metrics to prevent unnecessary re-renders
   const performanceMetrics = useMemo(() => getPerformanceMetrics(), []);
-  
+
   // Keyboard navigation for accessibility
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (!containerRef.current?.contains(document.activeElement)) return;
-      
+
       switch (event.key) {
         case 'ArrowRight':
         case 'ArrowDown':
           event.preventDefault();
-          setFocusedNodeIndex(prev => 
-            prev < nodes.length - 1 ? prev + 1 : 0
-          );
+          setFocusedNodeIndex(prev => (prev < nodes.length - 1 ? prev + 1 : 0));
           break;
         case 'ArrowLeft':
         case 'ArrowUp':
           event.preventDefault();
-          setFocusedNodeIndex(prev => 
-            prev > 0 ? prev - 1 : nodes.length - 1
-          );
+          setFocusedNodeIndex(prev => (prev > 0 ? prev - 1 : nodes.length - 1));
           break;
         case 'Enter':
         case ' ':
@@ -163,10 +165,10 @@ export function NetworkGraph() {
         <svg width="100%" height="100%">
           <defs>
             <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
-              <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#8B5CF6" strokeWidth="0.5"/>
+              <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#8B5CF6" strokeWidth="0.5" />
             </pattern>
             <pattern id="dots" width="60" height="60" patternUnits="userSpaceOnUse">
-              <circle cx="30" cy="30" r="1" fill="#8B5CF6" opacity="0.3"/>
+              <circle cx="30" cy="30" r="1" fill="#8B5CF6" opacity="0.3" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#grid)" />
@@ -177,10 +179,10 @@ export function NetworkGraph() {
       {/* Network Visualization */}
       <svg className="absolute inset-0 w-full h-full">
         {/* Enhanced Connections */}
-        {connections.map((connection) => {
+        {connections.map(connection => {
           const fromPos = getNodePosition(connection.from);
           const toPos = getNodePosition(connection.to);
-          
+
           return (
             <g key={`${connection.from}-${connection.to}`}>
               {/* Base line */}
@@ -193,7 +195,7 @@ export function NetworkGraph() {
                 strokeWidth={1 + connection.strength}
                 opacity="0.4"
               />
-              
+
               {/* Animated flow line */}
               {connection.animated && (
                 <motion.line
@@ -205,30 +207,30 @@ export function NetworkGraph() {
                   strokeWidth={3}
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ duration: 0.8, ease: "easeInOut" }}
+                  transition={{ duration: 0.8, ease: 'easeInOut' }}
                 />
               )}
-              
+
               {/* Data packet animation with enhanced visuals */}
               {connection.animated && (
                 <>
                   <motion.circle
                     r="6"
                     fill={connection.color}
-                    initial={{ 
-                      x: fromPos.x, 
+                    initial={{
+                      x: fromPos.x,
                       y: fromPos.y,
-                      opacity: 0 
+                      opacity: 0,
                     }}
-                    animate={{ 
-                      x: toPos.x, 
+                    animate={{
+                      x: toPos.x,
                       y: toPos.y,
-                      opacity: [0, 1, 1, 0]
+                      opacity: [0, 1, 1, 0],
                     }}
-                    transition={{ 
-                      duration: 1.5, 
-                      ease: "easeInOut",
-                      delay: 0.3
+                    transition={{
+                      duration: 1.5,
+                      ease: 'easeInOut',
+                      delay: 0.3,
                     }}
                   />
                   <motion.circle
@@ -237,20 +239,20 @@ export function NetworkGraph() {
                     stroke={connection.color}
                     strokeWidth="2"
                     opacity="0.5"
-                    initial={{ 
-                      x: fromPos.x, 
+                    initial={{
+                      x: fromPos.x,
                       y: fromPos.y,
-                      scale: 0 
+                      scale: 0,
                     }}
-                    animate={{ 
-                      x: toPos.x, 
+                    animate={{
+                      x: toPos.x,
                       y: toPos.y,
-                      scale: [0, 1, 0]
+                      scale: [0, 1, 0],
                     }}
-                    transition={{ 
-                      duration: 1.5, 
-                      ease: "easeInOut",
-                      delay: 0.3
+                    transition={{
+                      duration: 1.5,
+                      ease: 'easeInOut',
+                      delay: 0.3,
                     }}
                   />
                 </>
@@ -283,21 +285,29 @@ export function NetworkGraph() {
           {/* Enhanced Node circle */}
           <motion.div
             className={`relative rounded-full border-2 flex items-center justify-center text-white font-bold backdrop-blur-lg shadow-2xl`}
-            style={{ 
-              width: node.size, 
+            style={{
+              width: node.size,
               height: node.size,
               backgroundColor: `${node.color}60`,
               borderColor: node.color,
-              boxShadow: `0 0 30px ${node.color}40`
+              boxShadow: `0 0 30px ${node.color}40`,
             }}
-            animate={activeNode === node.id ? { 
-              boxShadow: [`0 0 30px ${node.color}40`, `0 0 60px ${node.color}80`, `0 0 30px ${node.color}40`],
-              borderWidth: [2, 4, 2]
-            } : {}}
+            animate={
+              activeNode === node.id
+                ? {
+                    boxShadow: [
+                      `0 0 30px ${node.color}40`,
+                      `0 0 60px ${node.color}80`,
+                      `0 0 30px ${node.color}40`,
+                    ],
+                    borderWidth: [2, 4, 2],
+                  }
+                : {}
+            }
             transition={{ duration: 1, repeat: activeNode === node.id ? Infinity : 0 }}
           >
             <span className="text-sm relative z-10">{node.icon}</span>
-            
+
             {/* Enhanced pulse effect */}
             <motion.div
               className="absolute inset-0 rounded-full border-2"
@@ -309,7 +319,7 @@ export function NetworkGraph() {
               transition={{
                 duration: 3,
                 repeat: Infinity,
-                ease: "easeInOut",
+                ease: 'easeInOut',
                 delay: index * 0.5,
               }}
             />
@@ -347,11 +357,15 @@ export function NetworkGraph() {
                   </div>
                 )}
                 {node.status && (
-                  <div className={`text-xs mt-2 px-2 py-1 rounded-full ${
-                    node.status === 'active' ? 'bg-green-500/20 text-green-400' :
-                    node.status === 'mainnet' ? 'bg-blue-500/20 text-blue-400' :
-                    'bg-purple-500/20 text-purple-400'
-                  }`}>
+                  <div
+                    className={`text-xs mt-2 px-2 py-1 rounded-full ${
+                      node.status === 'active'
+                        ? 'bg-green-500/20 text-green-400'
+                        : node.status === 'mainnet'
+                          ? 'bg-blue-500/20 text-blue-400'
+                          : 'bg-purple-500/20 text-purple-400'
+                    }`}
+                  >
                     {node.status.toUpperCase()}
                   </div>
                 )}
@@ -377,12 +391,16 @@ export function NetworkGraph() {
             <h3 className="text-white font-bold text-xs">Intent Execution</h3>
           </div>
           <div className="flex items-center space-x-2">
-            <div className={`w-2 h-2 rounded-full animate-pulse ${
-              isExecuting ? 'bg-yellow-400' : 'bg-green-400'
-            }`} />
-            <span className={`text-xs font-medium ${
-              isExecuting ? 'text-yellow-400' : 'text-green-400'
-            }`}>
+            <div
+              className={`w-2 h-2 rounded-full animate-pulse ${
+                isExecuting ? 'bg-yellow-400' : 'bg-green-400'
+              }`}
+            />
+            <span
+              className={`text-xs font-medium ${
+                isExecuting ? 'text-yellow-400' : 'text-green-400'
+              }`}
+            >
               {isExecuting ? 'Executing' : 'Ready'}
             </span>
           </div>
@@ -411,7 +429,9 @@ export function NetworkGraph() {
             </div>
             <div className="bg-gray-800/50 rounded-lg p-2 min-w-[50px]">
               <div className="text-gray-400 text-xs">Gas</div>
-              <div className="text-purple-400 font-bold text-xs">{currentFlowData.gasOptimized}</div>
+              <div className="text-purple-400 font-bold text-xs">
+                {currentFlowData.gasOptimized}
+              </div>
             </div>
           </div>
 
@@ -426,7 +446,9 @@ export function NetworkGraph() {
                   transition={{ duration: 0.1 }}
                 />
               </div>
-              <span className="text-white text-xs font-medium">{Math.round(executionProgress)}%</span>
+              <span className="text-white text-xs font-medium">
+                {Math.round(executionProgress)}%
+              </span>
             </div>
           )}
         </div>
@@ -465,13 +487,13 @@ export function NetworkGraph() {
         transition={{ delay: 1 }}
       >
         <motion.div
-          animate={{ 
+          animate={{
             rotate: isExecuting ? 360 : 0,
-            scale: isExecuting ? [1, 1.2, 1] : 1
+            scale: isExecuting ? [1, 1.2, 1] : 1,
           }}
-          transition={{ 
+          transition={{
             rotate: { duration: 2, repeat: isExecuting ? Infinity : 0, ease: 'linear' },
-            scale: { duration: 1, repeat: isExecuting ? Infinity : 0 }
+            scale: { duration: 1, repeat: isExecuting ? Infinity : 0 },
           }}
         >
           <Brain className="w-4 h-4 text-green-400" />
@@ -492,12 +514,9 @@ export function NetworkGraph() {
       )}
 
       {/* Screen reader announcements for dynamic updates */}
-      <div 
-        className="sr-only" 
-        aria-live="polite" 
-        aria-atomic="true"
-      >
-        {isExecuting && `Executing ${currentFlowData.name}: ${Math.round(executionProgress)}% complete`}
+      <div className="sr-only" aria-live="polite" aria-atomic="true">
+        {isExecuting &&
+          `Executing ${currentFlowData.name}: ${Math.round(executionProgress)}% complete`}
       </div>
 
       {/* Ambient pulse effect */}
@@ -510,7 +529,7 @@ export function NetworkGraph() {
         transition={{
           duration: 4,
           repeat: Infinity,
-          ease: "easeInOut",
+          ease: 'easeInOut',
         }}
         style={{
           background: 'radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, transparent 70%)',

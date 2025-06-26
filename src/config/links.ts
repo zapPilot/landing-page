@@ -2,22 +2,22 @@
 export const LINKS = {
   // Main application
   app: process.env.NEXT_PUBLIC_APP_URL || 'https://app.zap-pilot.org',
-  
+
   // Documentation and resources
   documentation: 'https://zap-pilot.gitbook.io/',
   apiReference: 'https://zap-pilot.gitbook.io/api',
   tutorials: 'https://zap-pilot.gitbook.io/tutorials',
   whitepaper: 'https://zap-pilot.gitbook.io/whitepaper',
-  
+
   // Social media
   social: {
     twitter: 'https://x.com/zappilot',
     discord: 'https://discord.gg/d3vXUtcFCJ',
     github: 'https://github.com/zapPilot',
     medium: 'https://farcaster.xyz/david-chang',
-    youtube: 'https://www.youtube.com/watch?v=CnvKz3YbP08'
+    youtube: 'https://www.youtube.com/watch?v=CnvKz3YbP08',
   },
-  
+
   // Support and community
   support: {
     helpCenter: 'https://help.zap-pilot.org',
@@ -26,7 +26,7 @@ export const LINKS = {
     featureRequest: 'https://github.com/zap-pilot/issues/new?template=feature_request.md',
     feedback: 'https://forms.gle/zappilot-feedback',
   },
-  
+
   // Legal and compliance
   legal: {
     termsOfService: 'https://zap-pilot.org/terms',
@@ -34,12 +34,12 @@ export const LINKS = {
     cookiePolicy: 'https://zap-pilot.org/cookies',
     disclaimer: 'https://zap-pilot.org/disclaimer',
   },
-  
+
   // Development and technical
   development: {
     github: 'https://github.com/zapPilot',
   },
-  
+
   // Marketing and press
   marketing: {
     brandKit: '/brand-guide.md',
@@ -47,14 +47,14 @@ export const LINKS = {
     partnerships: 'mailto:zap-pilot.org@ud.me',
     media: 'mailto:zap-pilot.org@ud.me',
   },
-  
+
   // Newsletter and subscriptions
   newsletter: {
     subscribe: 'https://newsletter.zap-pilot.org/subscribe',
     unsubscribe: 'https://newsletter.zap-pilot.org/unsubscribe',
     archive: 'https://newsletter.zap-pilot.org/archive',
   },
-  
+
   // Analytics and tracking (for internal use)
   analytics: {
     mixpanel: process.env.NEXT_PUBLIC_MIXPANEL_TOKEN,
@@ -74,9 +74,9 @@ export const openEmail = (email: string, subject?: string, body?: string) => {
   const params = new URLSearchParams();
   if (subject) params.append('subject', subject);
   if (body) params.append('body', body);
-  
+
   const mailtoUrl = `mailto:${email}${params.toString() ? '?' + params.toString() : ''}`;
-  
+
   if (typeof window !== 'undefined') {
     window.location.href = mailtoUrl;
   }
@@ -107,11 +107,6 @@ export const NAVIGATION = {
       { href: LINKS.social.twitter, label: 'Twitter', external: true },
       { href: LINKS.social.github, label: 'GitHub', external: true },
       { href: LINKS.newsletter.subscribe, label: 'Newsletter', external: true },
-    ],
-    legal: [
-      { href: LINKS.legal.privacyPolicy, label: 'Privacy Policy', external: true },
-      { href: LINKS.legal.termsOfService, label: 'Terms of Service', external: true },
-      { href: LINKS.legal.cookiePolicy, label: 'Cookie Policy', external: true },
     ],
   },
 } as const;

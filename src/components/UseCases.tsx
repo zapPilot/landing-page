@@ -9,26 +9,29 @@ export function UseCases() {
       number: '01',
       icon: Coins,
       title: 'Zap into stablecoin yield vaults on L2s',
-      description: 'Automatically deploy funds across multiple L2 yield opportunities with optimal allocation and minimal gas fees.',
+      description:
+        'Automatically deploy funds across multiple L2 yield opportunities with optimal allocation and minimal gas fees.',
       gradient: 'from-green-400 to-emerald-500',
-      imageAlt: 'Stablecoin vault visualization'
+      imageAlt: 'Stablecoin vault visualization',
     },
     {
       number: '02',
       icon: TrendingUp,
       title: 'Deploy into a meme index for market sentiment plays',
-      description: 'Tap into market sentiment with diversified meme coin portfolios that automatically rebalance based on momentum.',
+      description:
+        'Tap into market sentiment with diversified meme coin portfolios that automatically rebalance based on momentum.',
       gradient: 'from-purple-400 to-pink-500',
-      imageAlt: 'Meme index visualization'
+      imageAlt: 'Meme index visualization',
     },
     {
       number: '03',
       icon: Target,
       title: 'Invest in your own custom portfolio across chains',
-      description: 'Create personalized investment strategies that span multiple chains and protocols, all managed from one interface.',
+      description:
+        'Create personalized investment strategies that span multiple chains and protocols, all managed from one interface.',
       gradient: 'from-blue-400 to-cyan-500',
-      imageAlt: 'Custom portfolio visualization'
-    }
+      imageAlt: 'Custom portfolio visualization',
+    },
   ];
 
   return (
@@ -115,7 +118,7 @@ export function UseCases() {
                             <span className="text-green-400 font-semibold">+12.5% APY</span>
                           </div>
                           <div className="grid grid-cols-3 gap-3">
-                            {['USDC', 'USDT', 'DAI'].map((token) => (
+                            {['USDC', 'USDT', 'DAI'].map(token => (
                               <div key={token} className="bg-gray-700 rounded-lg p-3 text-center">
                                 <div className="text-white font-semibold">{token}</div>
                                 <div className="text-gray-400 text-sm">{33.3}%</div>
@@ -149,8 +152,8 @@ export function UseCases() {
                               { name: 'DOGE', percentage: 25, color: 'bg-yellow-500' },
                               { name: 'SHIB', percentage: 20, color: 'bg-orange-500' },
                               { name: 'PEPE', percentage: 15, color: 'bg-green-500' },
-                              { name: 'FLOKI', percentage: 40, color: 'bg-purple-500' }
-                            ].map((token) => (
+                              { name: 'FLOKI', percentage: 40, color: 'bg-purple-500' },
+                            ].map(token => (
                               <div key={token.name} className="flex items-center space-x-3">
                                 <div className={`w-3 h-3 rounded-full ${token.color}`} />
                                 <span className="text-white flex-1">{token.name}</span>
@@ -168,7 +171,7 @@ export function UseCases() {
                             <span className="text-blue-400 font-semibold">Multi-Chain</span>
                           </div>
                           <div className="grid grid-cols-2 gap-3">
-                            {['Ethereum', 'Polygon', 'Arbitrum', 'Optimism'].map((chain) => (
+                            {['Ethereum', 'Polygon', 'Arbitrum', 'Optimism'].map(chain => (
                               <div key={chain} className="bg-gray-700 rounded-lg p-2 text-center">
                                 <div className="text-white text-sm">{chain}</div>
                                 <div className="text-blue-400 text-xs">Active</div>
@@ -198,8 +201,12 @@ export function UseCases() {
                     </motion.div>
 
                     {/* Decorative gradient orbs */}
-                    <div className={`absolute -top-8 -left-8 w-32 h-32 bg-gradient-to-r ${useCase.gradient} rounded-full blur-3xl opacity-20`} />
-                    <div className={`absolute -bottom-8 -right-8 w-24 h-24 bg-gradient-to-l ${useCase.gradient} rounded-full blur-2xl opacity-30`} />
+                    <div
+                      className={`absolute -top-8 -left-8 w-32 h-32 bg-gradient-to-r ${useCase.gradient} rounded-full blur-3xl opacity-20`}
+                    />
+                    <div
+                      className={`absolute -bottom-8 -right-8 w-24 h-24 bg-gradient-to-l ${useCase.gradient} rounded-full blur-2xl opacity-30`}
+                    />
                   </div>
                 </div>
               </div>

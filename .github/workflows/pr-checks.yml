@@ -1,0 +1,100 @@
+name: Pull Request Checks
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  code-quality:
+    name: Code Quality Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: 🎨 Check code formatting
+        run: |
+          echo "::group::Prettier Format Check"
+          npm run format:check
+          echo "::endgroup::"
+
+      - name: 🔍 Run ESLint with annotations
+        run: |
+          echo "::group::ESLint Analysis"
+          npm run lint -- --format=@eslint/eslint-formatter-github-actions
+          echo "::endgroup::"
+
+      - name: 🔧 TypeScript type checking
+        run: |
+          echo "::group::TypeScript Analysis"
+          npm run type-check
+          echo "::endgroup::"
+
+      - name: 🏗️ Build verification
+        run: |
+          echo "::group::Build Process"
+          npm run build
+          echo "::endgroup::"
+
+      - name: 📊 Bundle size analysis
+        run: |
+          echo "::group::Bundle Analysis"
+          npm run build
+          echo "Build completed successfully"
+          if [ -d ".next" ]; then
+            echo "Build output size:"
+            du -sh .next/
+          fi
+          echo "::endgroup::"
+
+  dependency-review:
+    name: Dependency Review
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          fail-on-severity: high
+
+  auto-format:
+    name: Auto-format (Comment)
+    runs-on: ubuntu-latest
+    if: failure() && github.event_name == 'pull_request'
+
+    steps:
+      - name: Comment formatting help
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## 🎨 Code Formatting Required
+
+            This PR has formatting issues. You can fix them by running:
+
+            \`\`\`bash
+            npm run format
+            npm run lint:fix
+            \`\`\`
+
+            Or enable auto-formatting in your editor with the provided Prettier configuration.`
+            })

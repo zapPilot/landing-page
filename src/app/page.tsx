@@ -36,7 +36,7 @@ export default function HomePage() {
           transition={{
             duration: 20,
             repeat: Infinity,
-            ease: "easeInOut"
+            ease: 'easeInOut',
           }}
         />
         <motion.div
@@ -49,8 +49,8 @@ export default function HomePage() {
           transition={{
             duration: 15,
             repeat: Infinity,
-            ease: "easeInOut",
-            delay: 5
+            ease: 'easeInOut',
+            delay: 5,
           }}
         />
         <motion.div
@@ -63,8 +63,8 @@ export default function HomePage() {
           transition={{
             duration: 25,
             repeat: Infinity,
-            ease: "easeInOut",
-            delay: 10
+            ease: 'easeInOut',
+            delay: 10,
           }}
         />
       </div>

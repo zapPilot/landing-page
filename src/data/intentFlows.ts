@@ -27,8 +27,8 @@ export const intentFlows: IntentFlow[] = [
       'Analyzing optimal chain allocation',
       'Splitting funds across Polygon, Arbitrum, Base',
       'Deploying to highest-yield stable pools',
-      'Setting up cross-chain rebalancing'
-    ]
+      'Setting up cross-chain rebalancing',
+    ],
   },
   {
     id: 'crypto-index-fund',
@@ -44,8 +44,8 @@ export const intentFlows: IntentFlow[] = [
       'Building diversified crypto portfolio',
       'Allocating to top 10 assets by market cap',
       'Adding liquidity to high-yield pairs',
-      'Optimizing for farming rewards'
-    ]
+      'Optimizing for farming rewards',
+    ],
   },
   {
     id: 'custom-portfolio',
@@ -61,8 +61,8 @@ export const intentFlows: IntentFlow[] = [
       'Processing custom allocation preferences',
       'Selecting Ethereum, Base, and Arbitrum',
       'Deploying to chosen DeFi protocols',
-      'Implementing automated rebalancing'
-    ]
+      'Implementing automated rebalancing',
+    ],
   },
   {
     id: 'yield-portfolio',
@@ -78,9 +78,9 @@ export const intentFlows: IntentFlow[] = [
       'Scanning all available yield opportunities',
       'Optimizing allocation across protocols',
       'Implementing dynamic yield farming',
-      'Setting up automated compounding'
-    ]
-  }
+      'Setting up automated compounding',
+    ],
+  },
 ];
 
 /**
