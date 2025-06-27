@@ -4,10 +4,10 @@ export const LINKS = {
   app: process.env.NEXT_PUBLIC_APP_URL || 'https://app.zap-pilot.org',
 
   // Documentation and resources
-  documentation: 'https://zap-pilot.gitbook.io/',
-  apiReference: 'https://zap-pilot.gitbook.io/api',
-  tutorials: 'https://zap-pilot.gitbook.io/tutorials',
-  whitepaper: 'https://zap-pilot.gitbook.io/whitepaper',
+  documentation: 'https://docs.zap-pilot.org/',
+  apiReference: 'https://docs.zap-pilot.org/',
+  tutorials: 'https://docs.zap-pilot.org/docs/getting-started',
+  whitepaper: 'https://docs.zap-pilot.org/whitepaper',
 
   // Social media
   social: {
