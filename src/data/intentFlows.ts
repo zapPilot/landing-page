@@ -61,7 +61,6 @@ export const intentFlows: IntentFlow[] = [
       'Processing custom allocation preferences',
       'Selecting Ethereum, Base, and Arbitrum',
       'Deploying to chosen DeFi protocols',
-      'Implementing automated rebalancing',
     ],
   },
   {
