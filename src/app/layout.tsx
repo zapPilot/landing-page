@@ -14,14 +14,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Zap Pilot - Intent-Based DeFi Execution Engine',
+  title: 'Zap Pilot - Landing Page',
   description:
     'Zap Pilot is a DeFi intent-based execution engine that transforms user intent into automated, cross-chain investment actions — all in one click, with funds always staying in their own wallet.',
   keywords:
     'DeFi, intent-based execution, cross-chain, cryptocurrency, blockchain, yield farming, vault strategies',
   authors: [{ name: 'Zap Pilot Team' }],
   openGraph: {
-    title: 'Zap Pilot - Intent-Based DeFi Execution Engine',
+    title: 'Zap Pilot - Landing Page',
     description:
       'Transform your investment intent into automated, cross-chain actions — all in one click.',
     url: 'https://zap-pilot.org',
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Zap Pilot - Intent-Based DeFi Execution Engine',
+    title: 'Zap Pilot - Landing Page',
     description:
       'Transform your investment intent into automated, cross-chain actions — all in one click.',
     images: ['/zap-pilot-logo.svg'],
