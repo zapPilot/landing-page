@@ -94,12 +94,13 @@ export function UseCases() {
                     </p>
 
                     <motion.a
-                      href="https://docs.zap-pilot.org/docs/strategies"
+                      href="http://app.zap-pilot.org/"
                       className={`inline-flex items-center px-6 py-3 rounded-xl bg-gradient-to-r ${useCase.gradient} text-white font-semibold hover:shadow-lg transition-all duration-300`}
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
+                      target="_blank"
                     >
-                      {/* <useCase.icon className="w-5 h-5 mr-2" /> */}
+                      <useCase.icon className="w-5 h-5 mr-2" />
                       Try This Strategy
                     </motion.a>
                   </div>
