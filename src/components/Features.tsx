@@ -7,33 +7,33 @@ export function Features() {
   const features = [
     {
       icon: ArrowRightLeft,
-      title: 'Intent-Centric Execution',
+      title: 'Lightning-Fast Rebalancing',
       description:
-        'You tell us what you want — we do the rest. Zap into predefined strategies or build your own. One click, one pipeline, no headache.',
+        'Cut portfolio rebalancing from 30 minutes to 30 seconds. Our autopilot engine instantly moves your crypto across chains into optimal yield pools.',
       gradient: 'from-purple-500 to-violet-600',
       delay: 0.1,
     },
     {
       icon: Shield,
-      title: 'Non-Custodial by Design',
+      title: 'Your Wallet, Your Control',
       description:
-        'We never touch your funds. All zaps are executed directly from your own Account Abstraction (AA) wallet, giving you full control and ownership.',
+        'Every token stays in your own wallet. Our autopilot executes rebalancing directly from your wallet — no custody, maximum security.',
       gradient: 'from-blue-500 to-cyan-600',
       delay: 0.2,
     },
     {
       icon: Network,
-      title: 'Cross-Chain by Default',
+      title: 'Seamless Cross-Chain Autopilot',
       description:
-        'No more juggling bridges, swaps, or interfaces. Zap Pilot seamlessly handles swaps, bridges, and protocol interactions — behind the scenes.',
+        'Our autopilot navigates across 4+ chains automatically. No manual bridges or swaps — just set your course and let us handle the complex routing.',
       gradient: 'from-green-500 to-emerald-600',
       delay: 0.3,
     },
     {
       icon: TrendingUp,
-      title: 'From Vaults to Indices to Memes',
+      title: 'Smart Rebalancing Alerts',
       description:
-        'Choose a passive yield strategy, a curated meme portfolio, or create your own. Zap Pilot supports any investment &quot;intent&quot; that can be codified.',
+        'From yield vaults to index funds to custom portfolios — get quarterly rebalancing reminders to maintain optimal allocations while keeping full custody.',
       gradient: 'from-orange-500 to-red-600',
       delay: 0.4,
     },
@@ -117,7 +117,13 @@ export function Features() {
                     initial={{ x: -10 }}
                     whileHover={{ x: 0 }}
                   >
-                    <span className="text-sm font-medium mr-2">Learn more</span>
+                    <a
+                      className="text-sm font-medium mr-2"
+                      href="https://docs.zap-pilot.org/docs/how-it-works"
+                      target="_blank"
+                    >
+                      Learn more
+                    </a>
                     <motion.div
                       animate={{ x: [0, 5, 0] }}
                       transition={{ duration: 1.5, repeat: Infinity }}
@@ -143,13 +149,14 @@ export function Features() {
           viewport={{ once: true }}
           className="text-center mt-20"
         >
-          <motion.button
-            className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-purple-500/25 transition-all duration-300"
+          <motion.a
+            href="https://docs.zap-pilot.org/docs/how-it-works"
+            className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-purple-500/25 transition-all duration-300"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
           >
             Explore All Features
-          </motion.button>
+          </motion.a>
         </motion.div>
       </div>
     </section>

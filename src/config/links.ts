@@ -5,7 +5,7 @@ export const LINKS = {
 
   // Documentation and resources
   documentation: 'https://docs.zap-pilot.org/',
-  apiReference: 'https://docs.zap-pilot.org/',
+  apiReference: 'https://zappilot.github.io/intent-engine/',
   tutorials: 'https://docs.zap-pilot.org/docs/getting-started',
   whitepaper: 'https://docs.zap-pilot.org/whitepaper',
 

@@ -49,9 +49,9 @@ export function Hero() {
             variants={itemVariants}
             className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6"
           >
-            <span className="block">DeFi Made</span>
+            <span className="block">Your DeFi,</span>
             <span className="block bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-              Effortless
+              On Autopilot ✈️
             </span>
           </motion.h1>
 
@@ -60,8 +60,8 @@ export function Hero() {
             variants={itemVariants}
             className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0"
           >
-            Transform your investment intent into automated, cross-chain actions — all in one click.
-            Your funds stay in your wallet, we handle the complexity.
+            Cut portfolio rebalancing from 30 minutes to 30 seconds. Move your crypto across chains
+            into higher-yield pools — in one click — while every token stays in your own wallet.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -76,7 +76,7 @@ export function Hero() {
               onClick={() => openExternalLink(LINKS.app)}
             >
               <span className="flex items-center justify-center">
-                Start Zapping
+                Experience DeFi Autopilot
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </span>
             </motion.button>

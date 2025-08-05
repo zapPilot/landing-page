@@ -165,8 +165,8 @@ export function CTA() {
             {[
               { label: 'Total Value Locked', value: '$50M+' },
               { label: 'Active Users', value: '25K+' },
-              { label: 'Supported Chains', value: '20+' },
-              { label: 'Vault Strategies', value: '50+' },
+              { label: 'Supported Chains', value: '4+' },
+              { label: 'Vault Strategies', value: '5+' },
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
