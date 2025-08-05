@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Hero } from '@/components/Hero';
 import { Features } from '@/components/Features';
@@ -11,16 +10,6 @@ import { CTA } from '@/components/CTA';
 import { Footer } from '@/components/Footer';
 
 export default function HomePage() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
-
   return (
     <div className="min-h-screen bg-gray-950 text-white overflow-x-hidden">
       {/* Animated Background */}

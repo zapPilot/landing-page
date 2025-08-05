@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Github, Twitter, MessageCircle, Mail } from 'lucide-react';
+import Image from 'next/image';
 import { LINKS, NAVIGATION } from '@/config/links';
 
 export function Footer() {
@@ -29,8 +30,7 @@ export function Footer() {
               className="lg:col-span-1"
             >
               <div className="flex items-center space-x-2 mb-6">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/zap-pilot-icon.svg" alt="Zap Pilot Logo" className="w-12 h-12" />
+                <Image src="/zap-pilot-icon.svg" alt="Zap Pilot Logo" width={48} height={48} />
                 <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
                   Zap Pilot
                 </span>

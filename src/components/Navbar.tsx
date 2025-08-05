@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { LINKS, NAVIGATION, openExternalLink } from '@/config/links';
 
 export function Navbar() {
@@ -36,8 +37,13 @@ export function Navbar() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/zap-pilot-icon.svg" alt="Zap Pilot Logo" className="w-10 h-10 mr-3" />
+            <Image
+              src="/zap-pilot-icon.svg"
+              alt="Zap Pilot Logo"
+              width={40}
+              height={40}
+              className="mr-3"
+            />
             <span className="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
               Zap Pilot
             </span>
