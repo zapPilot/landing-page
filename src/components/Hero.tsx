@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Play, Sparkles } from 'lucide-react';
 import { LINKS, openExternalLink } from '@/config/links';
 import { NetworkGraph } from './NetworkGraph';
+import { STATISTICS } from '@/lib/statistics';
 
 export function Hero() {
   const containerVariants = {
@@ -97,39 +98,19 @@ export function Hero() {
             variants={itemVariants}
             className="grid grid-cols-3 gap-8 text-center lg:text-left"
           >
-            <div>
-              <motion.div
-                className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.5, duration: 1 }}
-              >
-                $50M+
-              </motion.div>
-              <div className="text-sm text-gray-400 mt-1">Total Value Locked</div>
-            </div>
-            <div>
-              <motion.div
-                className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.7, duration: 1 }}
-              >
-                25K+
-              </motion.div>
-              <div className="text-sm text-gray-400 mt-1">Active Users</div>
-            </div>
-            <div>
-              <motion.div
-                className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.9, duration: 1 }}
-              >
-                20+
-              </motion.div>
-              <div className="text-sm text-gray-400 mt-1">Supported Chains</div>
-            </div>
+            {STATISTICS.map((stat, index) => (
+              <div key={stat.label}>
+                <motion.div
+                  className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1.5 + index * 0.2, duration: 1 }}
+                >
+                  {stat.value}
+                </motion.div>
+                <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
+              </div>
+            ))}
           </motion.div>
         </motion.div>
 
