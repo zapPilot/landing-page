@@ -68,7 +68,7 @@ export function UseCases() {
               <div className="bg-gray-900/50 backdrop-blur-lg border border-gray-800 rounded-3xl p-8 lg:p-12 hover:border-gray-700 transition-all duration-500 relative overflow-hidden">
                 {/* Animated background */}
                 <motion.div
-                  className={`absolute inset-0 bg-gradient-to-r ${useCase.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
+                  className={`absolute inset-0 bg-gradient-to-r ${useCase.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none`}
                   initial={false}
                   whileHover={{ opacity: 0.05 }}
                 />
@@ -93,14 +93,15 @@ export function UseCases() {
                       {useCase.description}
                     </p>
 
-                    <motion.button
+                    <motion.a
+                      href="https://docs.zap-pilot.org/docs/strategies"
                       className={`inline-flex items-center px-6 py-3 rounded-xl bg-gradient-to-r ${useCase.gradient} text-white font-semibold hover:shadow-lg transition-all duration-300`}
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <useCase.icon className="w-5 h-5 mr-2" />
+                      {/* <useCase.icon className="w-5 h-5 mr-2" /> */}
                       Try This Strategy
-                    </motion.button>
+                    </motion.a>
                   </div>
 
                   {/* Visual */}
