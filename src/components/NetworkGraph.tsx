@@ -498,7 +498,7 @@ export function NetworkGraph() {
         >
           <Brain className="w-4 h-4 text-green-400" />
         </motion.div>
-        <span className="text-green-400 text-sm font-medium">AI Optimizing</span>
+        <span className="text-green-400 text-sm font-medium">Autopilot Triggered</span>
       </motion.div>
 
       {/* Interaction Hint */}
