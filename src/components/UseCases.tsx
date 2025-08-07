@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Coins, TrendingUp, Target } from 'lucide-react';
+import { Coins, Target } from 'lucide-react';
 
 export function UseCases() {
   const useCases = [
@@ -10,25 +10,16 @@ export function UseCases() {
       icon: Coins,
       title: 'Zap into stablecoin yield vaults on L2s',
       description:
-        'Automatically deploy funds across multiple L2 yield opportunities with optimal allocation and minimal gas fees.',
+        'I have $50K spread across 5 chains. Every week, just move my funds into the highest-yield stablecoin pools → Zap Pilot handles bridging, swapping, and staking — in one click.',
       gradient: 'from-green-400 to-emerald-500',
       imageAlt: 'Stablecoin vault visualization',
     },
     {
       number: '02',
-      icon: TrendingUp,
-      title: 'Deploy into a meme index for market sentiment plays',
-      description:
-        'Tap into market sentiment with diversified meme coin portfolios that automatically rebalance based on momentum.',
-      gradient: 'from-purple-400 to-pink-500',
-      imageAlt: 'Meme index visualization',
-    },
-    {
-      number: '03',
       icon: Target,
-      title: 'Invest in your own custom portfolio across chains',
+      title: 'Invest in a cross-chain crypto S&P500 — curated by us.',
       description:
-        'Create personalized investment strategies that span multiple chains and protocols, all managed from one interface.',
+        'I want a crypto version of the S&P 500. Rebalance it monthly based on market cap.→ Zap Pilot lets you create and maintain custom portfolios — rebalanced manually.',
       gradient: 'from-blue-400 to-cyan-500',
       imageAlt: 'Custom portfolio visualization',
     },
