@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Play, Sparkles } from 'lucide-react';
 import { LINKS, openExternalLink } from '@/config/links';
-import { NetworkGraph } from './NetworkGraph';
+import { ExecutionFlow } from './ExecutionFlow';
 import { STATISTICS } from '@/lib/statistics';
 
 export function Hero() {
@@ -121,7 +121,7 @@ export function Hero() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.6, duration: 1 }}
         >
-          <NetworkGraph />
+          <ExecutionFlow />
         </motion.div>
       </div>
     </section>
