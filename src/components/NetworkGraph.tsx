@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { Activity, Brain } from 'lucide-react';
 import { getNetworkNodes, initialConnections, type Connection } from '@/data/networkNodes';
@@ -14,6 +14,7 @@ export function NetworkGraph() {
   const [isExecuting, setIsExecuting] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [focusedNodeIndex, setFocusedNodeIndex] = useState(-1);
+  const [valuePropIndex, setValuePropIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Responsive layout detection with optimization
@@ -112,6 +113,34 @@ export function NetworkGraph() {
 
   // Memoize performance metrics to prevent unnecessary re-renders
   const performanceMetrics = useMemo(() => getPerformanceMetrics(), []);
+
+  // Value proposition variations
+  const valueProps = useMemo(
+    () => [
+      {
+        title: 'Your DeFi, On Autopilot ✈️',
+        description: 'Cut portfolio rebalancing from 30 minutes to 30 seconds.',
+      },
+      {
+        title: 'Cross-Chain Yield, One Click',
+        description: 'Move your crypto across chains into higher-yield pools — in one click.',
+      },
+      {
+        title: 'Self-Custody Always',
+        description: 'Every token stays in your own wallet.',
+      },
+    ],
+    []
+  );
+
+  // Cycle through value propositions
+  useEffect(() => {
+    const interval = setInterval(
+      () => setValuePropIndex(prev => (prev + 1) % valueProps.length),
+      5000
+    );
+    return () => clearInterval(interval);
+  }, [valueProps.length]);
 
   // Keyboard navigation for accessibility
   useEffect(() => {
@@ -479,6 +508,28 @@ export function NetworkGraph() {
         ))}
       </motion.div>
 
+      {/* Value Proposition Carousel */}
+      <motion.div
+        className={`absolute ${isMobile ? 'top-3 left-3 p-2' : 'top-6 left-6 p-3'} bg-gray-900/90 backdrop-blur-lg border border-purple-500/30 rounded-xl max-w-[220px] shadow-lg`}
+      >
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={valuePropIndex}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.4 }}
+          >
+            <h3 className={`text-white font-bold ${isMobile ? 'text-xs' : 'text-sm'} mb-1`}>
+              {valueProps[valuePropIndex].title}
+            </h3>
+            <p className={`text-gray-300 ${isMobile ? 'text-[10px]' : 'text-xs'}`}>
+              {valueProps[valuePropIndex].description}
+            </p>
+          </motion.div>
+        </AnimatePresence>
+      </motion.div>
+
       {/* AI Status Indicator */}
       <motion.div
         className={`absolute ${isMobile ? 'top-3 right-3 px-3 py-1' : 'top-6 right-6 px-4 py-2'} bg-gray-900/90 backdrop-blur-lg border border-green-500/30 rounded-full flex items-center space-x-2 shadow-lg`}
@@ -504,7 +555,7 @@ export function NetworkGraph() {
       {/* Interaction Hint */}
       {!isMobile && (
         <motion.div
-          className="absolute top-6 left-6 text-gray-400 text-xs flex items-center space-x-2"
+          className="absolute bottom-4 left-6 text-gray-400 text-xs flex items-center space-x-2"
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 3, repeat: Infinity }}
         >
