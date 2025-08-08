@@ -7,6 +7,25 @@ import { getNetworkNodes, initialConnections, type Connection } from '@/data/net
 import { getCurrentIntentFlow, getIntentFlowsCount } from '@/data/intentFlows';
 import { getPerformanceMetrics } from '@/data/performanceMetrics';
 
+const VALUE_PROPS = [
+  {
+    title: 'Your DeFi, On Autopilot ✈️',
+    description: 'Let Zap Pilot handle execution across protocols automatically.',
+  },
+  {
+    title: '30 min → 30 sec rebalancing',
+    description: 'Cut portfolio rebalancing from 30 minutes to 30 seconds.',
+  },
+  {
+    title: 'Cross-chain, higher yield',
+    description: 'Move your crypto across chains into higher-yield pools in one click.',
+  },
+  {
+    title: 'You keep custody',
+    description: 'Every token stays in your own wallet.',
+  },
+];
+
 export function NetworkGraph() {
   const [activeNode, setActiveNode] = useState<string | null>(null);
   const [currentFlow, setCurrentFlow] = useState(0);
@@ -15,6 +34,7 @@ export function NetworkGraph() {
   const [isMobile, setIsMobile] = useState(false);
   const [focusedNodeIndex, setFocusedNodeIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [valuePropIndex, setValuePropIndex] = useState(0);
 
   // Responsive layout detection with optimization
   useEffect(() => {
@@ -97,6 +117,15 @@ export function NetworkGraph() {
 
     return () => clearInterval(interval);
   }, [currentFlow]);
+
+  // Rotate value proposition messages
+  useEffect(() => {
+    const interval = setInterval(
+      () => setValuePropIndex(prev => (prev + 1) % VALUE_PROPS.length),
+      5000
+    );
+    return () => clearInterval(interval);
+  }, []);
 
   // Memoized node position helper for performance
   const getNodePosition = useCallback(
@@ -454,6 +483,18 @@ export function NetworkGraph() {
         </div>
       </motion.div>
 
+      {/* Value Proposition Overlay */}
+      <motion.div
+        key={valuePropIndex}
+        className={`absolute ${isMobile ? 'top-3 left-3 right-3 p-3' : 'top-6 left-6 p-4 max-w-xs'} bg-gray-900/90 backdrop-blur-lg border border-purple-500/30 rounded-xl shadow-lg`}
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <h3 className="text-sm font-bold text-white mb-1">{VALUE_PROPS[valuePropIndex].title}</h3>
+        <p className="text-xs text-gray-300">{VALUE_PROPS[valuePropIndex].description}</p>
+      </motion.div>
+
       {/* Performance Metrics - Right Side */}
       <motion.div
         className={`absolute ${isMobile ? 'top-12 right-3 space-y-2' : 'top-16 right-6 space-y-3'}`}
@@ -504,7 +545,7 @@ export function NetworkGraph() {
       {/* Interaction Hint */}
       {!isMobile && (
         <motion.div
-          className="absolute top-6 left-6 text-gray-400 text-xs flex items-center space-x-2"
+          className="absolute bottom-6 left-6 text-gray-400 text-xs flex items-center space-x-2"
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 3, repeat: Infinity }}
         >
