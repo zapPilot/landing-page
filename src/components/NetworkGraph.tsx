@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { Activity, Brain } from 'lucide-react';
 import { getNetworkNodes, initialConnections, type Connection } from '@/data/networkNodes';
@@ -15,6 +15,13 @@ export function NetworkGraph() {
   const [isMobile, setIsMobile] = useState(false);
   const [focusedNodeIndex, setFocusedNodeIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
+  const valueProps = [
+    'Your DeFi, On Autopilot ✈️',
+    'Cut portfolio rebalancing from 30 minutes to 30 seconds.',
+    'Move your crypto across chains into higher-yield pools — in one click.',
+    'Every token stays in your own wallet.',
+  ];
+  const [valuePropIndex, setValuePropIndex] = useState(0);
 
   // Responsive layout detection with optimization
   useEffect(() => {
@@ -40,6 +47,14 @@ export function NetworkGraph() {
 
   // Memoize nodes to prevent unnecessary re-renders
   const nodes = useMemo(() => getNetworkNodes(isMobile), [isMobile]);
+
+  useEffect(() => {
+    const interval = setInterval(
+      () => setValuePropIndex(prev => (prev + 1) % valueProps.length),
+      4000
+    );
+    return () => clearInterval(interval);
+  }, [valueProps.length]);
 
   // Enhanced connections with strength and routing data
   const [connections, setConnections] = useState<Connection[]>(
@@ -501,10 +516,24 @@ export function NetworkGraph() {
         <span className="text-green-400 text-sm font-medium">Autopilot Triggered</span>
       </motion.div>
 
+      {/* Value Proposition Rotator */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={valuePropIndex}
+          className={`absolute ${isMobile ? 'top-3 left-3 right-3' : 'top-6 left-6 max-w-xs'}`}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 10 }}
+          transition={{ duration: 0.5 }}
+        >
+          <p className="text-gray-200 text-sm leading-snug">{valueProps[valuePropIndex]}</p>
+        </motion.div>
+      </AnimatePresence>
+
       {/* Interaction Hint */}
       {!isMobile && (
         <motion.div
-          className="absolute top-6 left-6 text-gray-400 text-xs flex items-center space-x-2"
+          className="absolute top-16 left-6 text-gray-400 text-xs flex items-center space-x-2"
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 3, repeat: Infinity }}
         >
