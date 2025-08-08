@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { Activity, Brain } from 'lucide-react';
 import { getNetworkNodes, initialConnections, type Connection } from '@/data/networkNodes';
@@ -14,7 +14,30 @@ export function NetworkGraph() {
   const [isExecuting, setIsExecuting] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [focusedNodeIndex, setFocusedNodeIndex] = useState(-1);
+  const [valueIndex, setValueIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const valueProps = useMemo(
+    () => [
+      {
+        title: 'Your DeFi',
+        subtitle: 'On Autopilot ✈️',
+      },
+      {
+        title: 'Cut rebalancing',
+        subtitle: 'from 30 minutes to 30 seconds',
+      },
+      {
+        title: 'Move your crypto',
+        subtitle: 'across chains into higher-yield pools — in one click',
+      },
+      {
+        title: 'Self-custody',
+        subtitle: 'Every token stays in your own wallet',
+      },
+    ],
+    []
+  );
 
   // Responsive layout detection with optimization
   useEffect(() => {
@@ -45,6 +68,14 @@ export function NetworkGraph() {
   const [connections, setConnections] = useState<Connection[]>(
     initialConnections.map(conn => ({ ...conn, animated: false }))
   );
+
+  // Rotate value proposition messages
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setValueIndex(i => (i + 1) % valueProps.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [valueProps.length]);
 
   // Animate intent execution flows
   useEffect(() => {
@@ -501,10 +532,29 @@ export function NetworkGraph() {
         <span className="text-green-400 text-sm font-medium">Autopilot Triggered</span>
       </motion.div>
 
+      {/* Value Proposition Overlay */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={valueIndex}
+          className={`absolute ${isMobile ? 'top-3 left-3 right-3' : 'top-6 left-6'} bg-gray-900/90 backdrop-blur-lg border border-purple-500/30 rounded-xl shadow-2xl p-3 sm:p-4 text-center`}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="text-sm sm:text-base font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+            {valueProps[valueIndex].title}
+          </div>
+          <div className="text-xs sm:text-sm text-gray-300 mt-1">
+            {valueProps[valueIndex].subtitle}
+          </div>
+        </motion.div>
+      </AnimatePresence>
+
       {/* Interaction Hint */}
       {!isMobile && (
         <motion.div
-          className="absolute top-6 left-6 text-gray-400 text-xs flex items-center space-x-2"
+          className="absolute bottom-6 left-6 text-gray-400 text-xs flex items-center space-x-2"
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 3, repeat: Infinity }}
         >
