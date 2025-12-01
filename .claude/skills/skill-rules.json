@@ -1,0 +1,47 @@
+{
+  "nextjs-tailwind-guidelines": {
+    "description": "Next.js 15 + Tailwind CSS development guidelines",
+    "fileTriggers": {
+      "pathPatterns": [
+        "src/**/*.tsx",
+        "src/**/*.ts",
+        "src/app/**/*",
+        "src/components/**/*",
+        "src/features/**/*"
+      ]
+    },
+    "keywordTriggers": [
+      "component",
+      "next.js",
+      "nextjs",
+      "tailwind",
+      "server component",
+      "client component",
+      "app router",
+      "page",
+      "layout",
+      "styling",
+      "framer motion",
+      "animation",
+      "responsive",
+      "typescript"
+    ]
+  },
+  "skill-developer": {
+    "description": "Meta-skill for creating and managing Claude Code skills",
+    "fileTriggers": {
+      "pathPatterns": [
+        ".claude/skills/**/*.md",
+        ".claude/skills/skill-rules.json"
+      ]
+    },
+    "keywordTriggers": [
+      "skill",
+      "create skill",
+      "new skill",
+      "skill development",
+      "skill trigger",
+      "skill rules"
+    ]
+  }
+}

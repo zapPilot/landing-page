@@ -11,6 +11,7 @@ interface CardProps {
   className?: string;
   hover?: boolean;
   delay?: number;
+  style?: React.CSSProperties;
 }
 
 export function Card({
@@ -20,6 +21,7 @@ export function Card({
   className = '',
   hover = true,
   delay = 0,
+  style,
 }: CardProps) {
   const variantClasses = {
     default: 'bg-gray-800 border border-gray-700',
@@ -48,6 +50,7 @@ export function Card({
       transition={{ duration: 0.6, delay }}
       viewport={{ once: true }}
       whileHover={hover ? ANIMATIONS.cardHover : undefined}
+      style={style}
     >
       {children}
     </motion.div>
