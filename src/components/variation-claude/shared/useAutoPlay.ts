@@ -8,6 +8,7 @@ interface UseAutoPlayOptions {
 
 export function useAutoPlay({ enabled, intervalMs = 6000 }: UseAutoPlayOptions) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState<1 | -1>(1);
   const [isPaused, setIsPaused] = useState(false);
   const [lastInteractionTime, setLastInteractionTime] = useState(0);
 
@@ -30,16 +31,29 @@ export function useAutoPlay({ enabled, intervalMs = 6000 }: UseAutoPlayOptions) 
     }
   }, [pause]);
 
-  // Auto-play loop
+  // Auto-play loop with ping-pong behavior
   useEffect(() => {
     if (!enabled || isPaused) return;
 
     const timer = setInterval(() => {
-      setCurrentIndex((i) => (i + 1) % regimeOrder.length);
+      setCurrentIndex((i) => {
+        const next = i + direction;
+        // Reached the end, bounce back
+        if (next >= regimeOrder.length - 1) {
+          setDirection(-1);
+          return regimeOrder.length - 1;
+        }
+        // Reached the start, bounce forward
+        if (next <= 0) {
+          setDirection(1);
+          return 0;
+        }
+        return next;
+      });
     }, intervalMs);
 
     return () => clearInterval(timer);
-  }, [enabled, isPaused, intervalMs]);
+  }, [enabled, isPaused, intervalMs, direction]);
 
   // Auto-resume after inactivity
   useEffect(() => {

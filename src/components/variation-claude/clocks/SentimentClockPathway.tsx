@@ -5,21 +5,37 @@ import { type RegimeId, regimes, regimeOrder, getRegimeById, isAdjacentRegime } 
 import { getRegimePath, animatePathPreview, getPathDescription } from '../shared/pathPreview';
 import { useState } from 'react';
 import { Lock, LockOpen } from 'lucide-react';
+import Image from 'next/image';
+
+export type LayoutVariant = 'center-tanks' | 'below-nodes' | 'side-panel';
 
 interface SentimentClockPathwayProps {
   activeRegime: RegimeId;
   onRegimeChange: (regime: RegimeId) => void;
   isPaused: boolean;
+  layoutVariant?: LayoutVariant;
 }
 
 export default function SentimentClockPathway({
   activeRegime,
   onRegimeChange,
   isPaused,
+  layoutVariant = 'center-tanks',
 }: SentimentClockPathwayProps) {
   const [previewPath, setPreviewPath] = useState<RegimeId[]>([]);
   const [isAnimatingPath, setIsAnimatingPath] = useState(false);
   const [hoveredRegime, setHoveredRegime] = useState<RegimeId | null>(null);
+  
+  const activeRegimeData = getRegimeById(activeRegime);
+  
+  // Determine asset flow direction based on regime
+  const isBuying = ['ef', 'f'].includes(activeRegime); // Stable → Token
+  const isSelling = ['g', 'eg'].includes(activeRegime); // Token → Stable
+  const isYielding = activeRegime === 'n'; // Token → LP
+  
+  // Calculate LP allocation
+  const lpAllocation = isYielding ? 30 : 10;
+  const spotAllocation = activeRegimeData.allocation.crypto - lpAllocation;
 
   const handleRegimeClick = async (regime: RegimeId) => {
     if (isAnimatingPath) return;
@@ -86,10 +102,40 @@ export default function SentimentClockPathway({
     );
   };
 
+  // Tank positions for center layout
+  const tankPositions = {
+    stable: { x: 250, y: 450 },
+    lp: { x: 400, y: 450 },
+    token: { x: 550, y: 450 },
+  };
+
+  // SVG viewBox dimensions based on layout
+  const getViewBox = () => {
+    if (layoutVariant === 'side-panel') return '0 0 1100 600';
+    if (layoutVariant === 'center-tanks') return '0 0 800 580';
+    return '0 0 800 600';
+  };
+
   return (
-    <div className="w-full max-w-4xl mx-auto">
-      <svg viewBox="0 0 800 600" className="w-full h-auto">
+    <div className={`w-full mx-auto ${layoutVariant === 'side-panel' ? 'max-w-6xl' : 'max-w-4xl'}`}>
+      <svg viewBox={getViewBox()} className="w-full h-auto">
         <defs>
+          {/* Gradients for liquid fills */}
+          <linearGradient id="stableGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#2563EB" stopOpacity="0.9" />
+          </linearGradient>
+          
+          <linearGradient id="cryptoGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#F97316" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#EA580C" stopOpacity="0.9" />
+          </linearGradient>
+          
+          <linearGradient id="lpGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#A855F7" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#9333EA" stopOpacity="0.9" />
+          </linearGradient>
+
           {/* Glow filter */}
           <filter id="pathwayGlow">
             <feGaussianBlur stdDeviation="5" result="coloredBlur" />
@@ -316,6 +362,310 @@ export default function SentimentClockPathway({
           );
         })}
 
+        {/* ============================================ */}
+        {/* VARIATION A: Center Tanks Layout */}
+        {/* ============================================ */}
+        {layoutVariant === 'center-tanks' && (
+          <g>
+            {/* Connecting pipes */}
+            <path
+              d="M 300 430 Q 400 400 500 430"
+              stroke="#4B5563"
+              strokeWidth="6"
+              fill="none"
+              strokeLinecap="round"
+              opacity="0.5"
+            />
+
+            {/* Flow particles */}
+            {!isPaused && isBuying && (
+              <motion.circle
+                r="5"
+                fill="#3B82F6"
+                initial={{ opacity: 0 }}
+                animate={{
+                  offsetDistance: ['0%', '100%'],
+                  opacity: [0, 1, 0],
+                }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                style={{ offsetPath: "path('M 250 450 Q 400 420 550 450')" }}
+              />
+            )}
+            {!isPaused && isSelling && (
+              <motion.circle
+                r="5"
+                fill="#F97316"
+                initial={{ opacity: 0 }}
+                animate={{
+                  offsetDistance: ['0%', '100%'],
+                  opacity: [0, 1, 0],
+                }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                style={{ offsetPath: "path('M 550 450 Q 400 420 250 450')" }}
+              />
+            )}
+            {!isPaused && isYielding && (
+              <motion.circle
+                r="5"
+                fill="#A855F7"
+                initial={{ opacity: 0 }}
+                animate={{
+                  offsetDistance: ['0%', '100%'],
+                  opacity: [0, 1, 0],
+                }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                style={{ offsetPath: "path('M 550 450 Q 400 420 400 450')" }}
+              />
+            )}
+
+            {/* Stable Tank (USDC) */}
+            <g>
+              <rect x={tankPositions.stable.x - 50} y={tankPositions.stable.y - 60} width="100" height="80" rx="8" fill="#1e293b" stroke="#374151" strokeWidth="2" />
+              <motion.rect
+                x={tankPositions.stable.x - 45}
+                y={tankPositions.stable.y - 55}
+                width="90"
+                height="70"
+                rx="4"
+                fill="url(#stableGradient)"
+                animate={{ scaleY: activeRegimeData.allocation.stable / 100 }}
+                transition={{ duration: 1, ease: [0.4, 0, 0.2, 1] }}
+                style={{ transformOrigin: 'bottom', transformBox: 'fill-box' }}
+              />
+              <foreignObject x={tankPositions.stable.x - 15} y={tankPositions.stable.y - 40} width="30" height="30">
+                <Image src="/usdc.webp" alt="USDC" width={30} height={30} className="rounded-full" />
+              </foreignObject>
+              <text x={tankPositions.stable.x} y={tankPositions.stable.y + 35} textAnchor="middle" style={{ fill: '#3B82F6', fontSize: '12px', fontWeight: 700 }}>
+                STABLE {activeRegimeData.allocation.stable}%
+              </text>
+            </g>
+
+            {/* LP Tank */}
+            <g>
+              <rect x={tankPositions.lp.x - 50} y={tankPositions.lp.y - 60} width="100" height="80" rx="8" fill="#1e293b" stroke="#374151" strokeWidth="2" />
+              <motion.rect
+                x={tankPositions.lp.x - 45}
+                y={tankPositions.lp.y - 55}
+                width="90"
+                height="70"
+                rx="4"
+                fill="url(#lpGradient)"
+                animate={{ scaleY: lpAllocation / 100 }}
+                transition={{ duration: 1, ease: [0.4, 0, 0.2, 1] }}
+                style={{ transformOrigin: 'bottom', transformBox: 'fill-box' }}
+              />
+              <foreignObject x={tankPositions.lp.x - 20} y={tankPositions.lp.y - 40} width="40" height="30">
+                <div className="flex -space-x-2">
+                  <Image src="/btc.webp" alt="BTC" width={20} height={20} className="rounded-full" />
+                  <Image src="/eth.webp" alt="ETH" width={20} height={20} className="rounded-full" />
+                </div>
+              </foreignObject>
+              <text x={tankPositions.lp.x} y={tankPositions.lp.y + 35} textAnchor="middle" style={{ fill: '#A855F7', fontSize: '12px', fontWeight: 700 }}>
+                LP {lpAllocation}%
+              </text>
+            </g>
+
+            {/* Token Tank (BTC/ETH) */}
+            <g>
+              <rect x={tankPositions.token.x - 50} y={tankPositions.token.y - 60} width="100" height="80" rx="8" fill="#1e293b" stroke="#374151" strokeWidth="2" />
+              <motion.rect
+                x={tankPositions.token.x - 45}
+                y={tankPositions.token.y - 55}
+                width="90"
+                height="70"
+                rx="4"
+                fill="url(#cryptoGradient)"
+                animate={{ scaleY: spotAllocation / 100 }}
+                transition={{ duration: 1, ease: [0.4, 0, 0.2, 1] }}
+                style={{ transformOrigin: 'bottom', transformBox: 'fill-box' }}
+              />
+              <foreignObject x={tankPositions.token.x - 20} y={tankPositions.token.y - 40} width="40" height="30">
+                <div className="flex -space-x-2">
+                  <Image src="/btc.webp" alt="BTC" width={20} height={20} className="rounded-full" />
+                  <Image src="/eth.webp" alt="ETH" width={20} height={20} className="rounded-full" />
+                </div>
+              </foreignObject>
+              <text x={tankPositions.token.x} y={tankPositions.token.y + 35} textAnchor="middle" style={{ fill: '#F97316', fontSize: '12px', fontWeight: 700 }}>
+                TOKEN {spotAllocation}%
+              </text>
+            </g>
+          </g>
+        )}
+
+        {/* ============================================ */}
+        {/* VARIATION B: Below Each Node Layout */}
+        {/* ============================================ */}
+        {layoutVariant === 'below-nodes' && regimes.map((regime, index) => {
+          const pos = calculatePosition(index);
+          const isActive = regime.id === activeRegime;
+          
+          return (
+            <g key={`allocation-${regime.id}`}>
+              {/* Allocation bar background */}
+              <rect x={pos.x - 30} y={pos.y + 75} width="60" height="10" rx="5" fill="#1e293b" stroke="#374151" strokeWidth="1" />
+              
+              {/* Crypto fill (left side - orange) */}
+              <motion.rect
+                x={pos.x - 29}
+                y={pos.y + 76}
+                height="8"
+                rx="4"
+                fill="url(#cryptoGradient)"
+                animate={{ width: (regime.allocation.crypto / 100) * 58 }}
+                transition={{ duration: 0.5 }}
+              />
+              
+              {/* Stable fill (right side - blue) */}
+              <motion.rect
+                y={pos.y + 76}
+                height="8"
+                rx="4"
+                fill="url(#stableGradient)"
+                animate={{ 
+                  x: pos.x - 29 + (regime.allocation.crypto / 100) * 58,
+                  width: (regime.allocation.stable / 100) * 58 
+                }}
+                transition={{ duration: 0.5 }}
+              />
+              
+              {/* Allocation text */}
+              <text
+                x={pos.x}
+                y={pos.y + 100}
+                textAnchor="middle"
+                style={{
+                  fill: isActive ? regime.fillColor : '#6b7280',
+                  fontSize: '11px',
+                  fontWeight: isActive ? 700 : 500,
+                }}
+              >
+                {regime.allocation.crypto}% / {regime.allocation.stable}%
+              </text>
+              
+              {/* Token icons */}
+              <foreignObject x={pos.x - 30} y={pos.y + 105} width="60" height="20">
+                <div className="flex justify-center gap-0.5">
+                  <Image src="/btc.webp" alt="BTC" width={12} height={12} className="rounded-full opacity-60" />
+                  <Image src="/eth.webp" alt="ETH" width={12} height={12} className="rounded-full opacity-60" />
+                  <span className="text-[8px] text-slate-500 mx-1">/</span>
+                  <Image src="/usdc.webp" alt="USDC" width={12} height={12} className="rounded-full opacity-60" />
+                </div>
+              </foreignObject>
+            </g>
+          );
+        })}
+
+        {/* ============================================ */}
+        {/* VARIATION C: Side Panel Layout */}
+        {/* ============================================ */}
+        {layoutVariant === 'side-panel' && (
+          <g>
+            {/* Side panel background */}
+            <rect x="820" y="50" width="260" height="500" rx="12" fill="#1e293b" stroke={activeRegimeData.fillColor} strokeWidth="2" />
+            
+            {/* Regime label */}
+            <text x="950" y="90" textAnchor="middle" style={{ fill: activeRegimeData.fillColor, fontSize: '18px', fontWeight: 700 }}>
+              {activeRegimeData.label}
+            </text>
+            <text x="950" y="110" textAnchor="middle" style={{ fill: '#94a3b8', fontSize: '12px' }}>
+              {activeRegimeData.emotionalState}
+            </text>
+
+            {/* USDC Bar */}
+            <g>
+              <foreignObject x="840" y="130" width="30" height="30">
+                <Image src="/usdc.webp" alt="USDC" width={30} height={30} className="rounded-full" />
+              </foreignObject>
+              <text x="880" y="150" style={{ fill: '#e2e8f0', fontSize: '14px', fontWeight: 600 }}>USDC</text>
+              <rect x="840" y="160" width="200" height="12" rx="6" fill="#1f2937" />
+              <motion.rect
+                x="840"
+                y="160"
+                height="12"
+                rx="6"
+                fill="url(#stableGradient)"
+                animate={{ width: activeRegimeData.allocation.stable * 2 }}
+                transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+              />
+              <text x="1050" y="172" textAnchor="end" style={{ fill: '#3B82F6', fontSize: '14px', fontWeight: 700 }}>
+                {activeRegimeData.allocation.stable}%
+              </text>
+            </g>
+
+            {/* LP Bar */}
+            <g>
+              <foreignObject x="840" y="200" width="40" height="30">
+                <div className="flex -space-x-2">
+                  <Image src="/btc.webp" alt="BTC" width={18} height={18} className="rounded-full" />
+                  <Image src="/eth.webp" alt="ETH" width={18} height={18} className="rounded-full" />
+                </div>
+              </foreignObject>
+              <text x="890" y="220" style={{ fill: '#e2e8f0', fontSize: '14px', fontWeight: 600 }}>LP Positions</text>
+              <rect x="840" y="230" width="200" height="12" rx="6" fill="#1f2937" />
+              <motion.rect
+                x="840"
+                y="230"
+                height="12"
+                rx="6"
+                fill="url(#lpGradient)"
+                animate={{ width: lpAllocation * 2 }}
+                transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+              />
+              <text x="1050" y="242" textAnchor="end" style={{ fill: '#A855F7', fontSize: '14px', fontWeight: 700 }}>
+                {lpAllocation}%
+              </text>
+            </g>
+
+            {/* Token Bar */}
+            <g>
+              <foreignObject x="840" y="270" width="40" height="30">
+                <div className="flex -space-x-2">
+                  <Image src="/btc.webp" alt="BTC" width={18} height={18} className="rounded-full" />
+                  <Image src="/eth.webp" alt="ETH" width={18} height={18} className="rounded-full" />
+                </div>
+              </foreignObject>
+              <text x="890" y="290" style={{ fill: '#e2e8f0', fontSize: '14px', fontWeight: 600 }}>Spot BTC/ETH</text>
+              <rect x="840" y="300" width="200" height="12" rx="6" fill="#1f2937" />
+              <motion.rect
+                x="840"
+                y="300"
+                height="12"
+                rx="6"
+                fill="url(#cryptoGradient)"
+                animate={{ width: spotAllocation * 2 }}
+                transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+              />
+              <text x="1050" y="312" textAnchor="end" style={{ fill: '#F97316', fontSize: '14px', fontWeight: 700 }}>
+                {spotAllocation}%
+              </text>
+            </g>
+
+            {/* Actions section */}
+            <text x="950" y="360" textAnchor="middle" style={{ fill: '#64748b', fontSize: '11px', fontWeight: 600, letterSpacing: '0.05em' }}>
+              ACTIONS
+            </text>
+            <rect x="840" y="370" width="200" height="80" rx="6" fill="#0f172a" />
+            {activeRegimeData.actions.slice(0, 2).map((action, idx) => (
+              <text key={idx} x="850" y={390 + idx * 20} style={{ fill: '#94a3b8', fontSize: '10px' }}>
+                • {action.slice(0, 35)}{action.length > 35 ? '...' : ''}
+              </text>
+            ))}
+
+            {/* Philosophy */}
+            <text x="950" y="480" textAnchor="middle" style={{ fill: activeRegimeData.fillColor, fontSize: '11px', fontStyle: 'italic' }}>
+              {activeRegimeData.philosophy}
+            </text>
+
+            {/* Total allocation */}
+            <text x="950" y="520" textAnchor="middle" style={{ fill: '#e2e8f0', fontSize: '20px', fontWeight: 700 }}>
+              {activeRegimeData.allocation.crypto}% / {activeRegimeData.allocation.stable}%
+            </text>
+            <text x="950" y="540" textAnchor="middle" style={{ fill: '#64748b', fontSize: '10px' }}>
+              Crypto / Stable
+            </text>
+          </g>
+        )}
+
         {/* Unlock sequence indicator */}
         <AnimatePresence>
           {previewPath.length > 0 && (
@@ -348,7 +698,7 @@ export default function SentimentClockPathway({
         {/* Description text */}
         <text
           x="400"
-          y="580"
+          y={layoutVariant === 'center-tanks' ? '560' : '580'}
           textAnchor="middle"
           className="select-none"
           style={{ fill: '#6b7280', fontSize: '11px', fontStyle: 'italic' }}

@@ -8,37 +8,33 @@ import { type RegimeId, getRegimeById } from './shared/regimeData';
 import { useAutoPlay } from './shared/useAutoPlay';
 import SentimentClockOrbital from './clocks/SentimentClockOrbital';
 import SentimentClockRibbon from './clocks/SentimentClockRibbon';
-import SentimentClockPendulum from './clocks/SentimentClockPendulum';
-import SentimentClockPathway from './clocks/SentimentClockPathway';
+import SentimentClockPathway, { type LayoutVariant } from './clocks/SentimentClockPathway';
 import { Play, Pause } from 'lucide-react';
 
-type Variation = 'orbital' | 'ribbon' | 'pendulum' | 'pathway';
+type Variation = 'ribbon' | 'pathway';
 
 const variations: { id: Variation; label: string; description: string }[] = [
-  {
-    id: 'orbital',
-    label: 'Orbital',
-    description: 'Ring with visible gap between extremes',
-  },
   {
     id: 'ribbon',
     label: 'Ribbon',
     description: 'Linear gradient spectrum',
   },
   {
-    id: 'pendulum',
-    label: 'Pendulum',
-    description: 'Physics-based swing',
-  },
-  {
     id: 'pathway',
     label: 'Pathway',
-    description: 'Node graph with locks',
+    description: 'Node graph with asset allocation visualization',
   },
 ];
 
+const layoutVariants: { id: LayoutVariant; label: string }[] = [
+  { id: 'center-tanks', label: 'Center Tanks' },
+  { id: 'below-nodes', label: 'Below Nodes' },
+  { id: 'side-panel', label: 'Side Panel' },
+];
+
 export default function SentimentClockVariations() {
-  const [activeVariation, setActiveVariation] = useState<Variation>('orbital');
+  const [activeVariation, setActiveVariation] = useState<Variation>('pathway');
+  const [layoutVariant, setLayoutVariant] = useState<LayoutVariant>('center-tanks');
   const [autoPlayEnabled, setAutoPlayEnabled] = useState(true);
 
   const { currentRegimeId, isPaused, pause, resume, goToRegime } = useAutoPlay({
@@ -116,6 +112,34 @@ export default function SentimentClockVariations() {
           </motion.p>
         </AnimatePresence>
 
+        {/* Layout Variant Selector (only for Pathway) */}
+        {activeVariation === 'pathway' && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex justify-center mb-4"
+          >
+            <div className="inline-flex items-center gap-1 p-1 bg-slate-800/50 backdrop-blur border border-slate-700 rounded-lg">
+              {layoutVariants.map((variant) => (
+                <button
+                  key={variant.id}
+                  onClick={() => setLayoutVariant(variant.id)}
+                  className={`
+                    px-4 py-2 rounded-md text-xs font-medium transition-all duration-200
+                    ${
+                      layoutVariant === variant.id
+                        ? 'bg-blue-600 text-white'
+                        : 'text-slate-400 hover:text-slate-200 hover:bg-slate-700'
+                    }
+                  `}
+                >
+                  {variant.label}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
         {/* Auto-Play Toggle */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -148,7 +172,11 @@ export default function SentimentClockVariations() {
           </button>
         </motion.div>
 
-        <div className="grid lg:grid-cols-[55%_45%] gap-12 items-start">
+        <div className={`grid gap-12 items-start ${
+          activeVariation === 'pathway' && layoutVariant === 'side-panel' 
+            ? 'lg:grid-cols-1' 
+            : 'lg:grid-cols-[55%_45%]'
+        }`}>
           {/* Clock Visualization */}
           <motion.div
             initial={ANIMATIONS.fadeInUp.initial}
@@ -166,22 +194,9 @@ export default function SentimentClockVariations() {
                 transition={{ duration: 0.4 }}
                 className="w-full"
               >
-                {activeVariation === 'orbital' && (
-                  <SentimentClockOrbital
-                    activeRegime={currentRegimeId}
-                    onRegimeChange={handleRegimeChange}
-                    isPaused={isPaused}
-                  />
-                )}
+
                 {activeVariation === 'ribbon' && (
                   <SentimentClockRibbon
-                    activeRegime={currentRegimeId}
-                    onRegimeChange={handleRegimeChange}
-                    isPaused={isPaused}
-                  />
-                )}
-                {activeVariation === 'pendulum' && (
-                  <SentimentClockPendulum
                     activeRegime={currentRegimeId}
                     onRegimeChange={handleRegimeChange}
                     isPaused={isPaused}
@@ -192,13 +207,15 @@ export default function SentimentClockVariations() {
                     activeRegime={currentRegimeId}
                     onRegimeChange={handleRegimeChange}
                     isPaused={isPaused}
+                    layoutVariant={layoutVariant}
                   />
                 )}
               </motion.div>
             </AnimatePresence>
           </motion.div>
 
-          {/* Details Panel */}
+          {/* Details Panel - hidden for side-panel layout */}
+          {!(activeVariation === 'pathway' && layoutVariant === 'side-panel') && (
           <AnimatePresence mode="wait">
             <motion.div
               key={currentRegimeId}
@@ -267,6 +284,7 @@ export default function SentimentClockVariations() {
               </div>
             </motion.div>
           </AnimatePresence>
+          )}
         </div>
 
         {/* Keyboard hint */}
