@@ -11,6 +11,9 @@ export interface RegimeArcProps {
   activeRegime: RegimeId;
   calculatePosition: (index: number) => { x: number; y: number };
   isMobile: boolean;
+  onRegimeClick: (regimeId: RegimeId) => void;
+  isAutoPlaying: boolean;
+  animationDirection: 'forward' | 'backward';
 }
 
 export interface AllocationPanelProps {
