@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Play, Sparkles } from 'lucide-react';
 import { LINKS, openExternalLink } from '@/config/links';
-import { RegimeVisualizer } from './regime';
 import { STATISTICS } from '@/lib/statistics';
 
 export function Hero() {
@@ -111,20 +110,6 @@ export function Hero() {
                 <div className="text-sm text-gray-400 mt-1">{stat.label}</div>
               </div>
             ))}
-          </motion.div>
-
-          {/* Regime Visualization */}
-          <motion.div
-            className="mt-20 -mx-4 sm:-mx-6 lg:-mx-8"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.8, duration: 1 }}
-          >
-            <RegimeVisualizer
-              autoPlayInterval={5000}
-              startRegime="n"
-              className="w-full px-4 sm:px-6 lg:px-8"
-            />
           </motion.div>
         </motion.div>
       </div>

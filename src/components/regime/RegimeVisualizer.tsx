@@ -24,6 +24,11 @@ export function RegimeVisualizer({
   const isMobile = useMediaQuery('(max-width: 1024px)');
 
   const activeRegimeData = getRegimeById(activeRegime);
+  const viewBoxWidth = isMobile ? 900 : 1600;
+  const viewBoxHeight = isMobile ? 1200 : 600;
+  const centerX = isMobile ? viewBoxWidth / 2 : 420;
+  const centerY = isMobile ? 280 : viewBoxHeight / 2;
+  const arcRadius = isMobile ? 240 : 320;
 
   // Calculate LP allocation
   const isYielding = activeRegime === 'n';
@@ -45,36 +50,37 @@ export function RegimeVisualizer({
 
   // Calculate positions in gentle 180° arc (centered for vertical layout)
   const calculatePosition = (index: number) => {
-    const cx = 450; // Centered in 900px width
-    const cy = 280; // Top portion of viewBox (lowered from 250)
-    const radius = 240; // Increased from 180 for larger nodes
     const startAngle = 180; // Left side
     const angleStep = 180 / (getRegimeById('ef').id === 'ef' ? 4 : 4); // 5 regimes -> 4 steps
     const angle = (startAngle - index * angleStep) * (Math.PI / 180);
 
     return {
-      x: cx + radius * Math.cos(angle),
-      y: cy + radius * Math.sin(angle),
+      x: centerX + arcRadius * Math.cos(angle),
+      y: centerY + arcRadius * Math.sin(angle),
     };
   };
 
-  // Get viewBox - always vertical for centered display
-  const getViewBox = () => {
-    return '0 0 900 1200'; // Increased from 1000 to 1200
-  };
+  const getViewBox = () => `0 0 ${viewBoxWidth} ${viewBoxHeight}`;
 
-  // Get panel position - below arc for vertical layout
   const getPanelPosition = () => {
     return isMobile
       ? { x: 50, y: 620, width: 800, height: 480 }
-      : { x: 50, y: 620, width: 900, height: 520 };
+      : { x: 900, y: 60, width: 600, height: 480 };
   };
 
   const panelPos = getPanelPosition();
 
   return (
-    <div className={`w-full mx-auto max-w-7xl ${className}`}>
-      <svg viewBox={getViewBox()} className="w-full h-auto">
+    <section className={`relative py-20 ${className}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <div className="w-full">
+            <svg viewBox={getViewBox()} className="w-full h-auto">
         <defs>
           {/* Gradients for liquid fills */}
           <linearGradient id="stableGradient" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -102,20 +108,23 @@ export function RegimeVisualizer({
           </filter>
         </defs>
 
-        <RegimeArc
-          activeRegime={activeRegime}
-          calculatePosition={calculatePosition}
-          isMobile={isMobile}
-        />
+              <RegimeArc
+                activeRegime={activeRegime}
+                calculatePosition={calculatePosition}
+                isMobile={isMobile}
+              />
 
-        <AllocationPanel
-          activeRegimeData={activeRegimeData}
-          panelPosition={panelPos}
-          lpAllocation={lpAllocation}
-          spotAllocation={spotAllocation}
-          isMobile={isMobile}
-        />
-      </svg>
-    </div>
+              <AllocationPanel
+                activeRegimeData={activeRegimeData}
+                panelPosition={panelPos}
+                lpAllocation={lpAllocation}
+                spotAllocation={spotAllocation}
+                isMobile={isMobile}
+              />
+            </svg>
+          </div>
+        </motion.div>
+      </div>
+    </section>
   );
 }

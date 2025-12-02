@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Navbar } from '@/components/Navbar';
 import { Hero } from '@/components/Hero';
+import { RegimeVisualizer } from '@/components/regime';
 import { Features } from '@/components/Features';
 import { UseCases } from '@/components/UseCases';
 import { HowItWorks } from '@/components/HowItWorks';
@@ -60,6 +61,8 @@ export default function HomePage() {
 
       <Navbar />
       <Hero />
+      <RegimeVisualizer />
+
       <Features />
       <UseCases />
       <HowItWorks />
