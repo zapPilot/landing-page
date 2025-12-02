@@ -262,7 +262,7 @@ export default function SentimentClock() {
                   </span>
                   <span className="text-gray-400">stable</span>
                 </div>
-                <p className="text-sm text-gray-500 italic">{active.emotionalState}</p>
+                <p className="text-sm text-gray-500 italic">{active.author}</p>
               </div>
 
               <div className="mb-6">

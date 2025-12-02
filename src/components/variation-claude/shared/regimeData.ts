@@ -11,10 +11,9 @@ export interface Regime {
   };
   color: string;
   fillColor: string;
-  emotionalState: string;
+  author: string;
   actions: string[];
   philosophy: string;
-  whyThisWorks: string;
 }
 
 export const regimes: Regime[] = [
@@ -26,15 +25,13 @@ export const regimes: Regime[] = [
     allocation: { crypto: 70, stable: 30 },
     color: 'text-red-500',
     fillColor: '#ef4444',
-    emotionalState: 'Maximum Pessimism',
+    author: 'Warren Buffett',
     actions: [
       'DCA into BTC/ETH using only your stables',
       'Prioritize debt repayment if LTV rises',
       'No new leverage during this cycle',
     ],
     philosophy: '"Be greedy when others are fearful"',
-    whyThisWorks:
-      'Historical crypto bottoms occur during extreme fear. Value-buying without leverage minimizes risk while maximizing long-term upside.',
   },
   {
     id: 'f',
@@ -44,15 +41,13 @@ export const regimes: Regime[] = [
     allocation: { crypto: 60, stable: 40 },
     color: 'text-orange-500',
     fillColor: '#f97316',
-    emotionalState: 'Elevated Caution',
+    author: 'Nathan Rothschild',
     actions: [
       'Small probe entries with light DCA',
       'Partial BTC/ETH-USD LP positions',
       'Take profits if borrowing rates spike',
     ],
-    philosophy: '"Prepare for second leg down"',
-    whyThisWorks:
-      'Markets often retest lows. LP positions act as a midway zone—if market drops to Extreme Fear, you can unwind LP to buy spot.',
+    philosophy: '"Buy when there\'s blood in the streets"',
   },
   {
     id: 'n',
@@ -62,15 +57,13 @@ export const regimes: Regime[] = [
     allocation: { crypto: 50, stable: 50 },
     color: 'text-yellow-500',
     fillColor: '#eab308',
-    emotionalState: 'Balanced Sentiment',
+    author: 'Jesse Livermore',
     actions: [
       'Holiday mode—minimal activity',
       'Light rebalancing only if allocation drifts',
       'Maintain current positions',
     ],
-    philosophy: '"Inactivity is a valid strategy"',
-    whyThisWorks:
-      'When markets lack clear direction, the best move is often no move. Preserve capital and wait for clearer signals at extremes.',
+    philosophy: '"It was always my sitting that made the big money"',
   },
   {
     id: 'g',
@@ -80,15 +73,13 @@ export const regimes: Regime[] = [
     allocation: { crypto: 40, stable: 60 },
     color: 'text-lime-500',
     fillColor: '#84cc16',
-    emotionalState: 'Rising Optimism',
+    author: 'Bernard Baruch',
     actions: [
       'Gradually shift spot BTC/ETH into LP positions',
       'DCA-sell if coming from Neutral',
       'Avoid new purchases unless from higher regime',
     ],
-    philosophy: '"Glide from beta to stable"',
-    whyThisWorks:
-      'Soft profit-taking via LP positions lets you lock gains while earning fees and retaining some upside exposure.',
+    philosophy: '"Nobody ever went broke taking a profit"',
   },
   {
     id: 'eg',
@@ -98,15 +89,13 @@ export const regimes: Regime[] = [
     allocation: { crypto: 30, stable: 70 },
     color: 'text-green-500',
     fillColor: '#22c55e',
-    emotionalState: 'Peak Euphoria',
+    author: 'Warren Buffett',
     actions: [
       'DCA-sell excess BTC/ETH into stables',
       'Retain small beta via token-USD LPs',
       'Move stables to conservative yields (perp vaults, stable pools)',
     ],
-    philosophy: '"How much am I willing to lose?"',
-    whyThisWorks:
-      'Market tops coincide with extreme greed. Shifting focus from gains to downside protection preserves wealth during inevitable corrections.',
+    philosophy: '"Be fearful when others are greedy"'
   },
 ];
 

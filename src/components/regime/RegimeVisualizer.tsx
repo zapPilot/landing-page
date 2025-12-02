@@ -24,10 +24,24 @@ export function RegimeVisualizer({
   const isMobile = useMediaQuery('(max-width: 1024px)');
 
   const activeRegimeData = getRegimeById(activeRegime);
+  
+  // Layout configuration
   const viewBoxWidth = isMobile ? 900 : 1600;
   const viewBoxHeight = isMobile ? 1200 : 600;
+  
+  // Alignment constants
+  // We want the top of the Arc (EF/EG nodes) to align with the top of the Panel
+  const PANEL_Y = isMobile ? 620 : 60;
+  const PANEL_HEIGHT = 480;
+  
+  // For the Arc to align, its top nodes (at y = centerY) need to be visually aligned with PANEL_Y
+  // However, the nodes have a radius of ~80px (with glow), so the center should be lower
+  // If Top of Node Visual = PANEL_Y
+  // Then Center Y = PANEL_Y + Node Radius + some padding
+  const ARC_CENTER_Y = isMobile ? 280 : PANEL_Y + 80 + 40; // 180ish
+
   const centerX = isMobile ? viewBoxWidth / 2 : 420;
-  const centerY = isMobile ? 280 : 280;
+  const centerY = ARC_CENTER_Y;
   const arcRadius = isMobile ? 240 : 240;
 
   // Calculate LP allocation
@@ -64,8 +78,8 @@ export function RegimeVisualizer({
 
   const getPanelPosition = () => {
     return isMobile
-      ? { x: 50, y: 620, width: 800, height: 480 }
-      : { x: 900, y: 60, width: 600, height: 480 };
+      ? { x: 50, y: PANEL_Y, width: 800, height: PANEL_HEIGHT }
+      : { x: 900, y: PANEL_Y, width: 600, height: PANEL_HEIGHT };
   };
 
   const panelPos = getPanelPosition();

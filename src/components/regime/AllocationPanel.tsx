@@ -57,7 +57,7 @@ export function AllocationPanel({
               </span>
               <span className="text-gray-400">stable</span>
             </div>
-            <p className="text-sm text-gray-500 italic">{activeRegimeData.emotionalState}</p>
+            <p className="text-sm text-gray-500 italic">{activeRegimeData.author}</p>
           </div>
 
           {/* Philosophy */}

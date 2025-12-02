@@ -568,7 +568,7 @@ export default function SentimentClockPathway({
               {activeRegimeData.label}
             </text>
             <text x="950" y="110" textAnchor="middle" style={{ fill: '#94a3b8', fontSize: '12px' }}>
-              {activeRegimeData.emotionalState}
+              {activeRegimeData.author}
             </text>
 
             {/* USDC Bar */}
