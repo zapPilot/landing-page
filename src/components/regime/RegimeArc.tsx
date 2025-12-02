@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { regimes } from '../variation-claude/shared/regimeData';
 import type { RegimeArcProps } from './types';
 
@@ -95,20 +96,52 @@ export function RegimeArc({
             >
               {regime.label}
             </text>
+          </g>
+        );
+      })}
 
-            {/* Range */}
-            <text
-              x={pos.x}
-              y={pos.y + 80}
-              textAnchor="middle"
-              className="pointer-events-none select-none"
-              style={{
-                fill: '#6b7280',
-                fontSize: '13px',
+      {/* Allocation bars below each node */}
+      {regimes.map((regime, index) => {
+        const pos = calculatePosition(index);
+        
+        return (
+          <g key={`allocation-${regime.id}`}>
+            {/* Allocation bar background */}
+            <rect x={pos.x - 30} y={pos.y + 75} width="60" height="10" rx="5" fill="#1e293b" stroke="#374151" strokeWidth="1" />
+            
+            {/* Crypto fill (left side - orange) */}
+            <motion.rect
+              x={pos.x - 29}
+              y={pos.y + 76}
+              height="8"
+              rx="4"
+              fill="url(#cryptoGradient)"
+              animate={{ width: (regime.allocation.crypto / 100) * 58 }}
+              transition={{ duration: 0.5 }}
+            />
+            
+            {/* Stable fill (right side - blue) */}
+            <motion.rect
+              y={pos.y + 76}
+              height="8"
+              rx="4"
+              fill="url(#stableGradient)"
+              animate={{ 
+                x: pos.x - 29 + (regime.allocation.crypto / 100) * 58,
+                width: (regime.allocation.stable / 100) * 58 
               }}
-            >
-              {regime.range}
-            </text>
+              transition={{ duration: 0.5 }}
+            />
+            
+            {/* Token icons */}
+            <foreignObject x={pos.x - 30} y={pos.y + 105} width="60" height="20">
+              <div className="flex justify-center gap-0.5">
+                <Image src="/btc.webp" alt="BTC" width={12} height={12} className="rounded-full opacity-60" />
+                <Image src="/eth.webp" alt="ETH" width={12} height={12} className="rounded-full opacity-60" />
+                <span className="text-[8px] text-slate-500 mx-1">/</span>
+                <Image src="/usdc.webp" alt="USDC" width={12} height={12} className="rounded-full opacity-60" />
+              </div>
+            </foreignObject>
           </g>
         );
       })}

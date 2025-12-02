@@ -27,8 +27,8 @@ export function RegimeVisualizer({
   const viewBoxWidth = isMobile ? 900 : 1600;
   const viewBoxHeight = isMobile ? 1200 : 600;
   const centerX = isMobile ? viewBoxWidth / 2 : 420;
-  const centerY = isMobile ? 280 : viewBoxHeight / 2;
-  const arcRadius = isMobile ? 240 : 320;
+  const centerY = isMobile ? 280 : 280;
+  const arcRadius = isMobile ? 240 : 240;
 
   // Calculate LP allocation
   const isYielding = activeRegime === 'n';

@@ -186,42 +186,54 @@ export function AllocationPanel({
       {/* Actions section */}
       <text
         x={panelPos.x + panelPos.width / 2}
-        y={panelPos.y + 375}
+        y={panelPos.y + 365}
         textAnchor="middle"
         style={{ fill: '#64748b', fontSize: isMobile ? '11px' : '12px', fontWeight: 600, letterSpacing: '0.05em' }}
       >
         ACTIONS
       </text>
-      <rect
-        x={panelPos.x + 30}
-        y={panelPos.y + 385}
-        width={panelPos.width - 60}
-        height="80"
-        rx="6"
-        fill="#0f172a"
-      />
-      {activeRegimeData.actions.slice(0, 2).map((action, idx) => (
-        <text
-          key={idx}
-          x={panelPos.x + 40}
-          y={panelPos.y + 405 + idx * 22}
-          style={{ fill: '#94a3b8', fontSize: isMobile ? '10px' : '11px' }}
-        >
-          • {action.slice(0, isMobile ? 40 : 50)}{action.length > (isMobile ? 40 : 50) ? '...' : ''}
-        </text>
-      ))}
+      {activeRegimeData.actions.slice(0, 2).map((action, idx) => {
+        const yPos = panelPos.y + 380 + idx * 35;
+        const maxLength = isMobile ? 35 : 45;
+        const displayText = action.length > maxLength ? action.slice(0, maxLength) + '...' : action;
+        
+        return (
+          <g key={idx}>
+            {/* Tag background with subtle gradient */}
+            <rect
+              x={panelPos.x + 30}
+              y={yPos}
+              width={panelPos.width - 60}
+              height="28"
+              rx="6"
+              fill="#1e293b"
+              stroke={activeRegimeData.fillColor}
+              strokeWidth="1"
+              opacity="0.6"
+            />
+            {/* Tag text */}
+            <text
+              x={panelPos.x + 40}
+              y={yPos + 18}
+              style={{ fill: '#e2e8f0', fontSize: isMobile ? '10px' : '11px', fontWeight: 500 }}
+            >
+              {displayText}
+            </text>
+          </g>
+        );
+      })}
 
       {/* Philosophy */}
       <text
         x={panelPos.x + panelPos.width / 2}
-        y={panelPos.y + 485}
+        y={panelPos.y + 455}
         textAnchor="middle"
         style={{ fill: activeRegimeData.fillColor, fontSize: isMobile ? '11px' : '12px', fontStyle: 'italic' }}
       >
         {activeRegimeData.philosophy}
       </text>
 
-      {/* Total allocation */}
+      {/* Total allocation
       <text
         x={panelPos.x + panelPos.width / 2}
         y={panelPos.y + 525}
@@ -237,7 +249,7 @@ export function AllocationPanel({
         style={{ fill: '#64748b', fontSize: isMobile ? '10px' : '11px' }}
       >
         Crypto / Stable
-      </text>
+      </text> */}
     </g>
   );
 }
