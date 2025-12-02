@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Play, Sparkles } from 'lucide-react';
 import { LINKS, openExternalLink } from '@/config/links';
-import { NetworkGraph } from './NetworkGraph';
+import { RegimeVisualizer } from './regime';
 import { STATISTICS } from '@/lib/statistics';
 
 export function Hero() {
@@ -28,10 +28,10 @@ export function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-16">
-      <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-        {/* Left Content */}
+      <div className="max-w-7xl mx-auto">
+        {/* Hero Content */}
         <motion.div
-          className="text-center lg:text-left"
+          className="text-center max-w-4xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -68,7 +68,7 @@ export function Hero() {
           {/* CTA Buttons */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12"
+            className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
           >
             <motion.button
               className="group bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-purple-500/25 transition-all duration-300"
@@ -96,7 +96,7 @@ export function Hero() {
           {/* Stats */}
           <motion.div
             variants={itemVariants}
-            className="grid grid-cols-3 gap-8 text-center lg:text-left"
+            className="grid grid-cols-3 gap-8 text-center max-w-2xl mx-auto"
           >
             {STATISTICS.map((stat, index) => (
               <div key={stat.label}>
@@ -112,16 +112,20 @@ export function Hero() {
               </div>
             ))}
           </motion.div>
-        </motion.div>
 
-        {/* Right Visual */}
-        <motion.div
-          className="relative"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.6, duration: 1 }}
-        >
-          <NetworkGraph />
+          {/* Regime Visualization */}
+          <motion.div
+            className="mt-20 -mx-4 sm:-mx-6 lg:-mx-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.8, duration: 1 }}
+          >
+            <RegimeVisualizer
+              autoPlayInterval={5000}
+              startRegime="n"
+              className="w-full px-4 sm:px-6 lg:px-8"
+            />
+          </motion.div>
         </motion.div>
       </div>
     </section>
