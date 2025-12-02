@@ -11,7 +11,7 @@ export function RegimeArc({
   isMobile,
 }: RegimeArcProps) {
   return (
-    <g>
+    <g transform="translate(0, -50)">
       {/* Pathways between nodes */}
       {regimes.map((regime, index) => {
         if (index === regimes.length - 1) return null;

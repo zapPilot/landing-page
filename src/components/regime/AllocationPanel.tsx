@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import type { AllocationPanelProps } from './types';
 
@@ -14,242 +14,123 @@ export function AllocationPanel({
   const panelPos = panelPosition;
 
   return (
-    <g>
-      {/* Side panel background */}
-      <rect
-        x={panelPos.x}
-        y={panelPos.y}
-        width={panelPos.width}
-        height={panelPos.height}
-        rx="12"
-        fill="#1e293b"
-        stroke={activeRegimeData.fillColor}
-        strokeWidth="2"
-      />
-
-      {/* Regime label */}
-      <text
-        x={panelPos.x + panelPos.width / 2}
-        y={panelPos.y + 50}
-        textAnchor="middle"
-        style={{ fill: activeRegimeData.fillColor, fontSize: isMobile ? '20px' : '24px', fontWeight: 700 }}
-      >
-        {activeRegimeData.label}
-      </text>
-      <text
-        x={panelPos.x + panelPos.width / 2}
-        y={panelPos.y + 75}
-        textAnchor="middle"
-        style={{ fill: '#94a3b8', fontSize: isMobile ? '13px' : '15px' }}
-      >
-        {activeRegimeData.emotionalState}
-      </text>
-
-      {/* USDC Bar */}
-      <g>
-        <foreignObject
-          x={panelPos.x + 30}
-          y={panelPos.y + 100}
-          width="40"
-          height="40"
+    <foreignObject
+      x={panelPos.x}
+      y={panelPos.y}
+      width={panelPos.width}
+      height={panelPos.height}
+    >
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeRegimeData.id}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.4 }}
+          className="bg-gray-900/50 backdrop-blur-lg border border-gray-800 rounded-2xl p-8 h-full flex flex-col"
         >
-          <Image src="/usdc.webp" alt="USDC" width={40} height={40} className="rounded-full" />
-        </foreignObject>
-        <text
-          x={panelPos.x + 80}
-          y={panelPos.y + 125}
-          style={{ fill: '#e2e8f0', fontSize: isMobile ? '15px' : '17px', fontWeight: 600 }}
-        >
-          USDC
-        </text>
-        <rect
-          x={panelPos.x + 30}
-          y={panelPos.y + 145}
-          width={panelPos.width - 60}
-          height="18"
-          rx="9"
-          fill="#1f2937"
-        />
-        <motion.rect
-          x={panelPos.x + 30}
-          y={panelPos.y + 145}
-          height="18"
-          rx="9"
-          fill="url(#stableGradient)"
-          animate={{ width: (activeRegimeData.allocation.stable / 100) * (panelPos.width - 60) }}
-          transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-        />
-        <text
-          x={panelPos.x + panelPos.width - 30}
-          y={panelPos.y + 160}
-          textAnchor="end"
-          style={{ fill: '#3B82F6', fontSize: isMobile ? '15px' : '17px', fontWeight: 700 }}
-        >
-          {activeRegimeData.allocation.stable}%
-        </text>
-      </g>
-
-      {/* LP Bar */}
-      <g>
-        <foreignObject
-          x={panelPos.x + 30}
-          y={panelPos.y + 185}
-          width="50"
-          height="40"
-        >
-          <div className="flex -space-x-2">
-            <Image src="/btc.webp" alt="BTC" width={22} height={22} className="rounded-full" />
-            <Image src="/eth.webp" alt="ETH" width={22} height={22} className="rounded-full" />
-          </div>
-        </foreignObject>
-        <text
-          x={panelPos.x + 90}
-          y={panelPos.y + 210}
-          style={{ fill: '#e2e8f0', fontSize: isMobile ? '15px' : '17px', fontWeight: 600 }}
-        >
-          LP Positions
-        </text>
-        <rect
-          x={panelPos.x + 30}
-          y={panelPos.y + 230}
-          width={panelPos.width - 60}
-          height="18"
-          rx="9"
-          fill="#1f2937"
-        />
-        <motion.rect
-          x={panelPos.x + 30}
-          y={panelPos.y + 230}
-          height="18"
-          rx="9"
-          fill="url(#lpGradient)"
-          animate={{ width: (lpAllocation / 100) * (panelPos.width - 60) }}
-          transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-        />
-        <text
-          x={panelPos.x + panelPos.width - 30}
-          y={panelPos.y + 245}
-          textAnchor="end"
-          style={{ fill: '#A855F7', fontSize: isMobile ? '15px' : '17px', fontWeight: 700 }}
-        >
-          {lpAllocation}%
-        </text>
-      </g>
-
-      {/* Token Bar */}
-      <g>
-        <foreignObject
-          x={panelPos.x + 30}
-          y={panelPos.y + 270}
-          width="50"
-          height="40"
-        >
-          <div className="flex -space-x-2">
-            <Image src="/btc.webp" alt="BTC" width={22} height={22} className="rounded-full" />
-            <Image src="/eth.webp" alt="ETH" width={22} height={22} className="rounded-full" />
-          </div>
-        </foreignObject>
-        <text
-          x={panelPos.x + 90}
-          y={panelPos.y + 295}
-          style={{ fill: '#e2e8f0', fontSize: isMobile ? '15px' : '17px', fontWeight: 600 }}
-        >
-          Spot BTC/ETH
-        </text>
-        <rect
-          x={panelPos.x + 30}
-          y={panelPos.y + 315}
-          width={panelPos.width - 60}
-          height="18"
-          rx="9"
-          fill="#1f2937"
-        />
-        <motion.rect
-          x={panelPos.x + 30}
-          y={panelPos.y + 315}
-          height="18"
-          rx="9"
-          fill="url(#cryptoGradient)"
-          animate={{ width: (spotAllocation / 100) * (panelPos.width - 60) }}
-          transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-        />
-        <text
-          x={panelPos.x + panelPos.width - 30}
-          y={panelPos.y + 330}
-          textAnchor="end"
-          style={{ fill: '#F97316', fontSize: isMobile ? '15px' : '17px', fontWeight: 700 }}
-        >
-          {spotAllocation}%
-        </text>
-      </g>
-
-      {/* Actions section */}
-      <text
-        x={panelPos.x + panelPos.width / 2}
-        y={panelPos.y + 365}
-        textAnchor="middle"
-        style={{ fill: '#64748b', fontSize: isMobile ? '11px' : '12px', fontWeight: 600, letterSpacing: '0.05em' }}
-      >
-        ACTIONS
-      </text>
-      {activeRegimeData.actions.slice(0, 2).map((action, idx) => {
-        const yPos = panelPos.y + 380 + idx * 35;
-        const maxLength = isMobile ? 35 : 45;
-        const displayText = action.length > maxLength ? action.slice(0, maxLength) + '...' : action;
-        
-        return (
-          <g key={idx}>
-            {/* Tag background with subtle gradient */}
-            <rect
-              x={panelPos.x + 30}
-              y={yPos}
-              width={panelPos.width - 60}
-              height="28"
-              rx="6"
-              fill="#1e293b"
-              stroke={activeRegimeData.fillColor}
-              strokeWidth="1"
-              opacity="0.6"
+          {/* Header */}
+          <div className="flex items-center gap-3 mb-4">
+            <div
+              className="w-4 h-4 rounded-full"
+              style={{ backgroundColor: activeRegimeData.fillColor }}
             />
-            {/* Tag text */}
-            <text
-              x={panelPos.x + 40}
-              y={yPos + 18}
-              style={{ fill: '#e2e8f0', fontSize: isMobile ? '10px' : '11px', fontWeight: 500 }}
+            <h3 className="text-2xl font-bold text-white">{activeRegimeData.label}</h3>
+          </div>
+
+          {/* Big Numbers */}
+          <div className="mb-6">
+            <div className="flex items-baseline gap-2 mb-2">
+              <span
+                className="text-4xl font-bold"
+                style={{ color: activeRegimeData.fillColor }}
+              >
+                {activeRegimeData.allocation.crypto}%
+              </span>
+              <span className="text-gray-400">crypto</span>
+              <span className="text-gray-600 mx-2">/</span>
+              <span
+                className="text-4xl font-bold"
+                style={{ color: activeRegimeData.fillColor }}
+              >
+                {activeRegimeData.allocation.stable}%
+              </span>
+              <span className="text-gray-400">stable</span>
+            </div>
+            <p className="text-sm text-gray-500 italic">{activeRegimeData.emotionalState}</p>
+          </div>
+
+          {/* Philosophy */}
+          <div className="mb-6 flex-grow">
+            <p
+              className="text-lg italic"
+              style={{ color: activeRegimeData.fillColor }}
             >
-              {displayText}
-            </text>
-          </g>
-        );
-      })}
+              {activeRegimeData.philosophy}
+            </p>
+          </div>
 
-      {/* Philosophy */}
-      <text
-        x={panelPos.x + panelPos.width / 2}
-        y={panelPos.y + 455}
-        textAnchor="middle"
-        style={{ fill: activeRegimeData.fillColor, fontSize: isMobile ? '11px' : '12px', fontStyle: 'italic' }}
-      >
-        {activeRegimeData.philosophy}
-      </text>
+          {/* Bars (replacing Actions) */}
+          <div className="space-y-6 mt-auto">
+            {/* USDC Bar */}
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <Image src="/usdc.webp" alt="USDC" width={24} height={24} className="rounded-full" />
+                <span className="text-gray-200 font-semibold text-sm">USDC</span>
+                <span className="ml-auto text-blue-400 font-bold">{activeRegimeData.allocation.stable}%</span>
+              </div>
+              <div className="h-3 bg-gray-800 rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full bg-gradient-to-r from-blue-600 to-blue-500"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${activeRegimeData.allocation.stable}%` }}
+                  transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+                />
+              </div>
+            </div>
 
-      {/* Total allocation
-      <text
-        x={panelPos.x + panelPos.width / 2}
-        y={panelPos.y + 525}
-        textAnchor="middle"
-        style={{ fill: '#e2e8f0', fontSize: isMobile ? '20px' : '24px', fontWeight: 700 }}
-      >
-        {activeRegimeData.allocation.crypto}% / {activeRegimeData.allocation.stable}%
-      </text>
-      <text
-        x={panelPos.x + panelPos.width / 2}
-        y={panelPos.y + 550}
-        textAnchor="middle"
-        style={{ fill: '#64748b', fontSize: isMobile ? '10px' : '11px' }}
-      >
-        Crypto / Stable
-      </text> */}
-    </g>
+            {/* LP Bar */}
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <div className="flex -space-x-1">
+                  <Image src="/btc.webp" alt="BTC" width={20} height={20} className="rounded-full" />
+                  <Image src="/eth.webp" alt="ETH" width={20} height={20} className="rounded-full" />
+                </div>
+                <span className="text-gray-200 font-semibold text-sm">LP Positions</span>
+                <span className="ml-auto text-purple-400 font-bold">{lpAllocation}%</span>
+              </div>
+              <div className="h-3 bg-gray-800 rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full bg-gradient-to-r from-purple-600 to-purple-500"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${lpAllocation}%` }}
+                  transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+                />
+              </div>
+            </div>
+
+            {/* Spot Bar */}
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <div className="flex -space-x-1">
+                  <Image src="/btc.webp" alt="BTC" width={20} height={20} className="rounded-full" />
+                  <Image src="/eth.webp" alt="ETH" width={20} height={20} className="rounded-full" />
+                </div>
+                <span className="text-gray-200 font-semibold text-sm">Spot BTC/ETH</span>
+                <span className="ml-auto text-orange-400 font-bold">{spotAllocation}%</span>
+              </div>
+              <div className="h-3 bg-gray-800 rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full bg-gradient-to-r from-orange-600 to-orange-500"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${spotAllocation}%` }}
+                  transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+                />
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+    </foreignObject>
   );
 }
