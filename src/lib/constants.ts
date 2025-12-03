@@ -57,7 +57,7 @@ export const STYLES = {
 
   // Text styles
   heading: 'text-4xl sm:text-5xl font-bold mb-6',
-  subheading: 'text-xl text-gray-400 max-w-3xl mx-auto',
+  subheading: 'text-xl text-gray-300 max-w-3xl mx-auto',
 
   // Button base styles
   buttonBase: 'px-8 py-4 rounded-xl font-semibold text-lg shadow-lg transition-all duration-300',

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { type RegimeId, regimeOrder, getRegimeById } from '../variation-claude/shared/regimeData';
 import { useState, useEffect } from 'react';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { RegimeArc } from './RegimeArc';
 import { AllocationPanel } from './AllocationPanel';
 
@@ -24,6 +25,7 @@ export function RegimeVisualizer({
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [animationDirection, setAnimationDirection] = useState<'forward' | 'backward'>('forward');
   const isMobile = useMediaQuery('(max-width: 1024px)');
+  const prefersReducedMotion = useReducedMotion();
 
   const activeRegimeData = getRegimeById(activeRegime);
   
@@ -60,7 +62,7 @@ export function RegimeVisualizer({
 
   // Auto-play logic with ping-pong animation
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    if (!isAutoPlaying || prefersReducedMotion) return;
 
     const timer = setInterval(() => {
       setActiveRegime(current => {
@@ -90,7 +92,7 @@ export function RegimeVisualizer({
     }, autoPlayInterval);
 
     return () => clearInterval(timer);
-  }, [autoPlayInterval, isAutoPlaying, animationDirection]);
+  }, [autoPlayInterval, isAutoPlaying, animationDirection, prefersReducedMotion]);
 
   // Calculate positions in gentle 180° arc (centered for vertical layout)
   const calculatePosition = (index: number) => {

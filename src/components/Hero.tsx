@@ -113,7 +113,7 @@ export function Hero() {
                 <div className="text-4xl sm:text-5xl md:text-6xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
                   {stat.value}
                 </div>
-                <div className="text-sm sm:text-base md:text-lg text-gray-400 group-hover:text-gray-300 transition-colors">
+                <div className="text-sm sm:text-base md:text-lg text-gray-300 group-hover:text-gray-300 transition-colors">
                   {stat.label}
                 </div>
               </motion.div>

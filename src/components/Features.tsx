@@ -55,7 +55,7 @@ export function Features() {
               Zap Pilot?
             </span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Built for the future of DeFi, designed for today&apos;s users
           </p>
         </motion.div>
@@ -107,7 +107,7 @@ export function Features() {
                     {feature.title}
                   </h3>
 
-                  <p className="text-gray-400 text-lg leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                  <p className="text-gray-300 text-lg leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
                     {feature.description}
                   </p>
 

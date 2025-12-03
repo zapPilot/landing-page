@@ -55,7 +55,7 @@ export function HowItWorks() {
               Works
             </span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Three simple steps to DeFi on autopilot
           </p>
         </motion.div>
@@ -111,7 +111,7 @@ export function HowItWorks() {
 
                     <h3 className="text-2xl font-bold text-white mb-4">{step.title}</h3>
 
-                    <p className="text-gray-400 mb-6 leading-relaxed">{step.description}</p>
+                    <p className="text-gray-300 mb-6 leading-relaxed">{step.description}</p>
 
                     {/* Details */}
                     <div className="space-y-3">
@@ -170,7 +170,7 @@ export function HowItWorks() {
                       <h3 className="text-xl font-bold text-white">{step.title}</h3>
                     </div>
 
-                    <p className="text-gray-400 mb-4">{step.description}</p>
+                    <p className="text-gray-300 mb-4">{step.description}</p>
 
                     {/* Details */}
                     <div className="space-y-2">
@@ -209,7 +209,7 @@ export function HowItWorks() {
             <h3 className="text-2xl font-bold text-white mb-4">
               Ready to Put Your DeFi on Autopilot?
             </h3>
-            <p className="text-gray-400 mb-6">
+            <p className="text-gray-300 mb-6">
               Join thousands of users who&apos;ve accelerated their rebalancing from 30 minutes to
               30 seconds
             </p>

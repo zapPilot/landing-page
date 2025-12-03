@@ -127,6 +127,9 @@ export function RegimeArc({
             key={regime.id}
             onClick={() => onRegimeClick(regime.id)}
             style={{ cursor: 'pointer' }}
+            role="button"
+            aria-label={`${regime.label} regime: ${regime.allocation.crypto}% crypto, ${regime.allocation.stable}% stable. ${isActive ? 'Currently selected' : 'Click to select'}`}
+            tabIndex={0}
           >
             {/* Node glow background */}
             {isActive && (

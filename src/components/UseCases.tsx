@@ -41,7 +41,7 @@ export function UseCases() {
               Cases
             </span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Real-world applications for every DeFi user
           </p>
         </motion.div>
@@ -80,7 +80,7 @@ export function UseCases() {
                       {useCase.title}
                     </h3>
 
-                    <p className="text-gray-400 text-lg leading-relaxed mb-8">
+                    <p className="text-gray-300 text-lg leading-relaxed mb-8">
                       {useCase.description}
                     </p>
 
@@ -107,14 +107,14 @@ export function UseCases() {
                       {index === 0 && (
                         <div className="space-y-4">
                           <div className="flex items-center justify-between">
-                            <span className="text-gray-400">Stablecoin Yield</span>
+                            <span className="text-gray-300">Stablecoin Yield</span>
                             <span className="text-green-400 font-semibold">+12.5% APY</span>
                           </div>
                           <div className="grid grid-cols-3 gap-3">
                             {['USDC', 'USDT', 'DAI'].map(token => (
                               <div key={token} className="bg-gray-700 rounded-lg p-3 text-center">
                                 <div className="text-white font-semibold">{token}</div>
-                                <div className="text-gray-400 text-sm">{33.3}%</div>
+                                <div className="text-gray-300 text-sm">{33.3}%</div>
                               </div>
                             ))}
                           </div>
@@ -137,7 +137,7 @@ export function UseCases() {
                       {index === 1 && (
                         <div className="space-y-4">
                           <div className="flex items-center justify-between">
-                            <span className="text-gray-400">Meme Index Portfolio</span>
+                            <span className="text-gray-300">Meme Index Portfolio</span>
                             <span className="text-purple-400 font-semibold">+156% YTD</span>
                           </div>
                           <div className="space-y-2">
@@ -150,7 +150,7 @@ export function UseCases() {
                               <div key={token.name} className="flex items-center space-x-3">
                                 <div className={`w-3 h-3 rounded-full ${token.color}`} />
                                 <span className="text-white flex-1">{token.name}</span>
-                                <span className="text-gray-400">{token.percentage}%</span>
+                                <span className="text-gray-300">{token.percentage}%</span>
                               </div>
                             ))}
                           </div>
@@ -160,7 +160,7 @@ export function UseCases() {
                       {index === 2 && (
                         <div className="space-y-4">
                           <div className="flex items-center justify-between">
-                            <span className="text-gray-400">Custom Strategy</span>
+                            <span className="text-gray-300">Custom Strategy</span>
                             <span className="text-blue-400 font-semibold">Multi-Chain</span>
                           </div>
                           <div className="grid grid-cols-2 gap-3">
@@ -173,7 +173,7 @@ export function UseCases() {
                           </div>
                           <div className="text-center">
                             <div className="text-2xl font-bold text-white">$45,230</div>
-                            <div className="text-gray-400 text-sm">Total Portfolio Value</div>
+                            <div className="text-gray-300 text-sm">Total Portfolio Value</div>
                           </div>
                         </div>
                       )}

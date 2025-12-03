@@ -36,7 +36,7 @@ export function Footer() {
                 </span>
               </div>
 
-              <p className="text-gray-400 mb-6 leading-relaxed">
+              <p className="text-gray-300 mb-6 leading-relaxed">
                 The future of DeFi execution is here. Simple, secure, and always in your control.
               </p>
 
@@ -47,7 +47,7 @@ export function Footer() {
                     key={link.label}
                     href={link.href}
                     target="_blank"
-                    className="w-10 h-10 bg-gray-800 hover:bg-gray-700 rounded-lg flex items-center justify-center text-gray-400 hover:text-white transition-all duration-200"
+                    className="w-12 h-12 bg-gray-800 hover:bg-gray-700 rounded-lg flex items-center justify-center text-gray-300 hover:text-white transition-all duration-200"
                     whileHover={{ scale: 1.1, y: -2 }}
                     whileTap={{ scale: 0.9 }}
                     initial={{ opacity: 0, y: 20 }}
@@ -80,7 +80,7 @@ export function Footer() {
                   >
                     <a
                       href={link.href}
-                      className="text-gray-400 hover:text-white transition-colors duration-200 flex items-center group"
+                      className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group"
                     >
                       <span className="group-hover:translate-x-1 transition-transform duration-200">
                         {link.label}
@@ -110,7 +110,7 @@ export function Footer() {
                   >
                     <a
                       href={link.href}
-                      className="text-gray-400 hover:text-white transition-colors duration-200 flex items-center group"
+                      className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group"
                     >
                       <span className="group-hover:translate-x-1 transition-transform duration-200">
                         {link.label}
@@ -129,7 +129,7 @@ export function Footer() {
               viewport={{ once: true }}
             >
               <h3 className="text-white font-semibold text-lg mb-6">Stay Updated</h3>
-              <p className="text-gray-400 mb-4">
+              <p className="text-gray-300 mb-4">
                 Get the latest updates on new features and DeFi insights.
               </p>
 
@@ -138,7 +138,7 @@ export function Footer() {
                   <input
                     type="email"
                     placeholder="Enter your email"
-                    className="flex-1 bg-gray-800 border border-gray-700 rounded-l-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors"
+                    className="flex-1 bg-gray-800 border border-gray-700 rounded-l-lg px-4 py-3 text-white placeholder-gray-300 focus:outline-none focus:border-purple-500 transition-colors"
                   />
                   <motion.button
                     className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-r-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all duration-200"
@@ -164,11 +164,11 @@ export function Footer() {
         >
           <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
             {/* Copyright */}
-            <div className="text-gray-400 text-sm">© 2023 Zap Pilot. All rights reserved.</div>
+            <div className="text-gray-300 text-sm">© 2023 Zap Pilot. All rights reserved.</div>
 
             {/* Built with love */}
             <motion.div
-              className="text-gray-400 text-sm flex items-center space-x-1"
+              className="text-gray-300 text-sm flex items-center space-x-1"
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.5 }}

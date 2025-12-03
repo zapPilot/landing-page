@@ -47,7 +47,7 @@ export function AllocationPanel({
               >
                 {activeRegimeData.allocation.crypto}%
               </span>
-              <span className="text-gray-400">crypto</span>
+              <span className="text-gray-300">crypto</span>
               <span className="text-gray-600 mx-2">/</span>
               <span
                 className="text-4xl font-bold"
@@ -55,7 +55,7 @@ export function AllocationPanel({
               >
                 {activeRegimeData.allocation.stable}%
               </span>
-              <span className="text-gray-400">stable</span>
+              <span className="text-gray-300">stable</span>
             </div>
             <p className="text-sm text-gray-500 italic">{activeRegimeData.author}</p>
           </div>
