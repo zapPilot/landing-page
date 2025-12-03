@@ -18,6 +18,7 @@ interface Regime {
   bgColor: string;
   fillColor: string; // SVG fill color (hex)
   emotionalState: string;
+  author: string;
   actions: string[];
   philosophy: string;
   whyThisWorks: string;
@@ -34,6 +35,7 @@ const regimes: Regime[] = [
     bgColor: 'bg-red-500',
     fillColor: '#ef4444', // red-500
     emotionalState: 'Maximum Pessimism',
+    author: 'Warren Buffett',
     actions: [
       'DCA into BTC/ETH using only your stables',
       'Prioritize debt repayment if LTV rises',
@@ -52,6 +54,7 @@ const regimes: Regime[] = [
     bgColor: 'bg-orange-500',
     fillColor: '#f97316', // orange-500
     emotionalState: 'Elevated Caution',
+    author: 'Nathan Rothschild',
     actions: [
       'Small probe entries with light DCA',
       'Partial BTC/ETH-USD LP positions',
@@ -70,6 +73,7 @@ const regimes: Regime[] = [
     bgColor: 'bg-yellow-500',
     fillColor: '#eab308', // yellow-500
     emotionalState: 'Balanced Sentiment',
+    author: 'Jesse Livermore',
     actions: [
       'Holiday mode—minimal activity',
       'Light rebalancing only if allocation drifts',
@@ -88,6 +92,7 @@ const regimes: Regime[] = [
     bgColor: 'bg-lime-500',
     fillColor: '#84cc16', // lime-500
     emotionalState: 'Rising Optimism',
+    author: 'Bernard Baruch',
     actions: [
       'Gradually shift spot BTC/ETH into LP positions',
       'DCA-sell if coming from Neutral',
@@ -106,6 +111,7 @@ const regimes: Regime[] = [
     bgColor: 'bg-green-500',
     fillColor: '#22c55e', // green-500
     emotionalState: 'Peak Euphoria',
+    author: 'Warren Buffett',
     actions: [
       'DCA-sell excess BTC/ETH into stables',
       'Retain small beta via token-USD LPs',

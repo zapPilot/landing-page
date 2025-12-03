@@ -9,7 +9,7 @@ export function AllocationPanel({
   panelPosition,
   lpAllocation,
   spotAllocation,
-  isMobile,
+  isMobile: _isMobile,
 }: AllocationPanelProps) {
   const panelPos = panelPosition;
 

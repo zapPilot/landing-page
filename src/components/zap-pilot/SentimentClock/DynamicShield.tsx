@@ -24,7 +24,6 @@ export function DynamicShield({ activeRegimeId, onRegimeChange }: GaugeProps) {
 
     // Shield Size (Defense)
     const shieldScale = isDefense ? 1.2 : isAttack ? 0.6 : 0.9;
-    const shieldOpacity = isDefense ? 0.8 : isAttack ? 0.2 : 0.5;
     const shieldColor = isDefense ? '#3b82f6' : '#94a3b8'; // Blue vs Slate
 
     // Thruster Size (Offense)

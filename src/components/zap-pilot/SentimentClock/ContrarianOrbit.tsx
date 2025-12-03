@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '@/components/ui/Card';
 import { SectionHeader } from '@/components/ui/SectionHeader';
@@ -149,8 +149,7 @@ export function ContrarianOrbit({ activeRegimeId, onRegimeChange }: GaugeProps) 
 
                         {/* Interactive Overlay for Selection */}
                         <div className="absolute inset-0 z-20">
-                            {REGIMES.map((r, i) => {
-                                const angle = (i / REGIMES.length) * 360; // 0 is top
+                            {REGIMES.map((_r, _i) => {
                                 // We need to place clickable areas around the circle
                                 // This is a bit tricky with pure CSS, simpler to just use the existing buttons or a separate control
                                 // For now, let's just replicate the buttons below or use a simple overlay

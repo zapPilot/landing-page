@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Card } from '@/components/ui/Card';
 import { PieChart, Activity, Shield, Zap } from 'lucide-react';

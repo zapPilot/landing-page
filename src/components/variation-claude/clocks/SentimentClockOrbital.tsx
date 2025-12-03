@@ -264,7 +264,7 @@ export default function SentimentClockOrbital({ activeRegime, onRegimeClick, onI
         textAnchor="middle"
         className="fill-gray-400 text-xs"
       >
-        {activeRegimeData.emotionalState}
+        {activeRegimeData.label}
       </text>
       <text
         x={CENTER}

@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Card } from '@/components/ui/Card';
 import { Wallet, Sliders, Cpu, PenTool } from 'lucide-react';

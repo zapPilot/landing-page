@@ -14,7 +14,7 @@ interface SentimentClockPendulumProps {
 export default function SentimentClockPendulum({
   activeRegime,
   onRegimeChange,
-  isPaused,
+  isPaused: _isPaused,
 }: SentimentClockPendulumProps) {
   const [previewPath, setPreviewPath] = useState<RegimeId[]>([]);
   const [isAnimatingPath, setIsAnimatingPath] = useState(false);

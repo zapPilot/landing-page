@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Card } from '@/components/ui/Card';

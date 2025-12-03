@@ -17,7 +17,7 @@ interface RegimeVisualizerProps {
 export function RegimeVisualizer({
   autoPlayInterval = 5000,
   startRegime = 'n',
-  showInteractivity = false,
+  showInteractivity: _showInteractivity = false,
   className = '',
 }: RegimeVisualizerProps) {
   const [activeRegime, setActiveRegime] = useState<RegimeId>(startRegime);

@@ -6,7 +6,6 @@ import { SectionHeader } from '@/components/ui';
 import { ANIMATIONS } from '@/lib/constants';
 import { type RegimeId, getRegimeById } from './shared/regimeData';
 import { useAutoPlay } from './shared/useAutoPlay';
-import SentimentClockOrbital from './clocks/SentimentClockOrbital';
 import SentimentClockRibbon from './clocks/SentimentClockRibbon';
 import SentimentClockPathway, { type LayoutVariant } from './clocks/SentimentClockPathway';
 import { Play, Pause } from 'lucide-react';
@@ -37,7 +36,7 @@ export default function SentimentClockVariations() {
   const [layoutVariant, setLayoutVariant] = useState<LayoutVariant>('center-tanks');
   const [autoPlayEnabled, setAutoPlayEnabled] = useState(true);
 
-  const { currentRegimeId, isPaused, pause, resume, goToRegime } = useAutoPlay({
+  const { currentRegimeId, isPaused, resume, goToRegime } = useAutoPlay({
     enabled: autoPlayEnabled,
     intervalMs: 6000,
   });
