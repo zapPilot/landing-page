@@ -24,8 +24,15 @@ export function RegimeVisualizer({
   const [activeRegime, setActiveRegime] = useState<RegimeId>(startRegime);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [animationDirection, setAnimationDirection] = useState<'forward' | 'backward'>('forward');
+  const [isLoading, setIsLoading] = useState(true);
   const isMobile = useMediaQuery('(max-width: 1024px)');
   const prefersReducedMotion = useReducedMotion();
+
+  // Simulate loading state for smooth initial render
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 300);
+    return () => clearTimeout(timer);
+  }, []);
 
   const activeRegimeData = getRegimeById(activeRegime);
   
@@ -119,13 +126,25 @@ export function RegimeVisualizer({
   return (
     <section className={`relative py-20 ${className}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="relative"
-        >
+        {isLoading ? (
+          // Loading skeleton
+          <div className="relative w-full h-[600px] lg:h-[700px] flex items-center justify-center">
+            <div className="text-center space-y-4">
+              <motion.div
+                className="w-16 h-16 mx-auto rounded-full border-4 border-purple-500 border-t-transparent"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+              />
+              <p className="text-gray-300 text-sm">Loading regime visualizer...</p>
+            </div>
+          </div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="relative"
+          >
           {/* Interaction hint - auto-dismisses */}
           {isAutoPlaying && (
             <motion.div
@@ -192,6 +211,7 @@ export function RegimeVisualizer({
             </svg>
           </div>
         </motion.div>
+        )}
       </div>
     </section>
   );

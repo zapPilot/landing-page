@@ -21,7 +21,7 @@ export default function HomePage() {
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-purple-950/20 to-blue-950/20" />
         <motion.div
-          className="absolute top-20 left-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
+          className="absolute top-20 left-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl gpu-accelerate"
           animate={prefersReducedMotion ? {} : {
             x: [0, 100, 0],
             y: [0, -50, 0],
