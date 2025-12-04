@@ -1,39 +1,39 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRightLeft, Shield, Network, TrendingUp } from 'lucide-react';
+import { Brain, Shield, Calendar, LineChart } from 'lucide-react';
 
 export function Features() {
   const features = [
     {
-      icon: ArrowRightLeft,
-      title: 'Lightning-Fast Rebalancing',
+      icon: Brain,
+      title: 'Sentiment-Driven Intelligence',
       description:
-        'Cut portfolio rebalancing from 30 minutes to 30 seconds. Our autopilot engine instantly moves your crypto across chains into optimal yield pools.',
+        'Monitors the Fear & Greed Index 24/7 and only suggests rebalancing when market emotions reach extremes — helping you buy fear and sell greed.',
       gradient: 'from-purple-500 to-violet-600',
       delay: 0.1,
     },
     {
       icon: Shield,
-      title: 'Your Wallet, Your Control',
+      title: 'Self-Custodial. Always.',
       description:
-        'Every token stays in your own wallet. Our autopilot executes rebalancing directly from your wallet — no custody, maximum security.',
+        'Every token stays in your wallet. Zap Pilot generates optimized rebalancing routes — you sign every transaction. No custody, no compromise.',
       gradient: 'from-blue-500 to-cyan-600',
       delay: 0.2,
     },
     {
-      icon: Network,
-      title: 'Seamless Cross-Chain Autopilot',
+      icon: Calendar,
+      title: 'Gradual, Disciplined Execution',
       description:
-        'Our autopilot navigates across 4+ chains automatically. No manual bridges or swaps — just set your course and let us handle the complex routing.',
+        'Rebalancing happens over 5-10 days with daily limits (1-3% of portfolio). No panic selling, no FOMO buying — just systematic allocation adjustments.',
       gradient: 'from-green-500 to-emerald-600',
       delay: 0.3,
     },
     {
-      icon: TrendingUp,
-      title: 'Smart Rebalancing Alerts',
+      icon: LineChart,
+      title: 'Transparent & Backtestable',
       description:
-        'From yield vaults to index funds to custom portfolios — get quarterly rebalancing reminders to maintain optimal allocations while keeping full custody.',
+        'All parameters are visible and adjustable. Regime thresholds, allocation targets, execution pace — everything is designed to be backtested and optimized.',
       gradient: 'from-orange-500 to-red-600',
       delay: 0.4,
     },

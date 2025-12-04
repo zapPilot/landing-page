@@ -37,7 +37,7 @@ export function Footer() {
               </div>
 
               <p className="text-gray-300 mb-6 leading-relaxed">
-                The future of DeFi execution is here. Simple, secure, and always in your control.
+                Sentiment-driven rebalancing for BTC/ETH investors. Disciplined, gradual, and always self-custodial.
               </p>
 
               {/* Social Links */}

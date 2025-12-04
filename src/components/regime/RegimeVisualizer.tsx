@@ -126,6 +126,24 @@ export function RegimeVisualizer({
   return (
     <section className={`relative py-20 ${className}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
+              Market Sentiment Drives Every Decision
+            </span>
+          </h2>
+          <p className="text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto">
+            Zap Pilot analyzes the Fear & Greed Index to determine when to act — and when to hold steady.
+          </p>
+        </motion.div>
+
         {isLoading ? (
           // Loading skeleton
           <div className="relative w-full h-[600px] lg:h-[700px] flex items-center justify-center">
@@ -160,7 +178,7 @@ export function RegimeVisualizer({
                 repeat: 2
               }}
             >
-              👆 Click any regime to explore
+              👆 Explore each regime to see how we respond
             </motion.div>
           )}
           <div className="w-full">

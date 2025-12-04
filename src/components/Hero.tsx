@@ -41,7 +41,7 @@ export function Hero() {
             className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/20 mb-8"
           >
             <Sparkles className="w-4 h-4 text-purple-400 mr-2" />
-            <span className="text-sm font-medium text-purple-300">🚀 Now Live on Mainnet</span>
+            <span className="text-sm font-medium text-purple-300">📊 Sentiment-Driven Rebalancing</span>
           </motion.div>
 
           {/* Main Heading */}
@@ -50,11 +50,11 @@ export function Hero() {
             className="text-6xl sm:text-7xl md:text-8xl font-bold mb-8 sm:mb-10 md:mb-12 leading-[1.1] tracking-tight"
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 drop-shadow-[0_0_30px_rgba(168,85,247,0.4)]">
-              Your DeFi,
+              Disciplined DeFi.
             </span>
             <br />
             <span className="text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-              On Autopilot ✈️
+              Driven by Emotion.
             </span>
           </motion.h1>
 
@@ -63,8 +63,7 @@ export function Hero() {
             variants={itemVariants}
             className="text-xl sm:text-2xl md:text-3xl text-gray-300 mb-10 sm:mb-14 md:mb-16 max-w-3xl mx-auto leading-relaxed"
           >
-            Cut portfolio rebalancing from 30 minutes to 30 seconds. Move your crypto across chains
-            into higher-yield pools — in one click — while every token stays in your own wallet.
+            Zap Pilot monitors the Fear & Greed Index and adjusts your BTC/ETH allocation only when markets reach extremes — gradually, over 5-10 days, entirely within your own wallet.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -79,7 +78,7 @@ export function Hero() {
               onClick={() => openExternalLink(LINKS.app)}
             >
               <span className="relative z-10 flex items-center justify-center">
-                Experience DeFi Autopilot
+                Discover Your Allocation
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </span>
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500 to-blue-500 opacity-0 group-hover:opacity-20 blur-xl transition-opacity" />

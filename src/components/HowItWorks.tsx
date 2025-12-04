@@ -1,41 +1,41 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { MessageSquare, Zap, Shield } from 'lucide-react';
+import { Settings, Activity, Shield } from 'lucide-react';
 import { LINKS, openExternalLink } from '@/config/links';
 
 export function HowItWorks() {
   const steps = [
     {
       number: 1,
-      icon: MessageSquare,
-      title: 'Set Your Course',
+      icon: Settings,
+      title: 'Define Your Strategy',
       description:
-        'Tell our autopilot what you want to achieve — earn yield, diversify, or rebalance your portfolio.',
+        'Set your target allocations for each regime and risk parameters. All thresholds are transparent and adjustable.',
       color: 'from-purple-500 to-violet-600',
       details: [
-        'Describe your investment goals',
-        'Set risk preferences',
-        'Choose rebalancing frequency',
+        'Choose extreme regime allocations (e.g., 70% crypto in fear, 30% in greed)',
+        'Set execution pace (5-10 days, 1-3% daily limits)',
+        'Select your core assets (BTC, ETH, USDC)',
       ],
     },
     {
       number: 2,
-      icon: Zap,
-      title: 'Autopilot Engages',
+      icon: Activity,
+      title: 'Real-Time Regime Detection',
       description:
-        'In 30 seconds, our autopilot finds the optimal path across chains and protocols — cutting rebalancing time by 99%.',
+        'Zap Pilot monitors the Fear & Greed Index 24/7, identifying when markets enter extreme regimes — and when to hold steady.',
       color: 'from-blue-500 to-cyan-600',
-      details: ['Lightning-fast execution', 'Cross-chain optimization', 'Maximum gas efficiency'],
+      details: ['Continuous sentiment monitoring', 'Extreme regime alerts (Extreme Fear/Greed)', 'Carry-over during neutral conditions'],
     },
     {
       number: 3,
       icon: Shield,
-      title: 'You Stay in Control',
+      title: 'Gradual Execution, Full Custody',
       description:
-        'Your funds remain in your wallet while our autopilot handles the complex multi-chain execution.',
+        'When rebalancing is needed, Zap Pilot generates optimized multi-chain routes. You review and sign each transaction — funds never leave your wallet.',
       color: 'from-green-500 to-emerald-600',
-      details: ['Self-custody maintained', 'Full transparency', 'One-click rebalancing'],
+      details: ['5-10 day execution window', 'Daily progress updates', 'Full transaction transparency'],
     },
   ];
 
@@ -56,7 +56,7 @@ export function HowItWorks() {
             </span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Three simple steps to DeFi on autopilot
+            Three simple steps to sentiment-driven rebalancing
           </p>
         </motion.div>
 
@@ -207,11 +207,10 @@ export function HowItWorks() {
         >
           <div className="bg-gray-900/50 backdrop-blur-lg border border-gray-800 rounded-3xl p-8 max-w-2xl mx-auto">
             <h3 className="text-2xl font-bold text-white mb-4">
-              Ready to Put Your DeFi on Autopilot?
+              Ready to Let Sentiment Guide Your Portfolio?
             </h3>
             <p className="text-gray-300 mb-6">
-              Join thousands of users who&apos;ve accelerated their rebalancing from 30 minutes to
-              30 seconds
+              Join disciplined investors who let market extremes — not emotions — drive their rebalancing decisions
             </p>
             <motion.button
               className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-purple-500/25 transition-all duration-300"

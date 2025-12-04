@@ -62,8 +62,8 @@ export function CTA() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-            Ready to Simplify
-            <span className="block">DeFi?</span>
+            Ready for Disciplined,
+            <span className="block">Sentiment-Driven DeFi?</span>
           </h2>
 
           <motion.p
@@ -73,8 +73,7 @@ export function CTA() {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            Join thousands of users who&apos;ve already simplified their DeFi experience with
-            intent-based execution
+            Join investors who rebalance based on market extremes — not impulsive emotions
           </motion.p>
 
           {/* Main CTA Buttons */}
@@ -138,7 +137,7 @@ export function CTA() {
               <MessageCircle className="w-8 h-8 text-white mb-4 mx-auto group-hover:scale-110 transition-transform" />
               <h3 className="text-white font-semibold mb-2">Community</h3>
               <p className="text-white/80 text-sm">
-                Join our Discord and connect with fellow DeFi enthusiasts
+                Join our Discord and learn regime-based allocation strategies
               </p>
             </motion.div>
 
@@ -150,7 +149,7 @@ export function CTA() {
               <BookOpen className="w-8 h-8 text-white mb-4 mx-auto group-hover:scale-110 transition-transform" />
               <h3 className="text-white font-semibold mb-2">Learn More</h3>
               <p className="text-white/80 text-sm">
-                Deep dive into intent-based execution and DeFi strategies
+                Explore the Fear & Greed Index methodology and backtest results
               </p>
             </motion.div>
           </motion.div>

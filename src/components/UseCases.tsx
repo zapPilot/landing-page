@@ -1,27 +1,51 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Coins, Target } from 'lucide-react';
+import { TrendingDown, TrendingUp, Pause } from 'lucide-react';
 
 export function UseCases() {
   const useCases = [
     {
       number: '01',
-      icon: Coins,
-      title: 'Zap into stablecoin yield vaults on L2s',
-      description:
-        'I have $50K spread across 5 chains. Every week, just move my funds into the highest-yield stablecoin pools → Zap Pilot handles bridging, swapping, and staking — in one click.',
-      gradient: 'from-green-400 to-emerald-500',
-      imageAlt: 'Stablecoin vault visualization',
+      icon: TrendingDown,
+      regime: 'Extreme Fear',
+      regimeBadge: 'bg-red-500/20 text-red-400 border-red-500/30',
+      title: 'Market Crash: Buy When Others Panic',
+      scenario: 'Bitcoin crashes from $60K to $40K. Fear & Greed Index drops to 15.',
+      userIntent: 'I want to DCA into BTC/ETH but without timing the exact bottom.',
+      zapAction:
+        'Gradually shifts from 30% crypto → 70% crypto over 10 days using your stable reserves.',
+      gradient: 'from-red-400 to-orange-500',
+      allocationStart: 30,
+      allocationEnd: 70,
     },
     {
       number: '02',
-      icon: Target,
-      title: 'Invest in a cross-chain crypto S&P500 — curated by us.',
-      description:
-        'I want a crypto version of the S&P 500. Rebalance it monthly based on market cap.→ Zap Pilot lets you create and maintain custom portfolios — rebalanced manually.',
-      gradient: 'from-blue-400 to-cyan-500',
-      imageAlt: 'Custom portfolio visualization',
+      icon: TrendingUp,
+      regime: 'Extreme Greed',
+      regimeBadge: 'bg-green-500/20 text-green-400 border-green-500/30',
+      title: 'Bull Market Peak: Take Profits Gradually',
+      scenario: 'Bitcoin rallies to $100K. Fear & Greed Index hits 92.',
+      userIntent: 'I want to take profits but avoid selling too early.',
+      zapAction:
+        'Gradually shifts from 70% crypto → 30% crypto over 10 days, locking in gains to stablecoins.',
+      gradient: 'from-green-400 to-emerald-500',
+      allocationStart: 70,
+      allocationEnd: 30,
+    },
+    {
+      number: '03',
+      icon: Pause,
+      regime: 'Neutral',
+      regimeBadge: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
+      title: 'Sideways Market: Hold & Wait',
+      scenario: 'Fear & Greed Index hovers between 45-55 for weeks.',
+      userIntent: "I don't want to overtrade or pay unnecessary fees.",
+      zapAction:
+        'Carries over your existing allocation with zero rebalancing. Your portfolio stays put.',
+      gradient: 'from-yellow-400 to-amber-500',
+      allocationStart: 50,
+      allocationEnd: 50,
     },
   ];
 
@@ -42,7 +66,7 @@ export function UseCases() {
             </span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Real-world applications for every DeFi user
+            Real scenarios where Zap Pilot keeps you disciplined
           </p>
         </motion.div>
 
@@ -76,13 +100,34 @@ export function UseCases() {
                       {useCase.number}
                     </motion.div>
 
+                    {/* Regime Badge */}
+                    <div
+                      className={`inline-block px-4 py-2 rounded-full border ${useCase.regimeBadge} font-semibold text-sm mb-4`}
+                    >
+                      {useCase.regime}
+                    </div>
+
                     <h3 className="text-3xl lg:text-4xl font-bold text-white mb-6 leading-tight">
                       {useCase.title}
                     </h3>
 
-                    <p className="text-gray-300 text-lg leading-relaxed mb-8">
-                      {useCase.description}
-                    </p>
+                    {/* Scenario */}
+                    <div className="mb-4">
+                      <p className="text-gray-400 text-sm font-semibold mb-1">Scenario:</p>
+                      <p className="text-gray-300 text-lg">{useCase.scenario}</p>
+                    </div>
+
+                    {/* User Intent */}
+                    <div className="mb-4">
+                      <p className="text-gray-400 text-sm font-semibold mb-1">Your Goal:</p>
+                      <p className="text-gray-300 text-lg italic">&ldquo;{useCase.userIntent}&rdquo;</p>
+                    </div>
+
+                    {/* Zap Action */}
+                    <div className="mb-8">
+                      <p className="text-gray-400 text-sm font-semibold mb-1">Zap Pilot Action:</p>
+                      <p className="text-white text-lg font-medium">{useCase.zapAction}</p>
+                    </div>
 
                     <motion.a
                       href="http://app.zap-pilot.org/"
@@ -92,91 +137,78 @@ export function UseCases() {
                       target="_blank"
                     >
                       <useCase.icon className="w-5 h-5 mr-2" />
-                      Try This Strategy
+                      Explore Strategy
                     </motion.a>
                   </div>
 
-                  {/* Visual */}
+                  {/* Visual - Allocation Chart */}
                   <div className={`relative ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
                     <motion.div
                       className="relative bg-gray-800/50 rounded-2xl p-8 border border-gray-700"
-                      whileHover={{ scale: 1.02, rotateY: 5 }}
+                      whileHover={{ scale: 1.02 }}
                       transition={{ type: 'spring', stiffness: 200 }}
                     >
-                      {/* Mock interface based on use case */}
-                      {index === 0 && (
-                        <div className="space-y-4">
-                          <div className="flex items-center justify-between">
-                            <span className="text-gray-300">Stablecoin Yield</span>
-                            <span className="text-green-400 font-semibold">+12.5% APY</span>
+                      {/* Allocation Visualization */}
+                      <div className="space-y-6">
+                        <div className="text-center">
+                          <div className="text-sm text-gray-400 mb-2">Portfolio Allocation</div>
+                          <div className="text-3xl font-bold text-white mb-6">
+                            {useCase.allocationStart}% → {useCase.allocationEnd}% Crypto
                           </div>
-                          <div className="grid grid-cols-3 gap-3">
-                            {['USDC', 'USDT', 'DAI'].map(token => (
-                              <div key={token} className="bg-gray-700 rounded-lg p-3 text-center">
-                                <div className="text-white font-semibold">{token}</div>
-                                <div className="text-gray-300 text-sm">{33.3}%</div>
-                              </div>
-                            ))}
-                          </div>
-                          <motion.div
-                            className="h-2 bg-gray-700 rounded-full overflow-hidden"
-                            initial={{ width: 0 }}
-                            whileInView={{ width: '100%' }}
-                            transition={{ delay: 1, duration: 1.5 }}
-                          >
-                            <motion.div
-                              className={`h-full bg-gradient-to-r ${useCase.gradient}`}
-                              initial={{ scaleX: 0 }}
-                              whileInView={{ scaleX: 1 }}
-                              transition={{ delay: 1.5, duration: 1 }}
-                            />
-                          </motion.div>
                         </div>
-                      )}
 
-                      {index === 1 && (
-                        <div className="space-y-4">
-                          <div className="flex items-center justify-between">
-                            <span className="text-gray-300">Meme Index Portfolio</span>
-                            <span className="text-purple-400 font-semibold">+156% YTD</span>
-                          </div>
-                          <div className="space-y-2">
-                            {[
-                              { name: 'DOGE', percentage: 25, color: 'bg-yellow-500' },
-                              { name: 'SHIB', percentage: 20, color: 'bg-orange-500' },
-                              { name: 'PEPE', percentage: 15, color: 'bg-green-500' },
-                              { name: 'FLOKI', percentage: 40, color: 'bg-purple-500' },
-                            ].map(token => (
-                              <div key={token.name} className="flex items-center space-x-3">
-                                <div className={`w-3 h-3 rounded-full ${token.color}`} />
-                                <span className="text-white flex-1">{token.name}</span>
-                                <span className="text-gray-300">{token.percentage}%</span>
-                              </div>
-                            ))}
+                        {/* Before State */}
+                        <div>
+                          <div className="text-sm text-gray-400 mb-2">Before</div>
+                          <div className="h-8 bg-gray-700 rounded-lg overflow-hidden flex">
+                            <div
+                              className={`bg-gradient-to-r ${useCase.gradient} flex items-center justify-center text-white text-sm font-semibold`}
+                              style={{ width: `${useCase.allocationStart}%` }}
+                            >
+                              {useCase.allocationStart}%
+                            </div>
+                            <div className="flex-1 bg-gray-600 flex items-center justify-center text-white text-sm font-semibold">
+                              {100 - useCase.allocationStart}% Stable
+                            </div>
                           </div>
                         </div>
-                      )}
 
-                      {index === 2 && (
-                        <div className="space-y-4">
-                          <div className="flex items-center justify-between">
-                            <span className="text-gray-300">Custom Strategy</span>
-                            <span className="text-blue-400 font-semibold">Multi-Chain</span>
-                          </div>
-                          <div className="grid grid-cols-2 gap-3">
-                            {['Ethereum', 'Polygon', 'Arbitrum', 'Optimism'].map(chain => (
-                              <div key={chain} className="bg-gray-700 rounded-lg p-2 text-center">
-                                <div className="text-white text-sm">{chain}</div>
-                                <div className="text-blue-400 text-xs">Active</div>
-                              </div>
-                            ))}
-                          </div>
-                          <div className="text-center">
-                            <div className="text-2xl font-bold text-white">$45,230</div>
-                            <div className="text-gray-300 text-sm">Total Portfolio Value</div>
+                        {/* Arrow */}
+                        <div className="text-center">
+                          <div className="text-2xl text-gray-500">↓</div>
+                          <div className="text-xs text-gray-400">Over 5-10 days</div>
+                        </div>
+
+                        {/* After State */}
+                        <div>
+                          <div className="text-sm text-gray-400 mb-2">After</div>
+                          <div className="h-8 bg-gray-700 rounded-lg overflow-hidden flex">
+                            <div
+                              className={`bg-gradient-to-r ${useCase.gradient} flex items-center justify-center text-white text-sm font-semibold`}
+                              style={{ width: `${useCase.allocationEnd}%` }}
+                            >
+                              {useCase.allocationEnd}%
+                            </div>
+                            <div className="flex-1 bg-gray-600 flex items-center justify-center text-white text-sm font-semibold">
+                              {100 - useCase.allocationEnd}% Stable
+                            </div>
                           </div>
                         </div>
-                      )}
+
+                        {/* Execution Details */}
+                        <div className="pt-4 border-t border-gray-700">
+                          <div className="grid grid-cols-2 gap-4 text-center">
+                            <div>
+                              <div className="text-xs text-gray-400">Daily Limit</div>
+                              <div className="text-sm text-white font-semibold">1-3%</div>
+                            </div>
+                            <div>
+                              <div className="text-xs text-gray-400">Duration</div>
+                              <div className="text-sm text-white font-semibold">5-10 days</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
                       {/* Floating elements */}
                       <motion.div
@@ -216,10 +248,10 @@ export function UseCases() {
           className="text-center mt-20"
         >
           <p className="text-xl text-gray-300 mb-6">
-            Forget about managing chains, swaps, or smart contracts.
+            Let market sentiment guide your decisions.
           </p>
           <p className="text-2xl font-semibold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-            Just define your intent — and Zap Pilot takes care of the rest.
+            Zap Pilot handles the gradual execution — entirely within your wallet.
           </p>
         </motion.div>
       </div>
