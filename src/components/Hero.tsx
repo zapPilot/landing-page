@@ -52,18 +52,18 @@ export function Hero() {
             className="text-6xl sm:text-7xl md:text-8xl font-bold mb-8 sm:mb-10 md:mb-12 leading-[1.1] tracking-tight"
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 drop-shadow-[0_0_30px_rgba(168,85,247,0.4)]">
-            Buy in fear.
+            {MESSAGES.slogans.primary.split('.')[0]}.
             </span>
             <br />
             <span className="text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-            Defend in greed.
+            {MESSAGES.slogans.primary.split('.')[1].trim()}.
             </span>
           </motion.h1>
 
           {/* Subtitle */}
           <motion.p
             variants={itemVariants}
-            className="text-xl sm:text-2xl md:text-3xl text-gray-300 mb-10 sm:mb-14 md:mb-16 max-w-3xl mx-auto leading-relaxed"
+            className="text-xl sm:text-2xl md:text-2xl text-gray-300 mb-10 sm:mb-14 md:mb-16 max-w-3xl mx-auto leading-relaxed"
           >
             {MESSAGES.hero.subtitle}
           </motion.p>
@@ -100,7 +100,7 @@ export function Hero() {
           {/* Stats */}
           <motion.div
             variants={itemVariants}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 max-w-4xl mx-auto"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12 max-w-5xl mx-auto"
           >
             {STATISTICS.map((stat, index) => (
               <StatDisplay key={stat.label} stat={stat} index={index} variant="hero" />

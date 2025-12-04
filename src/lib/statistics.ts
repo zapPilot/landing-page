@@ -33,4 +33,14 @@ export const STATISTICS: Stat[] = [
       { src: '/usdc.webp', alt: 'USDC', name: 'USDC' },
     ],
   },
+  {
+    label: 'Integrated Protocols',
+    type: 'icons',
+    icons: [
+      { src: '/protocols/morpho-blue.webp', alt: 'Morpho Blue', name: 'Morpho' },
+      { src: '/protocols/gmx-v2.webp', alt: 'GMX v2', name: 'GMX' },
+      { src: '/protocols/hyperdrive.webp', alt: 'Hyperdrive', name: 'Hyperdrive' },
+      { src: '/protocols/apollodao.webp', alt: 'ApolloDAO', name: 'Apollo' },
+    ],
+  },
 ];

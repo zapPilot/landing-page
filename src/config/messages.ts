@@ -1,17 +1,17 @@
 export const MESSAGES = {
   // Primary slogans
   slogans: {
-    primary: 'Buy in fear. Defend in greed.',
-    philosophy: 'Do Less · Don\'t Rush · Only Act When Necessary',
+    primary: 'Your Portfolio. Guided by Market Sentiment',
+    philosophy: 'Buy in fear. Defend in greed.',
     philosophyDescription:
-      'Built on timeless principles of disciplined investing—act only at market extremes, not on impulse.',
+      'A disciplined, sentiment-based strategy designed to help you allocate smarter, avoid extremes, and grow long-term BTC/ETH holdings with confidence.',
   },
 
   // Hero section
   hero: {
     badge: '📊 Sentiment-Driven Rebalancing',
     subtitle:
-      'Zap Pilot converts market sentiment into wallet-native rebalancing routes — you stay in control of your keys.',
+      'Zap Pilot is a self-custodial, sentiment-driven rebalancing engine that adjusts your BTC/ETH exposure at emotional extremes — with every action executed directly from your own wallet.',
     ctaPrimary: 'Discover Your Allocation',
     ctaSecondary: 'Watch Demo',
   },
@@ -151,6 +151,42 @@ export const MESSAGES = {
     manualSigning: 'Every transaction requires your manual signature',
     gradualExecution: '5-10 days with daily limits (1-3%)',
     notAFund: 'NOT a fund. Strategy suggestions only.',
+  },
+
+  // Protocols section
+  protocols: {
+    title: 'Integrated Protocols',
+    subtitle: 'Best-in-class DeFi protocols powering your rebalancing strategy',
+    items: [
+      {
+        name: 'Morpho Blue',
+        category: 'Lending',
+        description: 'Decentralized lending optimizer delivering superior yields with minimized risk through efficient capital allocation.',
+        logo: '/protocols/morpho-blue.webp',
+        link: 'https://morpho.org',
+      },
+      {
+        name: 'GMX v2',
+        category: 'Perpetuals',
+        description: 'Decentralized perpetual exchange offering low-cost leverage trading with deep liquidity and minimal slippage.',
+        logo: '/protocols/gmx-v2.webp',
+        link: 'https://gmx.io',
+      },
+      {
+        name: 'Hyperdrive',
+        category: 'Fixed Yield',
+        description: 'Automated market maker for fixed and variable yield markets, enabling predictable returns without lock-ups.',
+        logo: '/protocols/hyperdrive.webp',
+        link: 'https://hyperdrive.delv.tech',
+      },
+      {
+        name: 'ApolloDAO',
+        category: 'Yield Aggregator',
+        description: 'Multi-chain yield optimizer that automatically compounds returns across the most profitable DeFi strategies.',
+        logo: '/protocols/apollodao.webp',
+        link: 'https://apollo.farm',
+      },
+    ],
   },
 } as const;
 

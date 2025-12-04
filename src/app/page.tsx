@@ -7,6 +7,7 @@ import { Hero } from '@/components/Hero';
 import { RegimeVisualizer } from '@/components/regime';
 import { Philosophy } from '@/components/Philosophy';
 import { Features } from '@/components/Features';
+import { Protocols } from '@/components/Protocols';
 import { UseCases } from '@/components/UseCases';
 import { HowItWorks } from '@/components/HowItWorks';
 import { CTA } from '@/components/CTA';
@@ -68,6 +69,7 @@ export default function HomePage() {
       <RegimeVisualizer />
       <UseCases />
       <Features />
+      <Protocols />
       <HowItWorks />
       <Philosophy />
       <CTA />
