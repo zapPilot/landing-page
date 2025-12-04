@@ -11,7 +11,6 @@ import { UseCases } from '@/components/UseCases';
 import { HowItWorks } from '@/components/HowItWorks';
 import { CTA } from '@/components/CTA';
 import { Footer } from '@/components/Footer';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 export default function HomePage() {
   const prefersReducedMotion = useReducedMotion();
@@ -66,18 +65,11 @@ export default function HomePage() {
 
       <Navbar />
       <Hero />
-      <ErrorBoundary
-        fallback={
-          <div className="py-20 text-center">
-            <p className="text-gray-300">Unable to load regime visualizer</p>
-          </div>
-        }
-      >
-        <RegimeVisualizer />
-      </ErrorBoundary>
-      <Features />
+      <RegimeVisualizer />
       <UseCases />
+      <Features />
       <HowItWorks />
+      <Philosophy />
       <CTA />
       <Footer />
     </div>

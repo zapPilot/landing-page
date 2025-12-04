@@ -5,6 +5,7 @@ import { type RegimeId, regimeOrder, getRegimeById } from '../variation-claude/s
 import { useState, useEffect } from 'react';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { RegimeArc } from './RegimeArc';
 import { AllocationPanel } from './AllocationPanel';
 
@@ -124,7 +125,19 @@ export function RegimeVisualizer({
   const panelPos = getPanelPosition();
 
   return (
-    <section className={`relative py-20 ${className}`}>
+    <ErrorBoundary
+      fallback={
+        <section className="relative py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="py-20 text-center bg-gray-900/20 rounded-2xl border border-gray-800">
+              <p className="text-gray-300 mb-4">Unable to load regime visualizer</p>
+              <p className="text-gray-500 text-sm">Please refresh the page or try again later.</p>
+            </div>
+          </div>
+        </section>
+      }
+    >
+      <section className={`relative py-20 ${className}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -232,5 +245,6 @@ export function RegimeVisualizer({
         )}
       </div>
     </section>
+    </ErrorBoundary>
   );
 }

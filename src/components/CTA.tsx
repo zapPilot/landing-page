@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { ArrowRight, BookOpen, Github, MessageCircle } from 'lucide-react';
 import { LINKS, openExternalLink } from '@/config/links';
 import { STATISTICS } from '@/lib/statistics';
+import { StatDisplay } from '@/components/StatDisplay';
+import { MESSAGES } from '@/config/messages';
 
 export function CTA() {
   return (
@@ -62,8 +64,8 @@ export function CTA() {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-            Ready for Disciplined,
-            <span className="block">Sentiment-Driven DeFi?</span>
+            {MESSAGES.cta.title}
+            <span className="block">{MESSAGES.cta.titleSecondLine}</span>
           </h2>
 
           <motion.p
@@ -73,7 +75,7 @@ export function CTA() {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            Join investors who rebalance based on market extremes — not impulsive emotions
+            {MESSAGES.cta.subtitle}
           </motion.p>
 
           {/* Main CTA Buttons */}
@@ -91,7 +93,7 @@ export function CTA() {
               onClick={() => openExternalLink(LINKS.app)}
             >
               <span className="flex items-center justify-center">
-                Launch Zap Pilot
+                {MESSAGES.cta.ctaPrimary}
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </span>
             </motion.button>
@@ -104,7 +106,7 @@ export function CTA() {
             >
               <span className="flex items-center justify-center">
                 <BookOpen className="mr-2 w-5 h-5" />
-                Read Documentation
+                {MESSAGES.cta.ctaSecondary}
               </span>
             </motion.button>
           </motion.div>
@@ -123,9 +125,9 @@ export function CTA() {
               onClick={() => openExternalLink(LINKS.social.github)}
             >
               <Github className="w-8 h-8 text-white mb-4 mx-auto group-hover:scale-110 transition-transform" />
-              <h3 className="text-white font-semibold mb-2">Open Source</h3>
+              <h3 className="text-white font-semibold mb-2">{MESSAGES.cta.cards[0].title}</h3>
               <p className="text-white/80 text-sm">
-                Explore our codebase and contribute to the future of DeFi
+                {MESSAGES.cta.cards[0].description}
               </p>
             </motion.div>
 
@@ -135,9 +137,9 @@ export function CTA() {
               onClick={() => openExternalLink(LINKS.social.discord)}
             >
               <MessageCircle className="w-8 h-8 text-white mb-4 mx-auto group-hover:scale-110 transition-transform" />
-              <h3 className="text-white font-semibold mb-2">Community</h3>
+              <h3 className="text-white font-semibold mb-2">{MESSAGES.cta.cards[1].title}</h3>
               <p className="text-white/80 text-sm">
-                Join our Discord and learn regime-based allocation strategies
+                {MESSAGES.cta.cards[1].description}
               </p>
             </motion.div>
 
@@ -147,9 +149,9 @@ export function CTA() {
               onClick={() => openExternalLink(LINKS.documentation)}
             >
               <BookOpen className="w-8 h-8 text-white mb-4 mx-auto group-hover:scale-110 transition-transform" />
-              <h3 className="text-white font-semibold mb-2">Learn More</h3>
+              <h3 className="text-white font-semibold mb-2">{MESSAGES.cta.cards[2].title}</h3>
               <p className="text-white/80 text-sm">
-                Explore the Fear & Greed Index methodology and backtest results
+                {MESSAGES.cta.cards[2].description}
               </p>
             </motion.div>
           </motion.div>
@@ -163,27 +165,7 @@ export function CTA() {
             viewport={{ once: true }}
           >
             {STATISTICS.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                className="text-center"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <motion.div
-                  className="text-3xl md:text-4xl font-bold text-white mb-2"
-                  animate={{ opacity: [0.8, 1, 0.8] }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    delay: index * 0.5,
-                  }}
-                >
-                  {stat.value}
-                </motion.div>
-                <div className="text-white/80 text-sm">{stat.label}</div>
-              </motion.div>
+              <StatDisplay key={stat.label} stat={stat} index={index} variant="cta" animate />
             ))}
           </motion.div>
         </motion.div>

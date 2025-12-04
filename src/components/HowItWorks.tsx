@@ -2,40 +2,29 @@
 
 import { motion } from 'framer-motion';
 import { Settings, Activity, Shield } from 'lucide-react';
-import { LINKS, openExternalLink } from '@/config/links';
 
 export function HowItWorks() {
   const steps = [
     {
       number: 1,
       icon: Settings,
-      title: 'Define Your Strategy',
-      description:
-        'Set your target allocations for each regime and risk parameters. All thresholds are transparent and adjustable.',
+      title: 'Define Strategy',
+      description: 'Set your target allocations for each regime',
       color: 'from-purple-500 to-violet-600',
-      details: [
-        'Choose extreme regime allocations (e.g., 70% crypto in fear, 30% in greed)',
-        'Set execution pace (5-10 days, 1-3% daily limits)',
-        'Select your core assets (BTC, ETH, USDC)',
-      ],
     },
     {
       number: 2,
       icon: Activity,
-      title: 'Real-Time Regime Detection',
-      description:
-        'Zap Pilot monitors the Fear & Greed Index 24/7, identifying when markets enter extreme regimes — and when to hold steady.',
+      title: 'Monitor Sentiment',
+      description: 'Zap Pilot watches Fear & Greed Index 24/7',
       color: 'from-blue-500 to-cyan-600',
-      details: ['Continuous sentiment monitoring', 'Extreme regime alerts (Extreme Fear/Greed)', 'Carry-over during neutral conditions'],
     },
     {
       number: 3,
       icon: Shield,
-      title: 'Gradual Execution, Full Custody',
-      description:
-        'When rebalancing is needed, Zap Pilot generates optimized multi-chain routes. You review and sign each transaction — funds never leave your wallet.',
+      title: 'Execute Gradually',
+      description: 'Rebalancing happens over 5-10 days in your wallet',
       color: 'from-green-500 to-emerald-600',
-      details: ['5-10 day execution window', 'Daily progress updates', 'Full transaction transparency'],
     },
   ];
 
@@ -111,26 +100,7 @@ export function HowItWorks() {
 
                     <h3 className="text-2xl font-bold text-white mb-4">{step.title}</h3>
 
-                    <p className="text-gray-300 mb-6 leading-relaxed">{step.description}</p>
-
-                    {/* Details */}
-                    <div className="space-y-3">
-                      {step.details.map((detail, detailIndex) => (
-                        <motion.div
-                          key={detailIndex}
-                          initial={{ opacity: 0, x: -20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.2 + detailIndex * 0.1 }}
-                          viewport={{ once: true }}
-                          className="flex items-center text-gray-300 text-sm"
-                        >
-                          <div
-                            className={`w-2 h-2 rounded-full bg-gradient-to-r ${step.color} mr-3`}
-                          />
-                          {detail}
-                        </motion.div>
-                      ))}
-                    </div>
+                    <p className="text-gray-300 leading-relaxed">{step.description}</p>
                   </div>
                 </motion.div>
               ))}
@@ -170,19 +140,7 @@ export function HowItWorks() {
                       <h3 className="text-xl font-bold text-white">{step.title}</h3>
                     </div>
 
-                    <p className="text-gray-300 mb-4">{step.description}</p>
-
-                    {/* Details */}
-                    <div className="space-y-2">
-                      {step.details.map((detail, detailIndex) => (
-                        <div key={detailIndex} className="flex items-center text-gray-300 text-sm">
-                          <div
-                            className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${step.color} mr-3`}
-                          />
-                          {detail}
-                        </div>
-                      ))}
-                    </div>
+                    <p className="text-gray-300">{step.description}</p>
                   </div>
                 </div>
               </div>
@@ -196,32 +154,6 @@ export function HowItWorks() {
             </motion.div>
           ))}
         </div>
-
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mt-20"
-        >
-          <div className="bg-gray-900/50 backdrop-blur-lg border border-gray-800 rounded-3xl p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-white mb-4">
-              Ready to Let Sentiment Guide Your Portfolio?
-            </h3>
-            <p className="text-gray-300 mb-6">
-              Join disciplined investors who let market extremes — not emotions — drive their rebalancing decisions
-            </p>
-            <motion.button
-              className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-purple-500/25 transition-all duration-300"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => openExternalLink(LINKS.app)}
-            >
-              Get Started Now
-            </motion.button>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
