@@ -23,7 +23,7 @@ export function HowItWorks() {
       number: 3,
       icon: Shield,
       title: 'Execute Gradually',
-      description: 'Rebalancing happens over 5-10 days in your wallet',
+      description: 'Rebalancing happens over 5-10 days (regime-specific) in your wallet',
       color: 'from-green-500 to-emerald-600',
     },
   ];

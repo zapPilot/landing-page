@@ -34,7 +34,7 @@ export const MESSAGES = {
       {
         title: 'Gradual, Disciplined Execution',
         description:
-          'Rebalancing happens over 5-10 days with daily limits (1-3% of portfolio). No panic selling, no FOMO buying — just systematic allocation adjustments.',
+          'Rebalancing adapts to market intensity: 5 days (1%/day) for intermediate regimes, 10 days (2.5%/day) for extreme regimes. No panic selling, no FOMO buying — just systematic execution.',
       },
       {
         title: 'Transparent & Backtestable',
@@ -63,15 +63,31 @@ export const MESSAGES = {
         scenario: 'Bitcoin rallies to $100K. Fear & Greed Index hits 92.',
         userIntent: 'I want to take profits but avoid selling too early.',
         zapAction:
-          'Gradually shifts from 70% crypto → 30% crypto over 10 days, locking in gains to stablecoins.',
+          'Shifts from 70% crypto → 30% crypto over 10 days (2.5%/day = 25% total adjustment), locking in gains to stablecoins or low-risk pools.',
+      },
+      {
+        regime: 'Greed',
+        title: 'Rising Market: Lock Gains into LP',
+        scenario: 'Bitcoin rallies to $75K. Fear & Greed Index hits 65.',
+        userIntent: 'I want to lock in some gains while keeping crypto exposure and earning fees.',
+        zapAction:
+          'Shifts 5% of portfolio from spot BTC/ETH → crypto-USDC LP over 5 days (1%/day), earning trading fees while maintaining exposure.',
       },
       {
         regime: 'Neutral',
-        title: 'Sideways Market: Hold & Wait',
-        scenario: 'Fear & Greed Index hovers between 45-55 for weeks.',
+        title: 'Sideways Market: Maintain Balance',
+        scenario: 'Fear & Greed Index hovers between 46-54 for weeks.',
         userIntent: 'I don\'t want to overtrade or pay unnecessary fees.',
         zapAction:
-          'Carries over your existing allocation with zero rebalancing. Your portfolio stays put.',
+          'Maintains your 50/50 allocation with zero active rebalancing. Only monitors risk: if borrowing rates spike above threshold, automatically deleverages to protect capital.',
+      },
+      {
+        regime: 'Fear',
+        title: 'Market Cooling: Unwind LP for Spot',
+        scenario: 'Bitcoin drops to $55K. Fear & Greed Index falls to 35.',
+        userIntent: 'I want to increase spot exposure before market possibly drops further.',
+        zapAction:
+          'Unwinds 5% of portfolio from crypto-USDC LP → DCA into spot BTC/ETH over 5 days (1%/day), preparing for potential Extreme Fear.',
       },
     ],
     bottomMessage: {

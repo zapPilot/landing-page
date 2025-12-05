@@ -20,7 +20,7 @@ export function StatDisplay({ stat, index, variant = 'hero', animate = true }: S
     : 'text-center';
 
   const valueClasses = isHero
-    ? 'text-4xl sm:text-5xl md:text-6xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400'
+    ? 'text-3xl sm:text-4xl md:text-5xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400'
     : 'text-3xl md:text-4xl font-bold text-white mb-2';
 
   const labelClasses = isHero
@@ -28,7 +28,7 @@ export function StatDisplay({ stat, index, variant = 'hero', animate = true }: S
     : 'text-white/80 text-sm';
 
   const content = (
-    <>
+    <div className="flex flex-col items-center justify-center h-full">
       {stat.type === 'text' ? (
         <>
           <div className={valueClasses}>{stat.value}</div>
@@ -39,7 +39,7 @@ export function StatDisplay({ stat, index, variant = 'hero', animate = true }: S
           {/* Icon row */}
           <div className={`flex items-center justify-center ${isHero ? 'gap-3' : 'gap-2'} mb-3`}>
             {stat.icons?.map((icon) => (
-              <div key={icon.name} className="relative group/icon">
+              <div key={icon.name} className="relative group/icon flex items-center justify-center">
                 <Image
                   src={icon.src}
                   alt={icon.alt}
@@ -55,10 +55,10 @@ export function StatDisplay({ stat, index, variant = 'hero', animate = true }: S
               </div>
             ))}
           </div>
-          <div className={labelClasses}>{stat.label}</div>
+          <div className={`${labelClasses} text-center`}>{stat.label}</div>
         </>
       )}
-    </>
+    </div>
   );
 
   if (isHero) {

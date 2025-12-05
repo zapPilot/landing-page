@@ -25,7 +25,7 @@ export function Features() {
       icon: Calendar,
       title: 'Gradual, Disciplined Execution',
       description:
-        'Rebalancing happens over 5-10 days with daily limits (1-3% of portfolio). No panic selling, no FOMO buying — just systematic allocation adjustments.',
+        'Rebalancing adapts to market intensity: 5 days (1%/day) for intermediate regimes, 10 days (2.5%/day) for extreme regimes. No panic selling, no FOMO buying — just systematic execution.',
       gradient: 'from-green-500 to-emerald-600',
       delay: 0.3,
     },

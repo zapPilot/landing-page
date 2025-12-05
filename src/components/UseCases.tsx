@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { TrendingDown, TrendingUp, Pause } from 'lucide-react';
+import { LPPoolBadge } from './LPPoolBadge';
 
 export function UseCases() {
   const useCases = [
@@ -14,38 +15,73 @@ export function UseCases() {
       scenario: 'Bitcoin crashes from $60K to $40K. Fear & Greed Index drops to 15.',
       userIntent: 'I want to DCA into BTC/ETH but without timing the exact bottom.',
       zapAction:
-        'Gradually shifts from 30% crypto → 70% crypto over 10 days using your stable reserves.',
+        'Shifts from 30% crypto → 70% crypto over 10 days (2.5%/day = 25% total adjustment) using your stable reserves to DCA into spot BTC/ETH.',
       gradient: 'from-red-400 to-orange-500',
       allocationStart: 30,
       allocationEnd: 70,
+      showLP: false,
     },
     {
       number: '02',
-      icon: TrendingUp,
-      regime: 'Extreme Greed',
-      regimeBadge: 'bg-green-500/20 text-green-400 border-green-500/30',
-      title: 'Bull Market Peak: Take Profits Gradually',
-      scenario: 'Bitcoin rallies to $100K. Fear & Greed Index hits 92.',
-      userIntent: 'I want to take profits but avoid selling too early.',
+      icon: TrendingDown,
+      regime: 'Fear',
+      regimeBadge: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
+      title: 'Market Cooling: Unwind LP for Spot',
+      scenario: 'Bitcoin drops to $55K. Fear & Greed Index falls to 35.',
+      userIntent: 'I want to increase spot exposure before market possibly drops further.',
       zapAction:
-        'Gradually shifts from 70% crypto → 30% crypto over 10 days, locking in gains to stablecoins.',
-      gradient: 'from-green-400 to-emerald-500',
-      allocationStart: 70,
-      allocationEnd: 30,
+        'Unwinds 5% of portfolio from crypto-USDC LP → DCA into spot BTC/ETH over 5 days (1%/day), preparing for potential Extreme Fear.',
+      gradient: 'from-orange-400 to-red-500',
+      allocationStart: 50,
+      allocationEnd: 60,
+      showLP: true,
+      lpDirection: 'unwinding', // LP → Spot
     },
     {
       number: '03',
       icon: Pause,
       regime: 'Neutral',
       regimeBadge: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
-      title: 'Sideways Market: Hold & Wait',
-      scenario: 'Fear & Greed Index hovers between 45-55 for weeks.',
+      title: 'Sideways Market: Maintain Balance',
+      scenario: 'Fear & Greed Index hovers between 46-54 for weeks.',
       userIntent: "I don't want to overtrade or pay unnecessary fees.",
       zapAction:
-        'Carries over your existing allocation with zero rebalancing. Your portfolio stays put.',
+        'Maintains your 50/50 allocation with zero active rebalancing. Only monitors risk: if borrowing rates spike above threshold, automatically deleverages to protect capital.',
       gradient: 'from-yellow-400 to-amber-500',
       allocationStart: 50,
       allocationEnd: 50,
+      showLP: false,
+    },
+    {
+      number: '04',
+      icon: TrendingUp,
+      regime: 'Greed',
+      regimeBadge: 'bg-green-500/20 text-green-400 border-green-500/30',
+      title: 'Rising Market: Lock Gains into LP',
+      scenario: 'Bitcoin rallies to $75K. Fear & Greed Index hits 65.',
+      userIntent: 'I want to lock in some gains while keeping crypto exposure and earning fees.',
+      zapAction:
+        'Shifts 5% of portfolio from spot BTC/ETH → crypto-USDC LP over 5 days (1%/day), earning trading fees while maintaining exposure.',
+      gradient: 'from-green-400 to-teal-500',
+      allocationStart: 50,
+      allocationEnd: 40,
+      showLP: true,
+      lpDirection: 'building', // Spot → LP
+    },
+    {
+      number: '05',
+      icon: TrendingUp,
+      regime: 'Extreme Greed',
+      regimeBadge: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
+      title: 'Bull Market Peak: Take Profits Gradually',
+      scenario: 'Bitcoin rallies to $100K. Fear & Greed Index hits 92.',
+      userIntent: 'I want to take profits but avoid selling too early.',
+      zapAction:
+        'Shifts from 70% crypto → 30% crypto over 10 days (2.5%/day = 25% total adjustment), locking in gains to stablecoins or low-risk pools.',
+      gradient: 'from-emerald-400 to-green-500',
+      allocationStart: 70,
+      allocationEnd: 30,
+      showLP: false,
     },
   ];
 
@@ -208,6 +244,19 @@ export function UseCases() {
                             </div>
                           </div>
                         </div>
+
+                        {/* LP Pool Badges for Greed/Fear */}
+                        {useCase.showLP && (
+                          <div className="pt-4 border-t border-gray-700">
+                            <div className="text-xs text-gray-400 text-center mb-3">
+                              {useCase.lpDirection === 'building' ? 'Shifting to LP' : 'Unwinding LP'}
+                            </div>
+                            <div className="flex items-center justify-center gap-4">
+                              <LPPoolBadge token1="BTC" token2="USDC" size="sm" showLabel={false} />
+                              <LPPoolBadge token1="ETH" token2="USDC" size="sm" showLabel={false} />
+                            </div>
+                          </div>
+                        )}
                       </div>
 
                       {/* Floating elements */}
