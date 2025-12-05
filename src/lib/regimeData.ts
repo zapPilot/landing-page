@@ -33,7 +33,8 @@ export const regimes: Regime[] = [
       'No new leverage during this cycle',
     ],
     philosophy: '"Be greedy when others are fearful"',
-    whyThisWorks: 'Historical crypto bottoms occur during extreme fear. Value-buying without leverage minimizes risk while maximizing long-term upside.',
+    whyThisWorks:
+      'Historical crypto bottoms occur during extreme fear. Value-buying without leverage minimizes risk while maximizing long-term upside.',
   },
   {
     id: 'f',
@@ -50,7 +51,8 @@ export const regimes: Regime[] = [
       'Take profits if borrowing rates spike',
     ],
     philosophy: '"Buy when there\'s blood in the streets"',
-    whyThisWorks: 'Markets often retest lows. LP positions act as a midway zone—if market drops to Extreme Fear, you can unwind LP to buy spot.',
+    whyThisWorks:
+      'Markets often retest lows. LP positions act as a midway zone—if market drops to Extreme Fear, you can unwind LP to buy spot.',
   },
   {
     id: 'n',
@@ -67,7 +69,8 @@ export const regimes: Regime[] = [
       'Maintain current positions',
     ],
     philosophy: '"It was always my sitting that made the big money"',
-    whyThisWorks: 'When markets lack clear direction, the best move is often no move. Preserve capital and wait for clearer signals at extremes.',
+    whyThisWorks:
+      'When markets lack clear direction, the best move is often no move. Preserve capital and wait for clearer signals at extremes.',
   },
   {
     id: 'g',
@@ -84,7 +87,8 @@ export const regimes: Regime[] = [
       'Avoid new purchases unless from higher regime',
     ],
     philosophy: '"Nobody ever went broke taking a profit"',
-    whyThisWorks: 'Soft profit-taking via LP positions lets you lock gains while earning fees and retaining some upside exposure.',
+    whyThisWorks:
+      'Soft profit-taking via LP positions lets you lock gains while earning fees and retaining some upside exposure.',
   },
   {
     id: 'eg',
@@ -101,7 +105,8 @@ export const regimes: Regime[] = [
       'Move stables to conservative yields (perp vaults, stable pools)',
     ],
     philosophy: '"Be fearful when others are greedy"',
-    whyThisWorks: 'Market tops coincide with extreme greed. Shifting focus from gains to downside protection preserves wealth during inevitable corrections.',
+    whyThisWorks:
+      'Market tops coincide with extreme greed. Shifting focus from gains to downside protection preserves wealth during inevitable corrections.',
   },
 ];
 
@@ -112,7 +117,7 @@ export function getRegimeIndex(id: RegimeId): number {
 }
 
 export function getRegimeById(id: RegimeId): Regime {
-  return regimes.find((r) => r.id === id) || regimes[0];
+  return regimes.find(r => r.id === id) || regimes[0];
 }
 
 export function isAdjacentRegime(from: RegimeId, to: RegimeId): boolean {

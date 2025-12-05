@@ -1,4 +1,4 @@
-import type { RegimeId, Regime } from '../variation-claude/shared/regimeData';
+import type { RegimeId, Regime } from '@/lib/regimeData';
 
 export interface RegimeVisualizerProps {
   autoPlayInterval?: number;

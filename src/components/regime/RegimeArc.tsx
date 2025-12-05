@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { regimes } from '../variation-claude/shared/regimeData';
+import { regimes } from '@/lib/regimeData';
 import type { RegimeArcProps } from './types';
 
 interface DirectionArrowProps {
@@ -20,7 +20,7 @@ function DirectionArrow({
   direction,
   isActive,
   pathColor,
-  isMobile
+  isMobile,
 }: DirectionArrowProps) {
   // Calculate midpoint
   const midX = (from.x + to.x) / 2;
@@ -45,7 +45,7 @@ function DirectionArrow({
       transition={{
         duration: 2,
         repeat: Infinity,
-        ease: "easeInOut"
+        ease: 'easeInOut',
       }}
     >
       {/* Triangle arrow */}
@@ -150,13 +150,7 @@ export function RegimeArc({
             )}
 
             {/* Hover hitbox (invisible, larger for easier clicking) */}
-            <circle
-              cx={pos.x}
-              cy={pos.y}
-              r={70}
-              fill="transparent"
-              className="cursor-pointer"
-            />
+            <circle cx={pos.x} cy={pos.y} r={70} fill="transparent" className="cursor-pointer" />
 
             {/* Node circle */}
             <motion.circle
@@ -206,7 +200,16 @@ export function RegimeArc({
         return (
           <g key={`allocation-${regime.id}`}>
             {/* Allocation bar background - larger */}
-            <rect x={pos.x - 40} y={pos.y + 80} width="80" height="14" rx="7" fill="#1e293b" stroke="#374151" strokeWidth="1" />
+            <rect
+              x={pos.x - 40}
+              y={pos.y + 80}
+              width="80"
+              height="14"
+              rx="7"
+              fill="#1e293b"
+              stroke="#374151"
+              strokeWidth="1"
+            />
 
             {/* Crypto fill (left side - orange) */}
             <motion.rect
@@ -227,7 +230,7 @@ export function RegimeArc({
               fill="url(#stableGradient)"
               animate={{
                 x: pos.x - 39 + (regime.allocation.crypto / 100) * 78,
-                width: (regime.allocation.stable / 100) * 78
+                width: (regime.allocation.stable / 100) * 78,
               }}
               transition={{ duration: 0.5 }}
             />
@@ -245,10 +248,28 @@ export function RegimeArc({
             {/* Token icons */}
             <foreignObject x={pos.x - 40} y={pos.y + 115} width="80" height="20">
               <div className="flex justify-center gap-0.5">
-                <Image src="/btc.webp" alt="BTC" width={12} height={12} className="rounded-full opacity-60" />
-                <Image src="/eth.webp" alt="ETH" width={12} height={12} className="rounded-full opacity-60" />
+                <Image
+                  src="/btc.webp"
+                  alt="BTC"
+                  width={12}
+                  height={12}
+                  className="rounded-full opacity-60"
+                />
+                <Image
+                  src="/eth.webp"
+                  alt="ETH"
+                  width={12}
+                  height={12}
+                  className="rounded-full opacity-60"
+                />
                 <span className="text-[8px] text-slate-500 mx-1">/</span>
-                <Image src="/usdc.webp" alt="USDC" width={12} height={12} className="rounded-full opacity-60" />
+                <Image
+                  src="/usdc.webp"
+                  alt="USDC"
+                  width={12}
+                  height={12}
+                  className="rounded-full opacity-60"
+                />
               </div>
             </foreignObject>
           </g>
