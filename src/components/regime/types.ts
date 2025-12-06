@@ -1,12 +1,5 @@
 import type { RegimeId, Regime, RegimeStrategy } from '@/lib/regimeData';
 
-export interface RegimeVisualizerProps {
-  autoPlayInterval?: number;
-  startRegime?: RegimeId;
-  showInteractivity?: boolean;
-  className?: string;
-}
-
 export interface RegimeArcProps {
   activeRegime: RegimeId;
   calculatePosition: (index: number) => { x: number; y: number };
@@ -31,11 +24,4 @@ export interface AllocationPanelProps {
   activeStrategy: RegimeStrategy;
   directionLabel: string | null;
   isAutoPlaying?: boolean;
-}
-
-export interface PanelPosition {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
 }

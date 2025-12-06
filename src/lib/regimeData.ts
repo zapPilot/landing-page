@@ -262,12 +262,6 @@ export function getRegimeById(id: RegimeId): Regime {
   return regimes.find(r => r.id === id) || regimes[0];
 }
 
-export function isAdjacentRegime(from: RegimeId, to: RegimeId): boolean {
-  const fromIdx = getRegimeIndex(from);
-  const toIdx = getRegimeIndex(to);
-  return Math.abs(toIdx - fromIdx) === 1;
-}
-
 export function getActiveStrategy(
   regimeId: RegimeId,
   animationDirection: 'forward' | 'backward',

@@ -205,6 +205,3 @@ export const MESSAGES = {
     ],
   },
 } as const;
-
-// Type for accessing messages
-export type Messages = typeof MESSAGES;

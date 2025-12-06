@@ -42,6 +42,11 @@ next-env.d.ts
 
 gitdiff
 .claude/tsc-cache
+
+# Code quality reports
+.jscpd/
+jscpd-report/
+
 # Editor directories and files
 .vscode/*
 !.vscode/settings.json

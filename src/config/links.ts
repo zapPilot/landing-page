@@ -70,18 +70,6 @@ export const openExternalLink = (url: string) => {
   }
 };
 
-export const openEmail = (email: string, subject?: string, body?: string) => {
-  const params = new URLSearchParams();
-  if (subject) params.append('subject', subject);
-  if (body) params.append('body', body);
-
-  const mailtoUrl = `mailto:${email}${params.toString() ? '?' + params.toString() : ''}`;
-
-  if (typeof window !== 'undefined') {
-    window.location.href = mailtoUrl;
-  }
-};
-
 // Navigation links for internal site sections
 export const NAVIGATION = {
   internal: [
@@ -109,23 +97,4 @@ export const NAVIGATION = {
       { href: LINKS.newsletter.subscribe, label: 'Newsletter', external: true },
     ],
   },
-} as const;
-
-// Social media icons mapping (for dynamic rendering)
-export const SOCIAL_ICONS = {
-  twitter: 'Twitter',
-  discord: 'MessageCircle',
-  telegram: 'Send',
-  github: 'Github',
-  linkedin: 'Linkedin',
-  medium: 'BookOpen',
-  youtube: 'Youtube',
-} as const;
-
-// Link categories for easier management
-export const LINK_CATEGORIES = {
-  primary: [LINKS.app, LINKS.documentation],
-  social: Object.values(LINKS.social),
-  support: Object.values(LINKS.support),
-  legal: Object.values(LINKS.legal),
 } as const;

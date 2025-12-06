@@ -1,8 +1,11 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
+# Check for deadcode
+npm run deadcode:check
 
 # Run lint-staged to check and format staged files
 npm run pre-commit
 
 # Run type checking
 npm run type-check
+
+# Check for code duplication
+npm run dup:check
