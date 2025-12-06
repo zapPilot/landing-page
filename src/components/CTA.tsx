@@ -6,6 +6,7 @@ import { LINKS, openExternalLink } from '@/config/links';
 import { STATISTICS } from '@/lib/statistics';
 import { StatDisplay } from '@/components/StatDisplay';
 import { MESSAGES } from '@/config/messages';
+import { fadeInUpStaggered, scaleOnHover, scaleOnHoverSubtle } from '@/lib/motion/animations';
 
 export function CTA() {
   return (
@@ -57,39 +58,21 @@ export function CTA() {
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
+        <motion.div {...fadeInUpStaggered(0)} transition={{ duration: 0.8 }}>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
             {MESSAGES.cta.title}
             <span className="block">{MESSAGES.cta.titleSecondLine}</span>
           </h2>
 
-          <motion.p
-            className="text-xl text-white/90 mb-12 max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
+          <motion.p className="text-xl text-white/90 mb-12 max-w-3xl mx-auto" {...fadeInUpStaggered(0.2)} transition={{ duration: 0.8 }}>
             {MESSAGES.cta.subtitle}
           </motion.p>
 
           {/* Main CTA Buttons */}
-          <motion.div
-            className="flex flex-col sm:flex-row gap-6 justify-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ once: true }}
-          >
+          <motion.div className="flex flex-col sm:flex-row gap-6 justify-center mb-16" {...fadeInUpStaggered(0.4)} transition={{ duration: 0.8 }}>
             <motion.button
               className="group bg-white text-purple-600 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
+              {...scaleOnHover}
               onClick={() => openExternalLink(LINKS.app)}
             >
               <span className="flex items-center justify-center">
@@ -100,8 +83,7 @@ export function CTA() {
 
             <motion.button
               className="group bg-white/10 backdrop-blur-lg text-white px-8 py-4 rounded-xl font-semibold text-lg border border-white/20 hover:bg-white/20 transition-all duration-300"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
+              {...scaleOnHover}
               onClick={() => openExternalLink(LINKS.documentation)}
             >
               <span className="flex items-center justify-center">
@@ -112,16 +94,10 @@ export function CTA() {
           </motion.div>
 
           {/* Additional Links */}
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            viewport={{ once: true }}
-          >
+          <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto" {...fadeInUpStaggered(0.6)} transition={{ duration: 0.8 }}>
             <motion.div
               className="group bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer"
-              whileHover={{ scale: 1.03, y: -5 }}
+              {...scaleOnHoverSubtle}
               onClick={() => openExternalLink(LINKS.social.github)}
             >
               <Github className="w-8 h-8 text-white mb-4 mx-auto group-hover:scale-110 transition-transform" />
@@ -133,7 +109,7 @@ export function CTA() {
 
             <motion.div
               className="group bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer"
-              whileHover={{ scale: 1.03, y: -5 }}
+              {...scaleOnHoverSubtle}
               onClick={() => openExternalLink(LINKS.social.discord)}
             >
               <MessageCircle className="w-8 h-8 text-white mb-4 mx-auto group-hover:scale-110 transition-transform" />
@@ -145,7 +121,7 @@ export function CTA() {
 
             <motion.div
               className="group bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer"
-              whileHover={{ scale: 1.03, y: -5 }}
+              {...scaleOnHoverSubtle}
               onClick={() => openExternalLink(LINKS.documentation)}
             >
               <BookOpen className="w-8 h-8 text-white mb-4 mx-auto group-hover:scale-110 transition-transform" />
@@ -157,13 +133,7 @@ export function CTA() {
           </motion.div>
 
           {/* Stats Row */}
-          <motion.div
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 pt-16 border-t border-white/20"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            viewport={{ once: true }}
-          >
+          <motion.div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 pt-16 border-t border-white/20" {...fadeInUpStaggered(0.8)} transition={{ duration: 0.8 }}>
             {STATISTICS.map((stat, index) => (
               <StatDisplay key={stat.label} stat={stat} index={index} variant="cta" animate />
             ))}

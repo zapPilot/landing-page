@@ -5,6 +5,45 @@ import { Github, Twitter, MessageCircle, Mail } from 'lucide-react';
 import Image from 'next/image';
 import { LINKS, NAVIGATION } from '@/config/links';
 
+interface LinkSectionProps {
+  title: string;
+  links: ReadonlyArray<{ readonly label: string; readonly href: string }>;
+  delay?: number;
+}
+
+function FooterLinkSection({ title, links, delay = 0 }: LinkSectionProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay }}
+      viewport={{ once: true }}
+    >
+      <h3 className="text-white font-semibold text-lg mb-6">{title}</h3>
+      <ul className="space-y-4">
+        {links.map((link, index) => (
+          <motion.li
+            key={link.label}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, delay: index * 0.1 }}
+            viewport={{ once: true }}
+          >
+            <a
+              href={link.href}
+              className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group"
+            >
+              <span className="group-hover:translate-x-1 transition-transform duration-200">
+                {link.label}
+              </span>
+            </a>
+          </motion.li>
+        ))}
+      </ul>
+    </motion.div>
+  );
+}
+
 export function Footer() {
   const productLinks = NAVIGATION.footer.product;
   const resourceLinks = NAVIGATION.footer.resources;
@@ -62,64 +101,10 @@ export function Footer() {
             </motion.div>
 
             {/* Product Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-white font-semibold text-lg mb-6">Product</h3>
-              <ul className="space-y-4">
-                {productLinks.map((link, index) => (
-                  <motion.li
-                    key={link.label}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                  >
-                    <a
-                      href={link.href}
-                      className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group"
-                    >
-                      <span className="group-hover:translate-x-1 transition-transform duration-200">
-                        {link.label}
-                      </span>
-                    </a>
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
+            <FooterLinkSection title="Product" links={productLinks} delay={0.1} />
 
             {/* Resources Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-white font-semibold text-lg mb-6">Resources</h3>
-              <ul className="space-y-4">
-                {resourceLinks.map((link, index) => (
-                  <motion.li
-                    key={link.label}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                  >
-                    <a
-                      href={link.href}
-                      className="text-gray-300 hover:text-white transition-colors duration-200 flex items-center group"
-                    >
-                      <span className="group-hover:translate-x-1 transition-transform duration-200">
-                        {link.label}
-                      </span>
-                    </a>
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
+            <FooterLinkSection title="Resources" links={resourceLinks} delay={0.2} />
 
             {/* Newsletter Signup */}
             <motion.div

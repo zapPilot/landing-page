@@ -6,6 +6,7 @@ import { LINKS, openExternalLink } from '@/config/links';
 import { STATISTICS } from '@/lib/statistics';
 import { StatDisplay } from '@/components/StatDisplay';
 import { MESSAGES } from '@/config/messages';
+import { scaleOnHover } from '@/lib/motion/animations';
 
 export function Hero() {
   const containerVariants = {
@@ -75,7 +76,7 @@ export function Hero() {
           >
             <motion.button
               className="group relative px-12 py-6 text-lg sm:text-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-2xl shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 ring-2 ring-purple-400/20 hover:ring-purple-400/50"
-              whileHover={{ scale: 1.05, y: -2 }}
+              {...scaleOnHover}
               whileTap={{ scale: 0.98 }}
               onClick={() => openExternalLink(LINKS.app)}
             >
@@ -88,7 +89,7 @@ export function Hero() {
 
             <motion.button
               className="px-12 py-6 text-lg sm:text-xl border-2 border-gray-600 text-white font-semibold rounded-2xl hover:border-purple-500 hover:bg-purple-500/10 transition-all duration-300 flex items-center justify-center"
-              whileHover={{ scale: 1.05, y: -2 }}
+              {...scaleOnHover}
               whileTap={{ scale: 0.98 }}
               onClick={() => openExternalLink(LINKS.social.youtube)}
             >

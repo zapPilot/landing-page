@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ArrowRight, Coins } from 'lucide-react';
 import type { AssetFlow } from '@/lib/regimeData';
+import { GlowFilter, SVGBox } from '@/components/ui';
 
 interface LPFlowProps {
   assetFlow: AssetFlow;
@@ -87,48 +88,18 @@ function SankeyFlow({
             <stop offset="0%" stopColor={isUnwinding ? '#a855f7' : '#f97316'} stopOpacity="0.8" />
             <stop offset="100%" stopColor={isUnwinding ? '#f97316' : '#a855f7'} stopOpacity="0.8" />
           </linearGradient>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="3" result="coloredBlur" />
-            <feMerge>
-              <feMergeNode in="coloredBlur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
+          <GlowFilter id="glow" stdDeviation={3} />
         </defs>
 
         {/* Source box */}
-        <g>
-          <rect
-            x="20"
-            y={height / 2 - 30}
-            width="80"
-            height="60"
-            rx="8"
-            fill="#1f2937"
-            stroke="#374151"
-            strokeWidth="2"
-          />
-          <text
-            x="60"
-            y={height / 2 - 5}
-            textAnchor="middle"
-            fill="#9ca3af"
-            fontSize="12"
-            fontWeight="600"
-          >
-            {isUnwinding ? 'LP' : 'Spot'}
-          </text>
-          <text
-            x="60"
-            y={height / 2 + 10}
-            textAnchor="middle"
-            fill="#d1d5db"
-            fontSize="14"
-            fontWeight="700"
-          >
-            {transformation?.percentage}%
-          </text>
-        </g>
+        <SVGBox
+          x={20}
+          y={height / 2 - 30}
+          width={80}
+          height={60}
+          label={isUnwinding ? 'LP' : 'Spot'}
+          value={`${transformation?.percentage}%`}
+        />
 
         {/* Flow path */}
         <motion.path
@@ -162,38 +133,14 @@ function SankeyFlow({
         ))}
 
         {/* Destination box */}
-        <g>
-          <rect
-            x={width - 100}
-            y={height / 2 - 30}
-            width="80"
-            height="60"
-            rx="8"
-            fill="#1f2937"
-            stroke="#374151"
-            strokeWidth="2"
-          />
-          <text
-            x={width - 60}
-            y={height / 2 - 5}
-            textAnchor="middle"
-            fill="#9ca3af"
-            fontSize="12"
-            fontWeight="600"
-          >
-            {isUnwinding ? 'Spot' : 'LP'}
-          </text>
-          <text
-            x={width - 60}
-            y={height / 2 + 10}
-            textAnchor="middle"
-            fill="#d1d5db"
-            fontSize="14"
-            fontWeight="700"
-          >
-            {transformation?.percentage}%
-          </text>
-        </g>
+        <SVGBox
+          x={width - 100}
+          y={height / 2 - 30}
+          width={80}
+          height={60}
+          label={isUnwinding ? 'Spot' : 'LP'}
+          value={`${transformation?.percentage}%`}
+        />
 
         {/* Duration label */}
         <text x={width / 2} y={height - 10} textAnchor="middle" fill="#6b7280" fontSize="11">

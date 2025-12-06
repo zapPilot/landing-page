@@ -7,6 +7,12 @@ import { DirectionBadge } from './DirectionBadge';
 import { FlowVariantDisplay } from './FlowVariantDisplay';
 import { ThreePartAllocationBar } from '@/components/ui/allocation';
 
+const FLOW_VARIANTS = [
+  { label: 'Variant 1: Sankey Flow', variant: 'sankey' as const },
+  { label: 'Variant 2: Before/After Bars', variant: 'bars' as const },
+  { label: 'Variant 3: Step-by-Step Icons', variant: 'icons' as const },
+];
+
 export function AllocationPanel({
   activeRegimeData,
   panelPosition,
@@ -94,27 +100,16 @@ export function AllocationPanel({
             {/* LP Flow Visualization - Show all 3 variants for review */}
             {activeStrategy.lpTransformation && (
               <div className="space-y-6 mb-4">
-                <FlowVariantDisplay
-                  label="Variant 1: Sankey Flow"
-                  variant="sankey"
-                  assetFlow={activeStrategy.assetFlow}
-                  transformation={activeStrategy.lpTransformation}
-                  regimeColor={activeRegimeData.fillColor}
-                />
-                <FlowVariantDisplay
-                  label="Variant 2: Before/After Bars"
-                  variant="bars"
-                  assetFlow={activeStrategy.assetFlow}
-                  transformation={activeStrategy.lpTransformation}
-                  regimeColor={activeRegimeData.fillColor}
-                />
-                <FlowVariantDisplay
-                  label="Variant 3: Step-by-Step Icons"
-                  variant="icons"
-                  assetFlow={activeStrategy.assetFlow}
-                  transformation={activeStrategy.lpTransformation}
-                  regimeColor={activeRegimeData.fillColor}
-                />
+                {FLOW_VARIANTS.map(({ label, variant }) => (
+                  <FlowVariantDisplay
+                    key={variant}
+                    label={label}
+                    variant={variant}
+                    assetFlow={activeStrategy.assetFlow}
+                    transformation={activeStrategy.lpTransformation!}
+                    regimeColor={activeRegimeData.fillColor}
+                  />
+                ))}
               </div>
             )}
 

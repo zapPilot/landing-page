@@ -1,8 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import type { AllocationBarProps } from './types';
+import { TokenIcon, TokenPair } from '@/components/ui/TokenIcon';
 
 export function ThreePartAllocationBar({
   allocation,
@@ -95,57 +95,21 @@ export function ThreePartAllocationBar({
       {/* Legend with icons */}
       <div className="flex items-center justify-center gap-4 text-xs">
         <div className="flex items-center gap-1.5">
-          <div className="flex -space-x-1">
-            <Image
-              src="/btc.webp"
-              alt="BTC"
-              width={heights[size].icon}
-              height={heights[size].icon}
-              className="rounded-full"
-            />
-            <Image
-              src="/eth.webp"
-              alt="ETH"
-              width={heights[size].icon}
-              height={heights[size].icon}
-              className="rounded-full"
-            />
-          </div>
+          <TokenPair tokens={['btc', 'eth']} size={heights[size].icon} />
           <span className="text-gray-400">Spot:</span>
           <span className="text-orange-400 font-bold">{allocation.spot}%</span>
         </div>
 
         {allocation.lp > 0 && (
           <div className="flex items-center gap-1.5">
-            <div className="flex -space-x-1">
-              <Image
-                src="/btc.webp"
-                alt="BTC"
-                width={heights[size].icon}
-                height={heights[size].icon}
-                className="rounded-full"
-              />
-              <Image
-                src="/usdc.webp"
-                alt="USDC"
-                width={heights[size].icon}
-                height={heights[size].icon}
-                className="rounded-full"
-              />
-            </div>
+            <TokenPair tokens={['btc', 'usdc']} size={heights[size].icon} />
             <span className="text-gray-400">LP:</span>
             <span className="text-purple-400 font-bold">{allocation.lp}%</span>
           </div>
         )}
 
         <div className="flex items-center gap-1.5">
-          <Image
-            src="/usdc.webp"
-            alt="USDC"
-            width={heights[size].icon}
-            height={heights[size].icon}
-            className="rounded-full"
-          />
+          <TokenIcon token="usdc" size={heights[size].icon} />
           <span className="text-gray-400">Stable:</span>
           <span className="text-blue-400 font-bold">{allocation.stable}%</span>
         </div>

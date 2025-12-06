@@ -14,6 +14,7 @@ import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { RegimeArc } from './RegimeArc';
 import { AllocationPanel } from './AllocationPanel';
+import { GlowFilter } from '@/components/ui';
 
 interface RegimeVisualizerProps {
   autoPlayInterval?: number;
@@ -231,13 +232,7 @@ export function RegimeVisualizer({
                     </linearGradient>
 
                     {/* Glow filter */}
-                    <filter id="pathwayGlow">
-                      <feGaussianBlur stdDeviation="5" result="coloredBlur" />
-                      <feMerge>
-                        <feMergeNode in="coloredBlur" />
-                        <feMergeNode in="SourceGraphic" />
-                      </feMerge>
-                    </filter>
+                    <GlowFilter id="pathwayGlow" stdDeviation={5} />
                   </defs>
 
                   <RegimeArc
