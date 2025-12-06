@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Brain, Shield, Calendar, LineChart } from 'lucide-react';
+import { SectionHeader, CardGrid, CardItem } from './layout';
 
 export function Features() {
   const features = [
@@ -42,104 +43,91 @@ export function Features() {
   return (
     <section id="features" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-            Why
-            <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent ml-3">
-              Zap Pilot?
-            </span>
-          </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Built for the future of DeFi, designed for today&apos;s users
-          </p>
-        </motion.div>
+        <SectionHeader
+          title={
+            <>
+              Why
+              <span className="ml-3">Zap Pilot?</span>
+            </>
+          }
+          subtitle="Built for the future of DeFi, designed for today's users"
+        />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {features.map(feature => (
-            <motion.div
+        <CardGrid columns={2}>
+          {features.map((feature, index) => (
+            <CardItem
               key={feature.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: feature.delay }}
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.03, y: -5 }}
+              index={index}
+              hoverScale={false}
               className="group relative"
             >
-              <div className="bg-gray-900/50 backdrop-blur-lg border border-gray-800 rounded-3xl p-8 hover:border-gray-700 transition-all duration-300 relative overflow-hidden">
-                {/* Animated background gradient */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
-                />
+              {/* Animated background gradient */}
+              <div
+                className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
+              />
 
-                {/* Animated border effect */}
+              {/* Animated border effect */}
+              <motion.div
+                className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{
+                  background: `conic-gradient(from 0deg, transparent, rgba(147, 51, 234, 0.1), transparent)`,
+                }}
+                animate={{
+                  rotate: [0, 360],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: 'linear',
+                }}
+              />
+
+              <div className="relative z-10">
+                {/* Icon */}
                 <motion.div
-                  className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{
-                    background: `conic-gradient(from 0deg, transparent, rgba(147, 51, 234, 0.1), transparent)`,
-                  }}
-                  animate={{
-                    rotate: [0, 360],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: 'linear',
-                  }}
-                />
+                  className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
+                  whileHover={{ rotate: 5 }}
+                >
+                  <feature.icon className="w-8 h-8 text-white" />
+                </motion.div>
 
-                <div className="relative z-10">
-                  {/* Icon */}
-                  <motion.div
-                    className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}
-                    whileHover={{ rotate: 5 }}
+                {/* Content */}
+                <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-blue-400 group-hover:bg-clip-text transition-all duration-300">
+                  {feature.title}
+                </h3>
+
+                <p className="text-gray-300 text-lg leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                  {feature.description}
+                </p>
+
+                {/* Learn more link */}
+                <motion.div
+                  className="mt-6 inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors duration-200 opacity-0 group-hover:opacity-100"
+                  initial={{ x: -10 }}
+                  whileHover={{ x: 0 }}
+                >
+                  <a
+                    className="text-sm font-medium mr-2"
+                    href="https://docs.zap-pilot.org/docs/how-it-works"
+                    target="_blank"
                   >
-                    <feature.icon className="w-8 h-8 text-white" />
-                  </motion.div>
-
-                  {/* Content */}
-                  <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-blue-400 group-hover:bg-clip-text transition-all duration-300">
-                    {feature.title}
-                  </h3>
-
-                  <p className="text-gray-300 text-lg leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
-                    {feature.description}
-                  </p>
-
-                  {/* Learn more link */}
+                    Learn more
+                  </a>
                   <motion.div
-                    className="mt-6 inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors duration-200 opacity-0 group-hover:opacity-100"
-                    initial={{ x: -10 }}
-                    whileHover={{ x: 0 }}
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
                   >
-                    <a
-                      className="text-sm font-medium mr-2"
-                      href="https://docs.zap-pilot.org/docs/how-it-works"
-                      target="_blank"
-                    >
-                      Learn more
-                    </a>
-                    <motion.div
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    >
-                      →
-                    </motion.div>
+                    →
                   </motion.div>
-                </div>
-
-                {/* Decorative elements */}
-                <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-purple-500/10 to-blue-500/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-to-tr from-pink-500/10 to-purple-500/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                </motion.div>
               </div>
-            </motion.div>
+
+              {/* Decorative elements */}
+              <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-purple-500/10 to-blue-500/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-to-tr from-pink-500/10 to-purple-500/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+            </CardItem>
           ))}
-        </div>
+        </CardGrid>
 
         {/* Bottom CTA */}
         <motion.div

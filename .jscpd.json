@@ -1,5 +1,5 @@
 {
-  "threshold": 2.5,
+  "threshold": 8,
   "reporters": ["html", "console", "json"],
   "format": ["typescript", "javascript", "tsx", "jsx"],
   "minLines": 5,

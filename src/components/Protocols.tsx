@@ -1,48 +1,26 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ExternalLink } from 'lucide-react';
 import { MESSAGES } from '@/config/messages';
+import { SectionHeader, CardGrid, CardItem } from './layout';
 
 export function Protocols() {
   return (
     <section className="py-24 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-              {MESSAGES.protocols.title}
-            </span>
-          </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            {MESSAGES.protocols.subtitle}
-          </p>
-        </motion.div>
+        <SectionHeader title={MESSAGES.protocols.title} subtitle={MESSAGES.protocols.subtitle} />
 
-        {/* Protocol Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <CardGrid columns={2}>
           {MESSAGES.protocols.items.map((protocol, index) => (
-            <motion.a
+            <a
               key={protocol.name}
               href={protocol.link}
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.03, y: -5 }}
               className="group relative block"
             >
-              <div className="bg-gray-900/50 backdrop-blur-lg border border-gray-800 rounded-3xl p-8 hover:border-gray-700 transition-all duration-300 relative overflow-hidden h-full">
+              <CardItem index={index}>
                 {/* Hover gradient effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
@@ -70,14 +48,12 @@ export function Protocols() {
                   </h3>
 
                   {/* Description */}
-                  <p className="text-gray-400 leading-relaxed">
-                    {protocol.description}
-                  </p>
+                  <p className="text-gray-400 leading-relaxed">{protocol.description}</p>
                 </div>
-              </div>
-            </motion.a>
+              </CardItem>
+            </a>
           ))}
-        </div>
+        </CardGrid>
       </div>
     </section>
   );

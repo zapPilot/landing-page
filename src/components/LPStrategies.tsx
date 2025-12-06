@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Droplets, TrendingUp, ShieldCheck } from 'lucide-react';
 import { LPPoolBadge } from './LPPoolBadge';
+import { SectionHeader, CardGrid, CardItem } from './layout';
 
 export function LPStrategies() {
   const strategies = [
@@ -41,77 +42,51 @@ export function LPStrategies() {
   return (
     <section className="py-24 relative bg-gray-900/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-              LP Pool Strategies
-            </span>
-          </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Earn fees while maintaining crypto exposure during intermediate regimes
-          </p>
-        </motion.div>
+        <SectionHeader
+          title="LP Pool Strategies"
+          subtitle="Earn fees while maintaining crypto exposure during intermediate regimes"
+        />
 
-        {/* Strategy Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <CardGrid columns={3}>
           {strategies.map((strategy, index) => (
-            <motion.div
-              key={strategy.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.03, y: -5 }}
-              className="group relative"
-            >
-              <div className="bg-gray-900/50 backdrop-blur-lg border border-gray-800 rounded-3xl p-8 hover:border-gray-700 transition-all duration-300 relative overflow-hidden h-full flex flex-col">
-                {/* Hover gradient effect */}
+            <CardItem key={strategy.title} index={index} className="group relative">
+              {/* Hover gradient effect */}
+              <div
+                className={`absolute inset-0 bg-gradient-to-br ${strategy.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
+              />
+
+              <div className="relative z-10 flex-1 flex flex-col">
+                {/* Icon */}
                 <div
-                  className={`absolute inset-0 bg-gradient-to-br ${strategy.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
-                />
-
-                <div className="relative z-10 flex-1 flex flex-col">
-                  {/* Icon */}
-                  <div
-                    className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-r ${strategy.gradient} text-white mb-6`}
-                  >
-                    <strategy.icon className="w-8 h-8" />
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-2xl font-bold text-white mb-4">{strategy.title}</h3>
-
-                  {/* Description */}
-                  <p className="text-gray-400 leading-relaxed mb-6 flex-1">
-                    {strategy.description}
-                  </p>
-
-                  {/* LP Pool Badges */}
-                  {strategy.pools.length > 0 && (
-                    <div className="flex items-center justify-center gap-6 pt-4 border-t border-gray-700">
-                      {strategy.pools.map((pool) => (
-                        <LPPoolBadge
-                          key={`${pool.token1}-${pool.token2}`}
-                          token1={pool.token1}
-                          token2={pool.token2}
-                          size="md"
-                          showLabel={true}
-                        />
-                      ))}
-                    </div>
-                  )}
+                  className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-r ${strategy.gradient} text-white mb-6`}
+                >
+                  <strategy.icon className="w-8 h-8" />
                 </div>
+
+                {/* Title */}
+                <h3 className="text-2xl font-bold text-white mb-4">{strategy.title}</h3>
+
+                {/* Description */}
+                <p className="text-gray-400 leading-relaxed mb-6 flex-1">{strategy.description}</p>
+
+                {/* LP Pool Badges */}
+                {strategy.pools.length > 0 && (
+                  <div className="flex items-center justify-center gap-6 pt-4 border-t border-gray-700">
+                    {strategy.pools.map(pool => (
+                      <LPPoolBadge
+                        key={`${pool.token1}-${pool.token2}`}
+                        token1={pool.token1}
+                        token2={pool.token2}
+                        size="md"
+                        showLabel={true}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
-            </motion.div>
+            </CardItem>
           ))}
-        </div>
+        </CardGrid>
 
         {/* Bottom Note */}
         <motion.div
@@ -122,8 +97,9 @@ export function LPStrategies() {
           className="text-center mt-16 p-6 bg-purple-500/10 rounded-2xl border border-purple-500/20"
         >
           <p className="text-gray-300 text-lg">
-            <span className="font-semibold text-white">Execution Pace:</span> LP transitions happen over{' '}
-            <span className="text-purple-300">5 days at 1%/day</span> (5% total portfolio adjustment) in Greed and Fear regimes.
+            <span className="font-semibold text-white">Execution Pace:</span> LP transitions happen
+            over <span className="text-purple-300">5 days at 1%/day</span> (5% total portfolio
+            adjustment) in Greed and Fear regimes.
           </p>
         </motion.div>
       </div>

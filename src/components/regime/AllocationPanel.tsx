@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Info } from 'lucide-react';
 import type { AllocationPanelProps } from './types';
 import { DirectionBadge } from './DirectionBadge';
-import { LPFlowVisualization } from './LPFlowVisualization';
+import { FlowVariantDisplay } from './FlowVariantDisplay';
 import { ThreePartAllocationBar } from '@/components/ui/allocation';
 
 export function AllocationPanel({
@@ -94,40 +94,27 @@ export function AllocationPanel({
             {/* LP Flow Visualization - Show all 3 variants for review */}
             {activeStrategy.lpTransformation && (
               <div className="space-y-6 mb-4">
-                <div className="space-y-2">
-                  <p className="text-xs text-gray-500 font-semibold">Variant 1: Sankey Flow</p>
-                  <LPFlowVisualization
-                    assetFlow={activeStrategy.assetFlow}
-                    transformation={activeStrategy.lpTransformation}
-                    variant="sankey"
-                    size="sm"
-                    regimeColor={activeRegimeData.fillColor}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <p className="text-xs text-gray-500 font-semibold">
-                    Variant 2: Before/After Bars
-                  </p>
-                  <LPFlowVisualization
-                    assetFlow={activeStrategy.assetFlow}
-                    transformation={activeStrategy.lpTransformation}
-                    variant="bars"
-                    size="sm"
-                    regimeColor={activeRegimeData.fillColor}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <p className="text-xs text-gray-500 font-semibold">
-                    Variant 3: Step-by-Step Icons
-                  </p>
-                  <LPFlowVisualization
-                    assetFlow={activeStrategy.assetFlow}
-                    transformation={activeStrategy.lpTransformation}
-                    variant="icons"
-                    size="sm"
-                    regimeColor={activeRegimeData.fillColor}
-                  />
-                </div>
+                <FlowVariantDisplay
+                  label="Variant 1: Sankey Flow"
+                  variant="sankey"
+                  assetFlow={activeStrategy.assetFlow}
+                  transformation={activeStrategy.lpTransformation}
+                  regimeColor={activeRegimeData.fillColor}
+                />
+                <FlowVariantDisplay
+                  label="Variant 2: Before/After Bars"
+                  variant="bars"
+                  assetFlow={activeStrategy.assetFlow}
+                  transformation={activeStrategy.lpTransformation}
+                  regimeColor={activeRegimeData.fillColor}
+                />
+                <FlowVariantDisplay
+                  label="Variant 3: Step-by-Step Icons"
+                  variant="icons"
+                  assetFlow={activeStrategy.assetFlow}
+                  transformation={activeStrategy.lpTransformation}
+                  regimeColor={activeRegimeData.fillColor}
+                />
               </div>
             )}
 

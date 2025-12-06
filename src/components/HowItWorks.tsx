@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Settings, Activity, Shield } from 'lucide-react';
+import { SectionHeader } from './layout';
 
 export function HowItWorks() {
   const steps = [
@@ -31,23 +32,15 @@ export function HowItWorks() {
   return (
     <section id="how-it-works" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-            How It
-            <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent ml-3">
-              Works
-            </span>
-          </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Three simple steps to sentiment-driven rebalancing
-          </p>
-        </motion.div>
+        <SectionHeader
+          title={
+            <>
+              How It
+              <span className="ml-3">Works</span>
+            </>
+          }
+          subtitle="Three simple steps to sentiment-driven rebalancing"
+        />
 
         {/* Desktop Layout */}
         <div className="hidden lg:block">

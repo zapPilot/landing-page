@@ -13,7 +13,8 @@ export interface Stat {
   }>;
 }
 
-export const STATISTICS: Stat[] = [
+// Shared core stats (used by both STATISTICS and LP_STATISTICS)
+export const CORE_STATS: Stat[] = [
   {
     label: 'Total Value Locked',
     value: '$261k+',
@@ -33,6 +34,10 @@ export const STATISTICS: Stat[] = [
       { src: '/usdc.webp', alt: 'USDC', name: 'USDC' },
     ],
   },
+];
+
+export const STATISTICS: Stat[] = [
+  ...CORE_STATS,
   {
     label: 'Integrated Protocols',
     type: 'icons',
