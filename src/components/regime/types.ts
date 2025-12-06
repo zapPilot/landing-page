@@ -1,4 +1,4 @@
-import type { RegimeId, Regime } from '@/lib/regimeData';
+import type { RegimeId, Regime, RegimeStrategy } from '@/lib/regimeData';
 
 export interface RegimeVisualizerProps {
   autoPlayInterval?: number;
@@ -27,6 +27,10 @@ export interface AllocationPanelProps {
   lpAllocation: number;
   spotAllocation: number;
   isMobile: boolean;
+  animationDirection: 'forward' | 'backward';
+  activeStrategy: RegimeStrategy;
+  directionLabel: string | null;
+  isAutoPlaying?: boolean;
 }
 
 export interface PanelPosition {

@@ -1,7 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { type RegimeId, regimeOrder, getRegimeById } from '@/lib/regimeData';
+import {
+  type RegimeId,
+  regimeOrder,
+  getRegimeById,
+  getActiveStrategy,
+  getDirectionLabel,
+} from '@/lib/regimeData';
 import { useState, useEffect } from 'react';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
@@ -23,11 +29,17 @@ export function RegimeVisualizer({
   className = '',
 }: RegimeVisualizerProps) {
   const [activeRegime, setActiveRegime] = useState<RegimeId>(startRegime);
+  const [previousRegime, setPreviousRegime] = useState<RegimeId>(startRegime);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [animationDirection, setAnimationDirection] = useState<'forward' | 'backward'>('forward');
   const [isLoading, setIsLoading] = useState(true);
   const isMobile = useMediaQuery('(max-width: 1024px)');
   const prefersReducedMotion = useReducedMotion();
+
+  // Track previous regime for strategy selection
+  useEffect(() => {
+    setPreviousRegime(activeRegime);
+  }, [activeRegime]);
 
   // Simulate loading state for smooth initial render
   useEffect(() => {
@@ -36,6 +48,10 @@ export function RegimeVisualizer({
   }, []);
 
   const activeRegimeData = getRegimeById(activeRegime);
+
+  // Get active strategy and direction label
+  const activeStrategy = getActiveStrategy(activeRegime, animationDirection, previousRegime);
+  const directionLabel = getDirectionLabel(activeRegime, animationDirection);
 
   // Layout configuration
   const viewBoxWidth = isMobile ? 900 : 1600;
@@ -239,6 +255,10 @@ export function RegimeVisualizer({
                     lpAllocation={lpAllocation}
                     spotAllocation={spotAllocation}
                     isMobile={isMobile}
+                    animationDirection={animationDirection}
+                    activeStrategy={activeStrategy}
+                    directionLabel={directionLabel}
+                    isAutoPlaying={isAutoPlaying}
                   />
                 </svg>
               </div>

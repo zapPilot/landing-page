@@ -80,3 +80,30 @@ export const ITEM_VARIANTS = {
     y: 0,
   },
 } as const;
+
+// Allocation visualization constants
+export const ALLOCATION_COLORS = {
+  spot: {
+    from: 'from-orange-600',
+    to: 'to-orange-500',
+    text: 'text-orange-400',
+    bg: 'bg-orange-500',
+  },
+  lp: {
+    from: 'from-purple-600',
+    to: 'to-purple-500',
+    text: 'text-purple-400',
+    bg: 'bg-purple-500',
+  },
+  stable: {
+    from: 'from-blue-600',
+    to: 'to-blue-500',
+    text: 'text-blue-400',
+    bg: 'bg-blue-500',
+  },
+} as const;
+
+export const ALLOCATION_ANIMATIONS = {
+  barFill: { duration: 0.8, ease: [0.4, 0, 0.2, 1] as const },
+  stagger: { staggerChildren: 0.1, delayChildren: 0.2 },
+} as const;

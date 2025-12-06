@@ -1,5 +1,27 @@
 export type RegimeId = 'ef' | 'f' | 'n' | 'g' | 'eg';
 
+export type AssetFlow =
+  | 'hold'
+  | 'dca-buy'
+  | 'dca-sell'
+  | 'lp-to-spot'
+  | 'spot-to-lp'
+  | 'monitor-leverage';
+
+export interface RegimeStrategy {
+  title: string;
+  description: string;
+  actions: string[];
+  assetFlow: AssetFlow;
+  lpTransformation?: {
+    from: 'spot' | 'lp';
+    to: 'spot' | 'lp';
+    percentage: number;
+    duration: string;
+  };
+  leverageAction?: string;
+}
+
 export interface Regime {
   id: RegimeId;
   label: string;
@@ -15,6 +37,11 @@ export interface Regime {
   actions: string[];
   philosophy: string;
   whyThisWorks: string;
+  strategies: {
+    fromLeft?: RegimeStrategy;
+    fromRight?: RegimeStrategy;
+    default: RegimeStrategy;
+  };
 }
 
 export const regimes: Regime[] = [
@@ -35,6 +62,18 @@ export const regimes: Regime[] = [
     philosophy: '"Be greedy when others are fearful"',
     whyThisWorks:
       'Historical crypto bottoms occur during extreme fear. Value-buying without leverage minimizes risk while maximizing long-term upside.',
+    strategies: {
+      default: {
+        title: 'Maximum Accumulation',
+        description: 'Historical crypto bottoms occur during extreme fear',
+        actions: [
+          'DCA into BTC/ETH using only your stables',
+          'Prioritize debt repayment if LTV rises',
+          'No new leverage during this cycle',
+        ],
+        assetFlow: 'dca-buy',
+      },
+    },
   },
   {
     id: 'f',
@@ -53,6 +92,45 @@ export const regimes: Regime[] = [
     philosophy: '"Buy when there\'s blood in the streets"',
     whyThisWorks:
       'Markets often retest lows. LP positions act as a midway zone—if market drops to Extreme Fear, you can unwind LP to buy spot.',
+    strategies: {
+      fromLeft: {
+        title: 'Monitor Market Recovery',
+        description: 'Market recovering from extreme fear - hold steady',
+        actions: [
+          'Monitor positions without new trades',
+          'Watch for confirmation of recovery',
+          'Repay debt if borrowing rates spike',
+        ],
+        assetFlow: 'hold',
+        leverageAction: 'Repay debt if LTV > 50%',
+      },
+      fromRight: {
+        title: 'Unwind LP for Spot',
+        description: 'Market declining from neutral - prepare for deeper fear',
+        actions: [
+          'Unwind 5% of LP positions into spot BTC/ETH',
+          'DCA execution over 5 days (1%/day)',
+          'Prepare for potential Extreme Fear buying opportunity',
+        ],
+        assetFlow: 'lp-to-spot',
+        lpTransformation: {
+          from: 'lp',
+          to: 'spot',
+          percentage: 5,
+          duration: '5 days',
+        },
+      },
+      default: {
+        title: 'Cautious Positioning',
+        description: 'Markets often retest lows',
+        actions: [
+          'Small probe entries with light DCA',
+          'Partial BTC/ETH-USD LP positions',
+          'Take profits if borrowing rates spike',
+        ],
+        assetFlow: 'hold',
+      },
+    },
   },
   {
     id: 'n',
@@ -71,6 +149,19 @@ export const regimes: Regime[] = [
     philosophy: '"It was always my sitting that made the big money"',
     whyThisWorks:
       'When markets lack clear direction, the best move is often no move. Preserve capital and wait for clearer signals at extremes.',
+    strategies: {
+      default: {
+        title: 'Holiday Mode',
+        description: 'Markets lack clear direction - preserve capital',
+        actions: [
+          'Minimal trading activity',
+          'Light rebalancing only if allocation drifts significantly',
+          'Maintain current positions and wait for clearer signals',
+        ],
+        assetFlow: 'monitor-leverage',
+        leverageAction: 'Only deleverage if borrowing rates spike above threshold',
+      },
+    },
   },
   {
     id: 'g',
@@ -89,6 +180,45 @@ export const regimes: Regime[] = [
     philosophy: '"Nobody ever went broke taking a profit"',
     whyThisWorks:
       'Soft profit-taking via LP positions lets you lock gains while earning fees and retaining some upside exposure.',
+    strategies: {
+      fromLeft: {
+        title: 'Lock Gains into LP',
+        description: 'Market rising from neutral - take soft profits',
+        actions: [
+          'Shift 5% from spot BTC/ETH into crypto-USDC LP',
+          'DCA execution over 5 days (1%/day)',
+          'Earn trading fees while maintaining crypto exposure',
+        ],
+        assetFlow: 'spot-to-lp',
+        lpTransformation: {
+          from: 'spot',
+          to: 'lp',
+          percentage: 5,
+          duration: '5 days',
+        },
+      },
+      fromRight: {
+        title: 'Take a Rest',
+        description: 'Market correcting from extreme greed - bear market mode',
+        actions: [
+          'Holiday mode - avoid new positions',
+          'Let existing positions ride',
+          'Wait for clearer directional signals',
+        ],
+        assetFlow: 'hold',
+        leverageAction: 'Monitor but avoid trading during correction',
+      },
+      default: {
+        title: 'Soft Profit-Taking',
+        description: 'Lock gains while retaining exposure',
+        actions: [
+          'Gradually shift spot BTC/ETH into LP positions',
+          'DCA-sell if coming from Neutral',
+          'Avoid new purchases unless from higher regime',
+        ],
+        assetFlow: 'spot-to-lp',
+      },
+    },
   },
   {
     id: 'eg',
@@ -107,6 +237,18 @@ export const regimes: Regime[] = [
     philosophy: '"Be fearful when others are greedy"',
     whyThisWorks:
       'Market tops coincide with extreme greed. Shifting focus from gains to downside protection preserves wealth during inevitable corrections.',
+    strategies: {
+      default: {
+        title: 'Maximum Profit-Taking',
+        description: 'Market tops coincide with extreme greed',
+        actions: [
+          'DCA-sell excess BTC/ETH into stables',
+          'Retain small beta via token-USD LPs',
+          'Move stables to conservative yields (perp vaults, stable pools)',
+        ],
+        assetFlow: 'dca-sell',
+      },
+    },
   },
 ];
 
@@ -124,4 +266,67 @@ export function isAdjacentRegime(from: RegimeId, to: RegimeId): boolean {
   const fromIdx = getRegimeIndex(from);
   const toIdx = getRegimeIndex(to);
   return Math.abs(toIdx - fromIdx) === 1;
+}
+
+export function getActiveStrategy(
+  regimeId: RegimeId,
+  animationDirection: 'forward' | 'backward',
+  previousRegimeId?: RegimeId
+): RegimeStrategy {
+  const regime = getRegimeById(regimeId);
+
+  // Extreme regimes and neutral only have default strategy
+  if (regimeId === 'ef' || regimeId === 'n' || regimeId === 'eg') {
+    return regime.strategies.default;
+  }
+
+  // For Fear/Greed, determine direction context based on previous regime
+  if (previousRegimeId) {
+    const prevIdx = getRegimeIndex(previousRegimeId);
+    const currIdx = getRegimeIndex(regimeId);
+
+    // Coming from left (lower index = recovery/bull)
+    if (prevIdx < currIdx && regime.strategies.fromLeft) {
+      return regime.strategies.fromLeft;
+    }
+
+    // Coming from right (higher index = decline/bear)
+    if (prevIdx > currIdx && regime.strategies.fromRight) {
+      return regime.strategies.fromRight;
+    }
+  }
+
+  // Fallback based on animation direction
+  if (animationDirection === 'forward' && regime.strategies.fromLeft) {
+    return regime.strategies.fromLeft;
+  }
+  if (animationDirection === 'backward' && regime.strategies.fromRight) {
+    return regime.strategies.fromRight;
+  }
+
+  return regime.strategies.default;
+}
+
+export function getDirectionLabel(
+  regimeId: RegimeId,
+  animationDirection: 'forward' | 'backward'
+): string | null {
+  // No direction badge for single-strategy regimes
+  if (regimeId === 'ef' || regimeId === 'n' || regimeId === 'eg') {
+    return null;
+  }
+
+  if (regimeId === 'f') {
+    return animationDirection === 'forward'
+      ? 'From Extreme Fear (recovery)'
+      : 'From Neutral (decline)';
+  }
+
+  if (regimeId === 'g') {
+    return animationDirection === 'forward'
+      ? 'From Neutral (bull run)'
+      : 'From Extreme Greed (correction)';
+  }
+
+  return null;
 }

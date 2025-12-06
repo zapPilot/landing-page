@@ -42,3 +42,8 @@ next-env.d.ts
 
 gitdiff
 .claude/tsc-cache
+# Editor directories and files
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.vscode
