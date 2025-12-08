@@ -1,8 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle } from 'lucide-react';
-import { AllocationComparison } from '@/components/ui/allocation';
+import { AllocationComparison, MaintainingAllocation } from '@/components/ui/allocation';
 import type { UseCaseVariant } from './types';
 
 interface UseCaseAllocationPanelProps {
@@ -68,17 +67,7 @@ export function UseCaseAllocationPanel({
                 gradient={gradient}
               />
             ) : (
-              <div className="space-y-4">
-                <div className="flex items-center justify-center gap-3 bg-gray-800/50 rounded-2xl p-6 border border-gray-700">
-                  <CheckCircle className="w-6 h-6 text-green-400" />
-                  <div>
-                    <p className="text-white font-semibold text-lg">
-                      Maintaining current allocation
-                    </p>
-                    <p className="text-gray-400 text-sm">Zero rebalancing — Holiday Mode</p>
-                  </div>
-                </div>
-              </div>
+              <MaintainingAllocation />
             )}
           </div>
 

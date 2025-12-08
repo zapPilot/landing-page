@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import type { AllocationPanelProps } from './types';
 import { DirectionBadge } from './DirectionBadge';
+import { AllocationComparison, MaintainingAllocation } from '@/components/ui/allocation';
 
 
 export function AllocationPanel({
@@ -10,7 +11,7 @@ export function AllocationPanel({
   panelPosition,
   isMobile: _isMobile,
   animationDirection,
-  activeStrategy: _activeStrategy,
+  activeStrategy,
   directionLabel,
   isAutoPlaying = false,
 }: AllocationPanelProps) {
@@ -71,6 +72,40 @@ export function AllocationPanel({
             </p>
           </div>
 
+          {/* Strategy Action */}
+          <div className="mt-auto">
+            <div className="text-sm text-gray-400 font-semibold mb-3">Strategy Action</div>
+            {activeStrategy.lpTransformation ? (
+              <AllocationComparison
+                before={{
+                  // Calculate spot allocation before LP transformation
+                  // Neutral regime uses 30% LP for fee generation during sideways markets
+                  // Other regimes use 10% LP as base allocation
+                  spot:
+                    activeStrategy.lpTransformation.from === 'spot'
+                      ? (activeRegimeData.allocation.crypto - activeRegimeData.defaultLpAllocation) +
+                        activeStrategy.lpTransformation.percentage
+                      : activeRegimeData.allocation.crypto -
+                        activeRegimeData.defaultLpAllocation -
+                        activeStrategy.lpTransformation.percentage,
+                  lp:
+                    activeStrategy.lpTransformation.from === 'lp'
+                      ? activeRegimeData.defaultLpAllocation + activeStrategy.lpTransformation.percentage
+                      : activeRegimeData.defaultLpAllocation - activeStrategy.lpTransformation.percentage,
+                  stable: activeRegimeData.allocation.stable,
+                }}
+                after={{
+                  spot: activeRegimeData.allocation.crypto - activeRegimeData.defaultLpAllocation,
+                  lp: activeRegimeData.defaultLpAllocation,
+                  stable: activeRegimeData.allocation.stable,
+                }}
+                timeframe={activeStrategy.lpTransformation.duration}
+                gradient="from-purple-400 to-blue-400"
+              />
+            ) : (
+              <MaintainingAllocation />
+            )}
+          </div>
         </motion.div>
       </AnimatePresence>
     </foreignObject>

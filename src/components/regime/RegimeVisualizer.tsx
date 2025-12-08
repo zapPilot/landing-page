@@ -61,7 +61,7 @@ export function RegimeVisualizer({
   // Alignment constants
   // We want the top of the Arc (EF/EG nodes) to align with the top of the Panel
   const PANEL_Y = isMobile ? 620 : 60;
-  const PANEL_HEIGHT = 480;
+  const PANEL_HEIGHT = 560;
 
   // For the Arc to align, its top nodes (at y = centerY) need to be visually aligned with PANEL_Y
   // However, the nodes have a radius of ~80px (with glow), so the center should be lower

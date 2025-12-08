@@ -1,3 +1,7 @@
+import type { AllocationBreakdown } from '@/components/ui/allocation/types';
+import type { LucideIcon } from 'lucide-react';
+import { TrendingDown, TrendingUp, Pause } from 'lucide-react';
+
 export type RegimeId = 'ef' | 'f' | 'n' | 'g' | 'eg';
 
 export type AssetFlow =
@@ -20,6 +24,14 @@ export interface RegimeStrategy {
     duration: string;
   };
   leverageAction?: string;
+  // Use case scenario data (matches UseCases.tsx)
+  useCase?: {
+    scenario: string;
+    userIntent: string;
+    zapAction: string;
+    allocationBefore: AllocationBreakdown;
+    allocationAfter: AllocationBreakdown;
+  };
 }
 
 export interface Regime {
@@ -42,6 +54,21 @@ export interface Regime {
     fromRight?: RegimeStrategy;
     default: RegimeStrategy;
   };
+  // Visual configuration for UI components
+  visual: {
+    /** Tailwind badge classes for regime badge styling */
+    badge: string;
+    /** Tailwind gradient classes for visual elements */
+    gradient: string;
+    /** Lucide icon component for regime representation */
+    icon: LucideIcon;
+  };
+  /**
+   * Default LP allocation percentage for this regime
+   * Neutral regime uses 30% for fee generation during sideways markets
+   * Other regimes use 10% as base allocation
+   */
+  defaultLpAllocation: number;
 }
 
 export const regimes: Regime[] = [
@@ -62,6 +89,12 @@ export const regimes: Regime[] = [
     philosophy: '"Be greedy when others are fearful"',
     whyThisWorks:
       'Historical crypto bottoms occur during extreme fear. Value-buying without leverage minimizes risk while maximizing long-term upside.',
+    visual: {
+      badge: 'bg-red-500/20 text-red-400 border-red-500/30',
+      gradient: 'from-red-400 to-orange-500',
+      icon: TrendingDown,
+    },
+    defaultLpAllocation: 10,
     strategies: {
       default: {
         title: 'Maximum Accumulation',
@@ -72,6 +105,13 @@ export const regimes: Regime[] = [
           'No new leverage during this cycle',
         ],
         assetFlow: 'dca-buy',
+        useCase: {
+          scenario: 'Bitcoin crashes from $60K to $40K. FGI drops to 15.',
+          userIntent: 'I want to DCA into BTC/ETH without timing the bottom.',
+          zapAction: 'DCA from 30% → 70% crypto over 10 days (4%/day buy rate) using stable reserves.',
+          allocationBefore: { spot: 30, lp: 0, stable: 70 },
+          allocationAfter: { spot: 70, lp: 0, stable: 30 },
+        },
       },
     },
   },
@@ -92,6 +132,12 @@ export const regimes: Regime[] = [
     philosophy: '"Buy when there\'s blood in the streets"',
     whyThisWorks:
       'Markets often retest lows. LP positions act as a midway zone—if market drops to Extreme Fear, you can unwind LP to buy spot.',
+    visual: {
+      badge: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
+      gradient: 'from-orange-400 to-red-500',
+      icon: TrendingDown,
+    },
+    defaultLpAllocation: 10,
     strategies: {
       fromLeft: {
         title: 'Monitor Market Recovery',
@@ -103,6 +149,13 @@ export const regimes: Regime[] = [
         ],
         assetFlow: 'hold',
         leverageAction: 'Repay debt if LTV > 50%',
+        useCase: {
+          scenario: 'Bitcoin stabilizes at $45K after bouncing from $40K. FGI rises to 35.',
+          userIntent: 'I want to hold my positions during early recovery.',
+          zapAction: 'Maintains current allocation with zero rebalancing. Only monitors for risk spikes.',
+          allocationBefore: { spot: 70, lp: 0, stable: 30 },
+          allocationAfter: { spot: 70, lp: 0, stable: 30 },
+        },
       },
       fromRight: {
         title: 'Unwind LP for Spot',
@@ -118,6 +171,13 @@ export const regimes: Regime[] = [
           to: 'spot',
           percentage: 5,
           duration: '5 days',
+        },
+        useCase: {
+          scenario: 'Bitcoin drops to $55K. FGI falls to 35.',
+          userIntent: 'I want to increase spot exposure as market fear grows.',
+          zapAction: 'Decomposes 10% LP → 5% crypto + 5% stable. Uses that 5% stable to DCA into spot over 5 days (1%/day).',
+          allocationBefore: { spot: 40, lp: 10, stable: 50 },
+          allocationAfter: { spot: 50, lp: 0, stable: 50 },
         },
       },
       default: {
@@ -149,6 +209,12 @@ export const regimes: Regime[] = [
     philosophy: '"It was always my sitting that made the big money"',
     whyThisWorks:
       'When markets lack clear direction, the best move is often no move. Preserve capital and wait for clearer signals at extremes.',
+    visual: {
+      badge: 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
+      gradient: 'from-yellow-400 to-amber-500',
+      icon: Pause,
+    },
+    defaultLpAllocation: 30,
     strategies: {
       default: {
         title: 'Holiday Mode',
@@ -160,6 +226,13 @@ export const regimes: Regime[] = [
         ],
         assetFlow: 'monitor-leverage',
         leverageAction: 'Only deleverage if borrowing rates spike above threshold',
+        useCase: {
+          scenario: 'FGI hovers between 46-54 for weeks.',
+          userIntent: "I don't want to overtrade or pay fees.",
+          zapAction: 'Zero rebalancing. Only monitors borrowing rate risk.',
+          allocationBefore: { spot: 50, lp: 0, stable: 50 },
+          allocationAfter: { spot: 50, lp: 0, stable: 50 },
+        },
       },
     },
   },
@@ -180,6 +253,12 @@ export const regimes: Regime[] = [
     philosophy: '"Nobody ever went broke taking a profit"',
     whyThisWorks:
       'Soft profit-taking via LP positions lets you lock gains while earning fees and retaining some upside exposure.',
+    visual: {
+      badge: 'bg-green-500/20 text-green-400 border-green-500/30',
+      gradient: 'from-green-400 to-teal-500',
+      icon: TrendingUp,
+    },
+    defaultLpAllocation: 10,
     strategies: {
       fromLeft: {
         title: 'Lock Gains into LP',
@@ -196,6 +275,13 @@ export const regimes: Regime[] = [
           percentage: 5,
           duration: '5 days',
         },
+        useCase: {
+          scenario: 'Bitcoin rallies to $75K. FGI hits 65.',
+          userIntent: 'I want to lock in gains while keeping exposure and earning fees.',
+          zapAction: 'Sells 15% spot → USDC, then pairs 10% spot + 10% stable → 20% LP over 7 days (~1.4%/day).',
+          allocationBefore: { spot: 50, lp: 0, stable: 50 },
+          allocationAfter: { spot: 25, lp: 20, stable: 55 },
+        },
       },
       fromRight: {
         title: 'Take a Rest',
@@ -207,6 +293,13 @@ export const regimes: Regime[] = [
         ],
         assetFlow: 'hold',
         leverageAction: 'Monitor but avoid trading during correction',
+        useCase: {
+          scenario: 'Bitcoin corrects from $100K to $75K. FGI drops to 65.',
+          userIntent: 'I want to avoid catching falling knives.',
+          zapAction: 'Maintains current positions without new trades. Already de-risked.',
+          allocationBefore: { spot: 0, lp: 30, stable: 70 },
+          allocationAfter: { spot: 0, lp: 30, stable: 70 },
+        },
       },
       default: {
         title: 'Soft Profit-Taking',
@@ -237,6 +330,12 @@ export const regimes: Regime[] = [
     philosophy: '"Be fearful when others are greedy"',
     whyThisWorks:
       'Market tops coincide with extreme greed. Shifting focus from gains to downside protection preserves wealth during inevitable corrections.',
+    visual: {
+      badge: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
+      gradient: 'from-emerald-400 to-green-500',
+      icon: TrendingUp,
+    },
+    defaultLpAllocation: 10,
     strategies: {
       default: {
         title: 'Maximum Profit-Taking',
@@ -247,6 +346,13 @@ export const regimes: Regime[] = [
           'Move stables to conservative yields (perp vaults, stable pools)',
         ],
         assetFlow: 'dca-sell',
+        useCase: {
+          scenario: 'Bitcoin rallies to $100K. FGI hits 92.',
+          userIntent: 'I want to take profits but keep some exposure.',
+          zapAction: 'Sells 50% spot → stable. Uses remaining 10% spot + 10% stable → 20% LP. Over 10 days (2.5%/day sell rate).',
+          allocationBefore: { spot: 60, lp: 10, stable: 30 },
+          allocationAfter: { spot: 0, lp: 30, stable: 70 },
+        },
       },
     },
   },
