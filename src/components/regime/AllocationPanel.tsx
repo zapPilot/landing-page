@@ -5,7 +5,6 @@ import type { AllocationPanelProps } from './types';
 import { DirectionBadge } from './DirectionBadge';
 import { AllocationComparison, MaintainingAllocation } from '@/components/ui/allocation';
 
-
 export function AllocationPanel({
   activeRegimeData,
   panelPosition,
@@ -26,7 +25,7 @@ export function AllocationPanel({
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.4 }}
-          className="bg-gray-900/50 backdrop-blur-lg border border-gray-800 rounded-2xl p-8 h-full flex flex-col"
+          className="bg-gray-900/50 backdrop-blur-lg border border-gray-800 rounded-2xl p-8 h-full overflow-y-auto"
         >
           {/* Direction Badge */}
           {directionLabel && (
@@ -49,22 +48,6 @@ export function AllocationPanel({
             <h3 className="text-2xl font-bold text-white">{activeRegimeData.label}</h3>
           </div>
 
-          {/* Big Numbers */}
-          <div className="mb-6">
-            <div className="flex items-baseline gap-2 mb-2">
-              <span className="text-4xl font-bold" style={{ color: activeRegimeData.fillColor }}>
-                {activeRegimeData.allocation.crypto}%
-              </span>
-              <span className="text-gray-300">crypto</span>
-              <span className="text-gray-600 mx-2">/</span>
-              <span className="text-4xl font-bold" style={{ color: activeRegimeData.fillColor }}>
-                {activeRegimeData.allocation.stable}%
-              </span>
-              <span className="text-gray-300">stable</span>
-            </div>
-            <p className="text-sm text-gray-500 italic">{activeRegimeData.author}</p>
-          </div>
-
           {/* Philosophy */}
           <div className="mb-6">
             <p className="text-lg italic" style={{ color: activeRegimeData.fillColor }}>
@@ -73,8 +56,7 @@ export function AllocationPanel({
           </div>
 
           {/* Strategy Action */}
-          <div className="mt-auto">
-            <div className="text-sm text-gray-400 font-semibold mb-3">Strategy Action</div>
+          <div>
             {activeStrategy.useCase &&
             JSON.stringify(activeStrategy.useCase.allocationBefore) !==
               JSON.stringify(activeStrategy.useCase.allocationAfter) ? (
