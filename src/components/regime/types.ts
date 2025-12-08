@@ -17,8 +17,6 @@ export interface AllocationPanelProps {
     width: number;
     height: number;
   };
-  lpAllocation: number;
-  spotAllocation: number;
   isMobile: boolean;
   animationDirection: 'forward' | 'backward';
   activeStrategy: RegimeStrategy;

@@ -1,20 +1,16 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { Info } from 'lucide-react';
 import type { AllocationPanelProps } from './types';
 import { DirectionBadge } from './DirectionBadge';
-import { ThreePartAllocationBar, AllocationTransition } from '@/components/ui/allocation';
 
 
 export function AllocationPanel({
   activeRegimeData,
   panelPosition,
-  lpAllocation,
-  spotAllocation,
   isMobile: _isMobile,
   animationDirection,
-  activeStrategy,
+  activeStrategy: _activeStrategy,
   directionLabel,
   isAutoPlaying = false,
 }: AllocationPanelProps) {
@@ -75,20 +71,6 @@ export function AllocationPanel({
             </p>
           </div>
 
-          {/* Portfolio Breakdown */}
-          <div className="space-y-4 mt-auto">
-            <div className="text-sm text-gray-400 font-semibold">Current Allocation</div>
-            <ThreePartAllocationBar
-              allocation={{
-                spot: spotAllocation,
-                lp: lpAllocation,
-                stable: activeRegimeData.allocation.stable,
-              }}
-              animated={true}
-              size="md"
-              showLabels={false}
-            />
-          </div>
         </motion.div>
       </AnimatePresence>
     </foreignObject>

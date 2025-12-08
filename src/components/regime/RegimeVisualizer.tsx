@@ -73,10 +73,7 @@ export function RegimeVisualizer({
   const centerY = ARC_CENTER_Y;
   const arcRadius = isMobile ? 240 : 240;
 
-  // Calculate LP allocation
-  const isYielding = activeRegime === 'n';
-  const lpAllocation = isYielding ? 30 : 10;
-  const spotAllocation = activeRegimeData.allocation.crypto - lpAllocation;
+
 
   // Handle regime click - pause autoplay and jump to clicked regime
   const handleRegimeClick = (regimeId: RegimeId) => {
@@ -247,8 +244,6 @@ export function RegimeVisualizer({
                   <AllocationPanel
                     activeRegimeData={activeRegimeData}
                     panelPosition={panelPos}
-                    lpAllocation={lpAllocation}
-                    spotAllocation={spotAllocation}
                     isMobile={isMobile}
                     animationDirection={animationDirection}
                     activeStrategy={activeStrategy}
