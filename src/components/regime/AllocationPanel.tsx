@@ -4,14 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Info } from 'lucide-react';
 import type { AllocationPanelProps } from './types';
 import { DirectionBadge } from './DirectionBadge';
-import { FlowVariantDisplay } from './FlowVariantDisplay';
-import { ThreePartAllocationBar } from '@/components/ui/allocation';
+import { ThreePartAllocationBar, AllocationTransition } from '@/components/ui/allocation';
 
-const FLOW_VARIANTS = [
-  { label: 'Variant 1: Sankey Flow', variant: 'sankey' as const },
-  { label: 'Variant 2: Before/After Bars', variant: 'bars' as const },
-  { label: 'Variant 3: Step-by-Step Icons', variant: 'icons' as const },
-];
 
 export function AllocationPanel({
   activeRegimeData,
@@ -79,57 +73,6 @@ export function AllocationPanel({
             <p className="text-lg italic" style={{ color: activeRegimeData.fillColor }}>
               {activeRegimeData.philosophy}
             </p>
-          </div>
-
-          {/* Strategy Section */}
-          <div className="mb-6 pb-6 border-b border-gray-700">
-            <div className="flex items-center gap-2 mb-3">
-              <h4 className="text-sm font-semibold text-gray-400">Strategy:</h4>
-              <span className="text-white font-bold">{activeStrategy.title}</span>
-              {directionLabel && (
-                <div className="group relative">
-                  <Info className="w-4 h-4 text-gray-500 cursor-help" />
-                  <div className="absolute left-0 bottom-full mb-2 hidden group-hover:block w-64 p-2 bg-gray-800 border border-gray-700 rounded-lg text-xs text-gray-300 z-10">
-                    Strategies change based on market direction. This shows the active approach.
-                  </div>
-                </div>
-              )}
-            </div>
-            <p className="text-sm text-gray-400 mb-4">{activeStrategy.description}</p>
-
-            {/* LP Flow Visualization - Show all 3 variants for review */}
-            {activeStrategy.lpTransformation && (
-              <div className="space-y-6 mb-4">
-                {FLOW_VARIANTS.map(({ label, variant }) => (
-                  <FlowVariantDisplay
-                    key={variant}
-                    label={label}
-                    variant={variant}
-                    assetFlow={activeStrategy.assetFlow}
-                    transformation={activeStrategy.lpTransformation!}
-                    regimeColor={activeRegimeData.fillColor}
-                  />
-                ))}
-              </div>
-            )}
-
-            {/* Leverage Action */}
-            {activeStrategy.leverageAction && (
-              <div className="flex items-start gap-2 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-                <Info className="w-4 h-4 text-yellow-400 mt-0.5 flex-shrink-0" />
-                <p className="text-sm text-yellow-200">{activeStrategy.leverageAction}</p>
-              </div>
-            )}
-
-            {/* Actions */}
-            <div className="mt-4 space-y-2">
-              {activeStrategy.actions.map((action, idx) => (
-                <div key={idx} className="flex items-start gap-2">
-                  <span className="text-gray-500 mt-1">•</span>
-                  <span className="text-sm text-gray-300">{action}</span>
-                </div>
-              ))}
-            </div>
           </div>
 
           {/* Portfolio Breakdown */}

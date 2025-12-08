@@ -1,4 +1,4 @@
 export * from './types';
 export { ThreePartAllocationBar } from './ThreePartAllocationBar';
+export { AllocationTransition } from './AllocationTransition';
 export { AllocationComparison } from './AllocationComparison';
-// NoChangeIndicator deprecated - no longer used (replaced by simple message in UseCaseAllocationPanel)
