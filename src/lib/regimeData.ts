@@ -108,8 +108,9 @@ export const regimes: Regime[] = [
         useCase: {
           scenario: 'Bitcoin crashes from $60K to $40K. FGI drops to 15.',
           userIntent: 'I want to DCA into BTC/ETH without timing the bottom.',
-          zapAction: 'DCA from 30% → 70% crypto over 10 days (4%/day buy rate) using stable reserves.',
-          allocationBefore: { spot: 30, lp: 0, stable: 70 },
+          zapAction:
+            'DCA from 30% → 70% crypto over 10 days (4%/day buy rate) using stable reserves.',
+          allocationBefore: { spot: 10, lp: 30, stable: 60 },
           allocationAfter: { spot: 70, lp: 0, stable: 30 },
         },
       },
@@ -152,7 +153,8 @@ export const regimes: Regime[] = [
         useCase: {
           scenario: 'Bitcoin stabilizes at $45K after bouncing from $40K. FGI rises to 35.',
           userIntent: 'I want to hold my positions during early recovery.',
-          zapAction: 'Maintains current allocation with zero rebalancing. Only monitors for risk spikes.',
+          zapAction:
+            'Maintains current allocation with zero rebalancing. Only monitors for risk spikes.',
           allocationBefore: { spot: 70, lp: 0, stable: 30 },
           allocationAfter: { spot: 70, lp: 0, stable: 30 },
         },
@@ -175,9 +177,10 @@ export const regimes: Regime[] = [
         useCase: {
           scenario: 'Bitcoin drops to $55K. FGI falls to 35.',
           userIntent: 'I want to increase spot exposure as market fear grows.',
-          zapAction: 'Decomposes 10% LP → 5% crypto + 5% stable. Uses that 5% stable to DCA into spot over 5 days (1%/day).',
-          allocationBefore: { spot: 40, lp: 10, stable: 50 },
-          allocationAfter: { spot: 50, lp: 0, stable: 50 },
+          zapAction:
+            'Decomposes 10% LP → 5% crypto + 5% stable. Uses that 5% stable to DCA into spot over 5 days (1%/day).',
+          allocationBefore: { spot: 0, lp: 30, stable: 70 },
+          allocationAfter: { spot: 10, lp: 30, stable: 60 },
         },
       },
       default: {
@@ -230,8 +233,8 @@ export const regimes: Regime[] = [
           scenario: 'FGI hovers between 46-54 for weeks.',
           userIntent: "I don't want to overtrade or pay fees.",
           zapAction: 'Zero rebalancing. Only monitors borrowing rate risk.',
-          allocationBefore: { spot: 50, lp: 0, stable: 50 },
-          allocationAfter: { spot: 50, lp: 0, stable: 50 },
+          allocationBefore: { spot: 70, lp: 0, stable: 30 },
+          allocationAfter: { spot: 70, lp: 0, stable: 30 },
         },
       },
     },
@@ -278,9 +281,10 @@ export const regimes: Regime[] = [
         useCase: {
           scenario: 'Bitcoin rallies to $75K. FGI hits 65.',
           userIntent: 'I want to lock in gains while keeping exposure and earning fees.',
-          zapAction: 'Sells 15% spot → USDC, then pairs 10% spot + 10% stable → 20% LP over 7 days (~1.4%/day).',
-          allocationBefore: { spot: 50, lp: 0, stable: 50 },
-          allocationAfter: { spot: 25, lp: 20, stable: 55 },
+          zapAction:
+            'Sells 15% spot → USDC, then pairs 10% spot + 10% stable → 20% LP over 7 days (~1.4%/day).',
+          allocationBefore: { spot: 70, lp: 0, stable: 30 },
+          allocationAfter: { spot: 60, lp: 10, stable: 30 },
         },
       },
       fromRight: {
@@ -349,7 +353,8 @@ export const regimes: Regime[] = [
         useCase: {
           scenario: 'Bitcoin rallies to $100K. FGI hits 92.',
           userIntent: 'I want to take profits but keep some exposure.',
-          zapAction: 'Sells 50% spot → stable. Uses remaining 10% spot + 10% stable → 20% LP. Over 10 days (2.5%/day sell rate).',
+          zapAction:
+            'Sells 50% spot → stable. Uses remaining 10% spot + 10% stable → 20% LP. Over 10 days (2.5%/day sell rate).',
           allocationBefore: { spot: 60, lp: 10, stable: 30 },
           allocationAfter: { spot: 0, lp: 30, stable: 70 },
         },
