@@ -32,7 +32,7 @@ export function UseCaseAllocationPanel({
             <button
               key={index}
               onClick={() => onTabChange(index)}
-              className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all duration-300 ${
+              className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all duration-300 cursor-pointer ${
                 activeTab === index
                   ? `bg-gradient-to-r ${gradient} text-white shadow-lg`
                   : 'bg-gray-800/50 text-gray-400 hover:bg-gray-800 hover:text-gray-300'
@@ -100,10 +100,10 @@ export function UseCaseAllocationPanel({
 
       {/* Decorative gradient orbs */}
       <div
-        className={`absolute -top-8 -left-8 w-32 h-32 bg-gradient-to-r ${gradient} rounded-full blur-3xl opacity-20`}
+        className={`absolute -top-8 -left-8 w-32 h-32 bg-gradient-to-r ${gradient} rounded-full blur-3xl opacity-20 pointer-events-none`}
       />
       <div
-        className={`absolute -bottom-8 -right-8 w-24 h-24 bg-gradient-to-l ${gradient} rounded-full blur-2xl opacity-30`}
+        className={`absolute -bottom-8 -right-8 w-24 h-24 bg-gradient-to-l ${gradient} rounded-full blur-2xl opacity-30 pointer-events-none`}
       />
     </div>
   );
