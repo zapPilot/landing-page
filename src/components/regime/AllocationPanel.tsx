@@ -75,31 +75,13 @@ export function AllocationPanel({
           {/* Strategy Action */}
           <div className="mt-auto">
             <div className="text-sm text-gray-400 font-semibold mb-3">Strategy Action</div>
-            {activeStrategy.lpTransformation ? (
+            {activeStrategy.useCase &&
+            JSON.stringify(activeStrategy.useCase.allocationBefore) !==
+              JSON.stringify(activeStrategy.useCase.allocationAfter) ? (
               <AllocationComparison
-                before={{
-                  // Calculate spot allocation before LP transformation
-                  // Neutral regime uses 30% LP for fee generation during sideways markets
-                  // Other regimes use 10% LP as base allocation
-                  spot:
-                    activeStrategy.lpTransformation.from === 'spot'
-                      ? (activeRegimeData.allocation.crypto - activeRegimeData.defaultLpAllocation) +
-                        activeStrategy.lpTransformation.percentage
-                      : activeRegimeData.allocation.crypto -
-                        activeRegimeData.defaultLpAllocation -
-                        activeStrategy.lpTransformation.percentage,
-                  lp:
-                    activeStrategy.lpTransformation.from === 'lp'
-                      ? activeRegimeData.defaultLpAllocation + activeStrategy.lpTransformation.percentage
-                      : activeRegimeData.defaultLpAllocation - activeStrategy.lpTransformation.percentage,
-                  stable: activeRegimeData.allocation.stable,
-                }}
-                after={{
-                  spot: activeRegimeData.allocation.crypto - activeRegimeData.defaultLpAllocation,
-                  lp: activeRegimeData.defaultLpAllocation,
-                  stable: activeRegimeData.allocation.stable,
-                }}
-                timeframe={activeStrategy.lpTransformation.duration}
+                before={activeStrategy.useCase.allocationBefore}
+                after={activeStrategy.useCase.allocationAfter}
+                timeframe="Over 5-10 days"
                 gradient="from-purple-400 to-blue-400"
               />
             ) : (
