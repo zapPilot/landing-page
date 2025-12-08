@@ -18,9 +18,3 @@ export interface AllocationComparisonProps {
   timeframe?: string;
   gradient?: string;
 }
-
-export interface NoChangeIndicatorProps {
-  allocation: AllocationBreakdown;
-  message?: string;
-  gradient?: string;
-}

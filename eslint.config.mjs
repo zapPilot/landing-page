@@ -10,8 +10,7 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
-  ...compat.extends('prettier'),
+  ...compat.extends('next/core-web-vitals', 'next/typescript', 'prettier'),
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     rules: {
@@ -29,6 +28,18 @@ const eslintConfig = [
       'no-debugger': 'error',
       'prefer-const': 'error',
     },
+  },
+  {
+    ignores: [
+      'node_modules/**',
+      '.next/**',
+      'out/**',
+      'build/**',
+      'next-env.d.ts',
+      '.jscpd/**',
+      '.claude/**',
+      'scripts/**',
+    ],
   },
 ];
 
