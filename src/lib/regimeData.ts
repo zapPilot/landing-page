@@ -10,7 +10,7 @@ import { TrendingDown, TrendingUp, Pause } from 'lucide-react';
 export const ALLOCATION_STATES = {
   HEAVY_STABLE: { spot: 10, lp: 20, stable: 70 },
   HEAVY_SPOT: { spot: 70, lp: 0, stable: 30 },
-  PROFIT_TAKEN: { spot: 0, lp: 20, stable: 80 },
+  PROFIT_TAKEN: { spot: 0, lp: 30, stable: 70 },
   BALANCED_LP: { spot: 60, lp: 10, stable: 30 },
 } as const;
 

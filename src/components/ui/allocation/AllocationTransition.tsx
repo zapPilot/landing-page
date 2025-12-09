@@ -21,10 +21,7 @@ export function AllocationTransition({
   return (
     <div className="space-y-4">
       {/* Before State */}
-      <div>
-        <div className="text-sm text-gray-400 mb-2">Before</div>
-        <ThreePartAllocationBar allocation={before} animated={false} size={size} />
-      </div>
+      <ThreePartAllocationBar allocation={before} animated={false} size={size} />
 
       {/* Arrow with timeframe */}
       {showArrow && (
@@ -35,10 +32,7 @@ export function AllocationTransition({
       )}
 
       {/* After State */}
-      <div>
-        <div className="text-sm text-gray-400 mb-2">After</div>
-        <ThreePartAllocationBar allocation={after} animated={true} size={size} />
-      </div>
+      <ThreePartAllocationBar allocation={after} animated={true} size={size} />
     </div>
   );
 }
