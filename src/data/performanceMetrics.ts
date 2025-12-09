@@ -42,12 +42,3 @@ export const performanceMetrics: PerformanceMetric[] = [
 export function getPerformanceMetrics(): PerformanceMetric[] {
   return performanceMetrics;
 }
-
-/**
- * Get metric by label
- * @param label - The label to search for
- * @returns The performance metric or undefined if not found
- */
-export function getMetricByLabel(label: string): PerformanceMetric | undefined {
-  return performanceMetrics.find(metric => metric.label === label);
-}
