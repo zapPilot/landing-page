@@ -146,9 +146,7 @@ export function HowItWorks() {
         </div>
 
         {/* Mobile Layout */}
-        <div className="lg:hidden space-y-12">
-          {steps.map(renderMobileStep)}
-        </div>
+        <div className="lg:hidden space-y-12">{steps.map(renderMobileStep)}</div>
       </div>
     </section>
   );

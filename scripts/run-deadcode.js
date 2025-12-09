@@ -11,55 +11,53 @@
  *   npm run deadcode:check     -> Knip check mode + ts-prune report
  */
 
-const { spawnSync } = require("node:child_process");
+const { spawnSync } = require('node:child_process');
 
 const MODES = {
   default: {
-    label: "Local dead-code scan",
-    knipArgs: ["--exports", "--dependencies"],
+    label: 'Local dead-code scan',
+    knipArgs: ['--exports', '--dependencies'],
     tsPruneArgs: [],
   },
   ci: {
-    label: "CI dead-code scan",
-    knipArgs: ["--exports", "--dependencies", "--reporter=json"],
+    label: 'CI dead-code scan',
+    knipArgs: ['--exports', '--dependencies', '--reporter=json'],
     tsPruneArgs: [],
   },
   fix: {
-    label: "Knip --fix + ts-prune",
-    knipArgs: ["--exports", "--dependencies", "--fix"],
+    label: 'Knip --fix + ts-prune',
+    knipArgs: ['--exports', '--dependencies', '--fix'],
     tsPruneArgs: [],
   },
   check: {
-    label: "Knip check + ts-prune",
-    knipArgs: ["--exports", "--dependencies", "--no-config-hints"],
+    label: 'Knip check + ts-prune',
+    knipArgs: ['--exports', '--dependencies', '--no-config-hints'],
     tsPruneArgs: [],
   },
 };
 
-const modeKey = process.argv[2] ?? "default";
+const modeKey = process.argv[2] ?? 'default';
 const mode = MODES[modeKey];
 
 if (!mode) {
   console.error(
-    `[deadcode] Unknown mode "${modeKey}". Supported modes: ${Object.keys(
-      MODES
-    ).join(", ")}`
+    `[deadcode] Unknown mode "${modeKey}". Supported modes: ${Object.keys(MODES).join(', ')}`
   );
   process.exit(1);
 }
 
 const run = (command, args) => {
-  console.log(`[deadcode] Running ${command} ${args.join(" ")}`.trim());
+  console.log(`[deadcode] Running ${command} ${args.join(' ')}`.trim());
   const result = spawnSync(command, args, {
-    stdio: "inherit",
-    shell: process.platform === "win32",
+    stdio: 'inherit',
+    shell: process.platform === 'win32',
   });
 
   if (result.error) {
     console.error(result.error);
   }
 
-  if (typeof result.status === "number") {
+  if (typeof result.status === 'number') {
     return result.status;
   }
 
@@ -67,11 +65,11 @@ const run = (command, args) => {
   return result.signal ? 1 : 0;
 };
 
-const knipStatus = run("knip", mode.knipArgs);
+const knipStatus = run('knip', mode.knipArgs);
 
 // Run ts-prune for informational purposes only (many false positives from Next.js/internal modules)
 // Only fail the build based on knip's more accurate analysis
-run("ts-prune", ["-p", "tsconfig.tsprune.json", ...mode.tsPruneArgs]);
+run('ts-prune', ['-p', 'tsconfig.tsprune.json', ...mode.tsPruneArgs]);
 
 // Exit based only on knip status (ts-prune has too many false positives)
 process.exit(knipStatus);

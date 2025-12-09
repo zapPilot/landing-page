@@ -16,7 +16,7 @@ export function LPPoolBadge({
   token2,
   size = 'md',
   showLabel = true,
-  className = ''
+  className = '',
 }: LPPoolBadgeProps) {
   const sizeMap = {
     sm: { icon: 24, overlap: -8, gap: 'gap-1' },
@@ -29,10 +29,10 @@ export function LPPoolBadge({
   // Map token names to icon paths
   const getTokenIcon = (token: string) => {
     const iconMap: Record<string, string> = {
-      'BTC': '/btc.webp',
-      'ETH': '/eth.webp',
-      'USDC': '/usdc.webp',
-      'USD': '/usdc.webp', // Fallback to USDC icon for USD
+      BTC: '/btc.webp',
+      ETH: '/eth.webp',
+      USDC: '/usdc.webp',
+      USD: '/usdc.webp', // Fallback to USDC icon for USD
     };
     return iconMap[token.toUpperCase()] || '/usdc.webp';
   };

@@ -30,10 +30,7 @@
   "skill-developer": {
     "description": "Meta-skill for creating and managing Claude Code skills",
     "fileTriggers": {
-      "pathPatterns": [
-        ".claude/skills/**/*.md",
-        ".claude/skills/skill-rules.json"
-      ]
+      "pathPatterns": [".claude/skills/**/*.md", ".claude/skills/skill-rules.json"]
     },
     "keywordTriggers": [
       "skill",

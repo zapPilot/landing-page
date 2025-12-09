@@ -12,7 +12,7 @@ Comprehensive guide for modern Next.js 15 development with App Router, emphasizi
 ## When to Use This Skill
 
 - Creating new components or pages
-- Building new features with App Router  
+- Building new features with App Router
 - Server vs Client Component decisions
 - Styling with Tailwind CSS
 - Next.js routing and layouts
@@ -51,6 +51,7 @@ Comprehensive guide for modern Next.js 15 development with App Router, emphasizi
 ## Server vs Client Components
 
 **SERVER COMPONENTS (Default):**
+
 - Data fetching
 - Static content
 - SEO-critical content
@@ -58,6 +59,7 @@ Comprehensive guide for modern Next.js 15 development with App Router, emphasizi
 - Zero JavaScript to client
 
 **CLIENT COMPONENTS ('use client'):**
+
 - useState, useEffect, useContext
 - Event handlers (onClick, onChange)
 - Browser APIs (localStorage, window)
@@ -314,7 +316,7 @@ const HeavyComponent = dynamic(() => import('./HeavyComponent'), {
 import { useMemo, useCallback, memo } from 'react';
 
 // useMemo for expensive computations
-const filtered = useMemo(() => 
+const filtered = useMemo(() =>
   items.filter(item => item.active).sort((a, b) => a.name.localeCompare(b.name)),
   [items]
 );
@@ -384,7 +386,7 @@ src/
     layout.tsx
     page.tsx
     globals.css
-    
+
   components/             # Reusable UI components
     ui/
       button.tsx
@@ -392,7 +394,7 @@ src/
     layout/
       header.tsx
       footer.tsx
-      
+
   features/               # Feature-specific code
     auth/
       components/
@@ -400,10 +402,10 @@ src/
       lib/
       types/
       index.ts
-      
+
   lib/                    # Shared utilities
     utils.ts
-    
+
   types/                  # Global types
     index.ts
 ```

@@ -19,7 +19,7 @@ export const MESSAGES = {
   // Features section
   features: {
     title: 'Why Zap Pilot?',
-    subtitle: 'Built for the future of DeFi, designed for today\'s users',
+    subtitle: "Built for the future of DeFi, designed for today's users",
     items: [
       {
         title: 'Sentiment-Driven Intelligence',
@@ -68,25 +68,21 @@ export const MESSAGES = {
   cta: {
     title: 'Ready for Disciplined,',
     titleSecondLine: 'Sentiment-Driven DeFi?',
-    subtitle:
-      'Join investors who rebalance based on market extremes — not impulsive emotions',
+    subtitle: 'Join investors who rebalance based on market extremes — not impulsive emotions',
     ctaPrimary: 'Launch Zap Pilot',
     ctaSecondary: 'Read Documentation',
     cards: [
       {
         title: 'Open Source',
-        description:
-          'Explore our codebase and contribute to the future of DeFi',
+        description: 'Explore our codebase and contribute to the future of DeFi',
       },
       {
         title: 'Community',
-        description:
-          'Join our Discord and learn regime-based allocation strategies',
+        description: 'Join our Discord and learn regime-based allocation strategies',
       },
       {
         title: 'Learn More',
-        description:
-          'Explore the Fear & Greed Index methodology and backtest results',
+        description: 'Explore the Fear & Greed Index methodology and backtest results',
       },
     ],
   },
@@ -99,8 +95,7 @@ export const MESSAGES = {
     },
     newsletter: {
       title: 'Stay Updated',
-      description:
-        'Get the latest updates on new features and DeFi insights.',
+      description: 'Get the latest updates on new features and DeFi insights.',
       buttonText: 'Subscribe',
       disclaimer: 'No spam, unsubscribe at any time.',
     },
@@ -125,28 +120,32 @@ export const MESSAGES = {
       {
         name: 'Morpho',
         category: 'Lending',
-        description: 'Decentralized lending optimizer delivering superior yields with minimized risk through efficient capital allocation.',
+        description:
+          'Decentralized lending optimizer delivering superior yields with minimized risk through efficient capital allocation.',
         logo: '/protocols/morpho.webp',
         link: 'https://morpho.org',
       },
       {
         name: 'GMX v2',
         category: 'Liquidity Provider',
-        description: 'Provide liquidity to GM Pools backing BTC/ETH perpetuals. Earn fees from trading activity and trader liquidations.',
+        description:
+          'Provide liquidity to GM Pools backing BTC/ETH perpetuals. Earn fees from trading activity and trader liquidations.',
         logo: '/protocols/gmx-v2.webp',
         link: 'https://gmx.io',
       },
       {
         name: 'Hyperliquid',
         category: 'Perpetuals',
-        description: 'High-performance perpetuals DEX. Deposit USDC collateral for trading with institutional-grade infrastructure.',
+        description:
+          'High-performance perpetuals DEX. Deposit USDC collateral for trading with institutional-grade infrastructure.',
         logo: '/protocols/hyperliquid.webp',
         link: 'https://hyperfoundation.org/',
       },
       {
         name: 'Aster',
         category: 'Perpetuals',
-        description: 'Multi-chain perpetuals platform. Deposit stablecoins as collateral and earn yield while trading across networks.',
+        description:
+          'Multi-chain perpetuals platform. Deposit stablecoins as collateral and earn yield while trading across networks.',
         logo: '/protocols/aster.webp',
         link: 'https://www.asterdex.com/en',
       },

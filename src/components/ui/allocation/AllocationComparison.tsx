@@ -12,11 +12,7 @@ export function AllocationComparison({
   return (
     <div className="space-y-6">
       {/* Before/After Visualization */}
-      <AllocationTransition
-        before={before}
-        after={after}
-        timeframe={timeframe}
-      />
+      <AllocationTransition before={before} after={after} timeframe={timeframe} />
 
       {/* Execution Details */}
       <div className="pt-4 border-t border-gray-700">

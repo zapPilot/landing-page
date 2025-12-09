@@ -131,10 +131,7 @@ export function Features() {
         </CardGrid>
 
         {/* Bottom CTA */}
-        <motion.div
-          {...revealOnView({ delay: 0.5, duration: 0.8 })}
-          className="text-center mt-20"
-        >
+        <motion.div {...revealOnView({ delay: 0.5, duration: 0.8 })} className="text-center mt-20">
           <motion.a
             href="https://docs.zap-pilot.org/docs/how-it-works"
             className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-purple-500/25 transition-all duration-300"

@@ -52,9 +52,7 @@ export function UseCaseContent({
       {/* User Intent */}
       <div className="mb-4">
         <p className="text-gray-400 text-sm font-semibold mb-1">Your Goal:</p>
-        <p className="text-gray-300 text-lg italic">
-          &ldquo;{variant.userIntent}&rdquo;
-        </p>
+        <p className="text-gray-300 text-lg italic">&ldquo;{variant.userIntent}&rdquo;</p>
       </div>
 
       {/* Zap Action */}
