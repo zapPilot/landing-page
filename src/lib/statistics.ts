@@ -42,10 +42,10 @@ export const STATISTICS: Stat[] = [
     label: 'Integrated Protocols',
     type: 'icons',
     icons: [
-      { src: '/protocols/morpho-blue.webp', alt: 'Morpho Blue', name: 'Morpho' },
+      { src: '/protocols/morpho.webp', alt: 'Morpho', name: 'Morpho' },
       { src: '/protocols/gmx-v2.webp', alt: 'GMX v2', name: 'GMX' },
-      { src: '/protocols/hyperdrive.webp', alt: 'Hyperdrive', name: 'Hyperdrive' },
-      { src: '/protocols/apollodao.webp', alt: 'ApolloDAO', name: 'Apollo' },
+      { src: '/protocols/hyperliquid.webp', alt: 'Hyperliquid', name: 'Hyperliquid' },
+      { src: '/protocols/aster.webp', alt: 'Aster', name: 'Aster' },
     ],
   },
 ];

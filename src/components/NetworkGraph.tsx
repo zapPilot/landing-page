@@ -6,6 +6,7 @@ import { Activity, Brain } from 'lucide-react';
 import { getNetworkNodes, initialConnections, type Connection } from '@/data/networkNodes';
 import { getCurrentIntentFlow, getIntentFlowsCount } from '@/data/intentFlows';
 import { getPerformanceMetrics } from '@/data/performanceMetrics';
+import { dataPacketAnimation } from '@/lib/motion/animations';
 
 export function NetworkGraph() {
   const [activeNode, setActiveNode] = useState<string | null>(null);
@@ -217,21 +218,7 @@ export function NetworkGraph() {
                   <motion.circle
                     r="6"
                     fill={connection.color}
-                    initial={{
-                      x: fromPos.x,
-                      y: fromPos.y,
-                      opacity: 0,
-                    }}
-                    animate={{
-                      x: toPos.x,
-                      y: toPos.y,
-                      opacity: [0, 1, 1, 0],
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      ease: 'easeInOut',
-                      delay: 0.3,
-                    }}
+                    {...dataPacketAnimation(fromPos, toPos)}
                   />
                   <motion.circle
                     r="12"
@@ -239,20 +226,11 @@ export function NetworkGraph() {
                     stroke={connection.color}
                     strokeWidth="2"
                     opacity="0.5"
-                    initial={{
-                      x: fromPos.x,
-                      y: fromPos.y,
-                      scale: 0,
-                    }}
+                    {...dataPacketAnimation(fromPos, toPos)}
                     animate={{
                       x: toPos.x,
                       y: toPos.y,
                       scale: [0, 1, 0],
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      ease: 'easeInOut',
-                      delay: 0.3,
                     }}
                   />
                 </>
