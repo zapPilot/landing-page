@@ -1,13 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import {
-  type RegimeId,
-  regimeOrder,
-  getRegimeById,
-  getActiveStrategy,
-  getDirectionLabel,
-} from '@/lib/regimeData';
+import { type RegimeId, regimeOrder } from '@/lib/regimeData';
+import { getRegimeById, getActiveStrategy, getDirectionLabel } from '@/lib/regimeUtils';
 import { useState, useEffect, useCallback } from 'react';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
@@ -62,7 +57,6 @@ export function RegimeVisualizer({
   const calculatePosition = useCallback(
     (index: number) => {
       const { arcAngleStart, arcAngleRange } = REGIME_VISUALIZER_CONFIG.layout.constants;
-      // Fix dead code: angleStep should derive from regimeOrder.length - 1, not hardcoded ternary
       const angleStep = arcAngleRange / (regimeOrder.length - 1);
       const angle = (arcAngleStart - index * angleStep) * (Math.PI / 180);
 

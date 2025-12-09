@@ -1,7 +1,7 @@
 'use client';
 
 import type { RegimeId } from '@/lib/regimeData';
-import { getRegimeById } from '@/lib/regimeData';
+import { getRegimeById } from '@/lib/regimeUtils';
 
 interface RegimeBadgeProps {
   regimeId: RegimeId;

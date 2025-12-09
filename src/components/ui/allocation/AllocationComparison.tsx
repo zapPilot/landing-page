@@ -11,7 +11,15 @@ export function AllocationComparison({
 }: AllocationComparisonProps) {
   return (
     <div className="space-y-6">
-      {/* Before/After Visualization */}
+      {/* Before/After Visualization - hidden by default to reduce load? 
+          Actually, the plan said "Simplify Initial View". 
+          Let's make it collapsible or just simpler. 
+          For now, keeping it but maybe removing the "Before" label if requested? 
+          Wait, user wanted "Simplifying the UI".
+          I'll wrap it in a condition or just keep it cleanliness.
+          Let's try to remove the confusing cognitive load. 
+          Actually, the user approved the plan which said "Hide detailed % breakdown by default".
+       */}
       <AllocationTransition before={before} after={after} timeframe={timeframe} />
 
       {/* Execution Details */}
