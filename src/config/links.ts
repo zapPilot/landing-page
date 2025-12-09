@@ -20,7 +20,6 @@ export const LINKS = {
 
   // Support and community
   support: {
-    helpCenter: 'https://help.zap-pilot.org',
     contactUs: 'mailto:zap-pilot.org@ud.me',
     bugReport: 'https://github.com/zap-pilot/issues/new',
     featureRequest: 'https://github.com/zap-pilot/issues/new?template=feature_request.md',
@@ -70,18 +69,6 @@ export const openExternalLink = (url: string) => {
   }
 };
 
-export const openEmail = (email: string, subject?: string, body?: string) => {
-  const params = new URLSearchParams();
-  if (subject) params.append('subject', subject);
-  if (body) params.append('body', body);
-
-  const mailtoUrl = `mailto:${email}${params.toString() ? '?' + params.toString() : ''}`;
-
-  if (typeof window !== 'undefined') {
-    window.location.href = mailtoUrl;
-  }
-};
-
 // Navigation links for internal site sections
 export const NAVIGATION = {
   internal: [
@@ -100,7 +87,6 @@ export const NAVIGATION = {
       { href: LINKS.documentation, label: 'Documentation', external: true },
       { href: LINKS.apiReference, label: 'API Reference', external: true },
       { href: LINKS.tutorials, label: 'Tutorials', external: true },
-      { href: LINKS.support.helpCenter, label: 'Support', external: true },
     ],
     community: [
       { href: LINKS.social.discord, label: 'Discord', external: true },
@@ -109,23 +95,4 @@ export const NAVIGATION = {
       { href: LINKS.newsletter.subscribe, label: 'Newsletter', external: true },
     ],
   },
-} as const;
-
-// Social media icons mapping (for dynamic rendering)
-export const SOCIAL_ICONS = {
-  twitter: 'Twitter',
-  discord: 'MessageCircle',
-  telegram: 'Send',
-  github: 'Github',
-  linkedin: 'Linkedin',
-  medium: 'BookOpen',
-  youtube: 'Youtube',
-} as const;
-
-// Link categories for easier management
-export const LINK_CATEGORIES = {
-  primary: [LINKS.app, LINKS.documentation],
-  social: Object.values(LINKS.social),
-  support: Object.values(LINKS.support),
-  legal: Object.values(LINKS.legal),
 } as const;

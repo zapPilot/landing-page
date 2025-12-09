@@ -217,21 +217,9 @@ export function NetworkGraph() {
                   <motion.circle
                     r="6"
                     fill={connection.color}
-                    initial={{
-                      x: fromPos.x,
-                      y: fromPos.y,
-                      opacity: 0,
-                    }}
-                    animate={{
-                      x: toPos.x,
-                      y: toPos.y,
-                      opacity: [0, 1, 1, 0],
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      ease: 'easeInOut',
-                      delay: 0.3,
-                    }}
+                    initial={{ cx: fromPos.x, cy: fromPos.y }}
+                    animate={{ cx: toPos.x, cy: toPos.y }}
+                    transition={{ duration: 1.5, ease: 'easeInOut', repeat: Infinity }}
                   />
                   <motion.circle
                     r="12"
@@ -239,21 +227,13 @@ export function NetworkGraph() {
                     stroke={connection.color}
                     strokeWidth="2"
                     opacity="0.5"
-                    initial={{
-                      x: fromPos.x,
-                      y: fromPos.y,
-                      scale: 0,
-                    }}
+                    initial={{ cx: fromPos.x, cy: fromPos.y }}
                     animate={{
-                      x: toPos.x,
-                      y: toPos.y,
+                      cx: toPos.x,
+                      cy: toPos.y,
                       scale: [0, 1, 0],
                     }}
-                    transition={{
-                      duration: 1.5,
-                      ease: 'easeInOut',
-                      delay: 0.3,
-                    }}
+                    transition={{ duration: 1.5, ease: 'easeInOut', repeat: Infinity }}
                   />
                 </>
               )}
@@ -347,11 +327,11 @@ export function NetworkGraph() {
                 {node.apy && (
                   <div className="space-y-1">
                     <div className="flex justify-between text-xs">
-                      <span className="text-gray-400">APY:</span>
+                      <span className="text-gray-300">APY:</span>
                       <span className="text-green-400 font-semibold">{node.apy}</span>
                     </div>
                     <div className="flex justify-between text-xs">
-                      <span className="text-gray-400">TVL:</span>
+                      <span className="text-gray-300">TVL:</span>
                       <span className="text-blue-400 font-semibold">{node.tvl}</span>
                     </div>
                   </div>
@@ -416,19 +396,19 @@ export function NetworkGraph() {
           {/* Execution Details - Horizontal */}
           <div className="flex space-x-2 lg:space-x-3">
             <div className="bg-gray-800/50 rounded-lg p-2 min-w-[60px]">
-              <div className="text-gray-400 text-xs">Value</div>
+              <div className="text-gray-300 text-xs">Value</div>
               <div className="text-white font-bold text-xs">{currentFlowData.value}</div>
             </div>
             <div className="bg-gray-800/50 rounded-lg p-2 min-w-[50px]">
-              <div className="text-gray-400 text-xs">APY</div>
+              <div className="text-gray-300 text-xs">APY</div>
               <div className="text-green-400 font-bold text-xs">{currentFlowData.apy}</div>
             </div>
             <div className="bg-gray-800/50 rounded-lg p-2 min-w-[50px]">
-              <div className="text-gray-400 text-xs">Time</div>
+              <div className="text-gray-300 text-xs">Time</div>
               <div className="text-blue-400 font-bold text-xs">{currentFlowData.executionTime}</div>
             </div>
             <div className="bg-gray-800/50 rounded-lg p-2 min-w-[50px]">
-              <div className="text-gray-400 text-xs">Gas</div>
+              <div className="text-gray-300 text-xs">Gas</div>
               <div className="text-purple-400 font-bold text-xs">
                 {currentFlowData.gasOptimized}
               </div>
@@ -474,7 +454,7 @@ export function NetworkGraph() {
               <metric.icon className={`w-4 h-4 ${metric.color}`} />
               <span className={`font-bold ${metric.color}`}>{metric.value}</span>
             </div>
-            <div className="text-gray-400 text-xs">{metric.label}</div>
+            <div className="text-gray-300 text-xs">{metric.label}</div>
           </motion.div>
         ))}
       </motion.div>
@@ -504,7 +484,7 @@ export function NetworkGraph() {
       {/* Interaction Hint */}
       {!isMobile && (
         <motion.div
-          className="absolute top-6 left-6 text-gray-400 text-xs flex items-center space-x-2"
+          className="absolute top-6 left-6 text-gray-300 text-xs flex items-center space-x-2"
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 3, repeat: Infinity }}
         >

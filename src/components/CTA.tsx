@@ -1,9 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, BookOpen, Github, MessageCircle } from 'lucide-react';
+import { ArrowRight, BookOpen } from 'lucide-react';
 import { LINKS, openExternalLink } from '@/config/links';
-import { STATISTICS } from '@/lib/statistics';
+import { MESSAGES } from '@/config/messages';
+import { fadeInUpStaggered, scaleOnHover } from '@/lib/motion/animations';
 
 export function CTA() {
   return (
@@ -55,137 +56,47 @@ export function CTA() {
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
+        <motion.div {...fadeInUpStaggered(0)} transition={{ duration: 0.8 }}>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-            Ready to Simplify
-            <span className="block">DeFi?</span>
+            {MESSAGES.cta.title}
+            <span className="block">{MESSAGES.cta.titleSecondLine}</span>
           </h2>
 
           <motion.p
             className="text-xl text-white/90 mb-12 max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
+            {...fadeInUpStaggered(0.2)}
+            transition={{ duration: 0.8 }}
           >
-            Join thousands of users who&apos;ve already simplified their DeFi experience with
-            intent-based execution
+            {MESSAGES.cta.subtitle}
           </motion.p>
 
           {/* Main CTA Buttons */}
           <motion.div
             className="flex flex-col sm:flex-row gap-6 justify-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ once: true }}
+            {...fadeInUpStaggered(0.4)}
+            transition={{ duration: 0.8 }}
           >
             <motion.button
               className="group bg-white text-purple-600 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
+              {...scaleOnHover}
               onClick={() => openExternalLink(LINKS.app)}
             >
               <span className="flex items-center justify-center">
-                Launch Zap Pilot
+                {MESSAGES.cta.ctaPrimary}
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </span>
             </motion.button>
 
             <motion.button
               className="group bg-white/10 backdrop-blur-lg text-white px-8 py-4 rounded-xl font-semibold text-lg border border-white/20 hover:bg-white/20 transition-all duration-300"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
+              {...scaleOnHover}
               onClick={() => openExternalLink(LINKS.documentation)}
             >
               <span className="flex items-center justify-center">
                 <BookOpen className="mr-2 w-5 h-5" />
-                Read Documentation
+                {MESSAGES.cta.ctaSecondary}
               </span>
             </motion.button>
-          </motion.div>
-
-          {/* Additional Links */}
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <motion.div
-              className="group bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer"
-              whileHover={{ scale: 1.03, y: -5 }}
-              onClick={() => openExternalLink(LINKS.social.github)}
-            >
-              <Github className="w-8 h-8 text-white mb-4 mx-auto group-hover:scale-110 transition-transform" />
-              <h3 className="text-white font-semibold mb-2">Open Source</h3>
-              <p className="text-white/80 text-sm">
-                Explore our codebase and contribute to the future of DeFi
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="group bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer"
-              whileHover={{ scale: 1.03, y: -5 }}
-              onClick={() => openExternalLink(LINKS.social.discord)}
-            >
-              <MessageCircle className="w-8 h-8 text-white mb-4 mx-auto group-hover:scale-110 transition-transform" />
-              <h3 className="text-white font-semibold mb-2">Community</h3>
-              <p className="text-white/80 text-sm">
-                Join our Discord and connect with fellow DeFi enthusiasts
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="group bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer"
-              whileHover={{ scale: 1.03, y: -5 }}
-              onClick={() => openExternalLink(LINKS.documentation)}
-            >
-              <BookOpen className="w-8 h-8 text-white mb-4 mx-auto group-hover:scale-110 transition-transform" />
-              <h3 className="text-white font-semibold mb-2">Learn More</h3>
-              <p className="text-white/80 text-sm">
-                Deep dive into intent-based execution and DeFi strategies
-              </p>
-            </motion.div>
-          </motion.div>
-
-          {/* Stats Row */}
-          <motion.div
-            className="grid grid-cols-2 md:grid-cols-3 gap-8 mt-16 pt-16 border-t border-white/20"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            viewport={{ once: true }}
-          >
-            {STATISTICS.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                className="text-center"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <motion.div
-                  className="text-3xl md:text-4xl font-bold text-white mb-2"
-                  animate={{ opacity: [0.8, 1, 0.8] }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    delay: index * 0.5,
-                  }}
-                >
-                  {stat.value}
-                </motion.div>
-                <div className="text-white/80 text-sm">{stat.label}</div>
-              </motion.div>
-            ))}
           </motion.div>
         </motion.div>
       </div>

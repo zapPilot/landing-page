@@ -5,6 +5,7 @@ import { Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { LINKS, NAVIGATION, openExternalLink } from '@/config/links';
+import { staggeredSlideIn } from '@/lib/motion/animations';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -112,18 +113,14 @@ export function Navbar() {
                   href={item.href}
                   className="block text-gray-300 hover:text-white py-2 transition-colors duration-200"
                   onClick={() => setIsOpen(false)}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  {...staggeredSlideIn(index)}
                 >
                   {item.label}
                 </motion.a>
               ))}
               <motion.button
                 className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-6 py-3 rounded-lg font-medium mt-4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
+                {...staggeredSlideIn(navItems.length, 'left', 0.1)}
                 onClick={() => openExternalLink(LINKS.app)}
               >
                 Launch App
