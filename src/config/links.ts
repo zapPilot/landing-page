@@ -20,7 +20,6 @@ export const LINKS = {
 
   // Support and community
   support: {
-    helpCenter: 'https://help.zap-pilot.org',
     contactUs: 'mailto:zap-pilot.org@ud.me',
     bugReport: 'https://github.com/zap-pilot/issues/new',
     featureRequest: 'https://github.com/zap-pilot/issues/new?template=feature_request.md',
@@ -88,7 +87,6 @@ export const NAVIGATION = {
       { href: LINKS.documentation, label: 'Documentation', external: true },
       { href: LINKS.apiReference, label: 'API Reference', external: true },
       { href: LINKS.tutorials, label: 'Tutorials', external: true },
-      { href: LINKS.support.helpCenter, label: 'Support', external: true },
     ],
     community: [
       { href: LINKS.social.discord, label: 'Discord', external: true },
