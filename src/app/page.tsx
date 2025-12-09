@@ -29,7 +29,7 @@ export default function HomePage() {
             scale: [1, 1.2, 1],
           }}
           transition={{
-            duration: 20,
+            duration: 45,
             repeat: Infinity,
             ease: 'easeInOut',
           }}
@@ -42,7 +42,7 @@ export default function HomePage() {
             scale: [1, 0.8, 1],
           }}
           transition={{
-            duration: 15,
+            duration: 35,
             repeat: Infinity,
             ease: 'easeInOut',
             delay: 5,
@@ -56,7 +56,7 @@ export default function HomePage() {
             rotate: [0, 180, 360],
           }}
           transition={{
-            duration: 25,
+            duration: 50,
             repeat: Infinity,
             ease: 'easeInOut',
             delay: 10,

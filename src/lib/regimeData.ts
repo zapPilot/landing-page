@@ -74,7 +74,7 @@ export const regimes: Regime[] = [
           scenario: 'Bitcoin drops 33% from recent highs. FGI drops to 15.',
           userIntent: 'I want to DCA into BTC/ETH without timing the bottom.',
           zapAction:
-            'DCA from 10% crypto, 20% LP → 70% crypto over 10 days (4%/day buy rate) using stable reserves.',
+            'Aggressively accumulates Bitcoin while prices are low. Shifts capital from stablecoins to crypto over 10 days to capture the bottom.',
           allocationBefore: ALLOCATION_STATES.HEAVY_STABLE,
           allocationAfter: ALLOCATION_STATES.HEAVY_SPOT,
         },
@@ -100,7 +100,7 @@ export const regimes: Regime[] = [
           scenario: 'Bitcoin stabilizes after bouncing 12% from recent lows. FGI rises to 35.',
           userIntent: 'I want to hold my positions during early recovery.',
           zapAction:
-            'Maintains current allocation with zero rebalancing. Only monitors for risk spikes.',
+            'Maintains your position to catch the recovery. Zero rebalancing unless risk spikes.',
           allocationBefore: ALLOCATION_STATES.HEAVY_SPOT,
           allocationAfter: ALLOCATION_STATES.HEAVY_SPOT,
         },
@@ -111,7 +111,7 @@ export const regimes: Regime[] = [
           scenario: 'Bitcoin drops 8% from recent peak. FGI falls to 35.',
           userIntent: 'I want to increase spot exposure as market fear grows.',
           zapAction:
-            'Decomposes 10% LP → 5% crypto + 5% stable. Uses that 5% stable to complete DCA into spot over 5 days (1%/day).',
+            'Gradually shifts heavily into spot Bitcoin. Unwinds Liquidity Pool positions to remove impermanent loss risk.',
           allocationBefore: ALLOCATION_STATES.PROFIT_TAKEN,
           allocationAfter: ALLOCATION_STATES.HEAVY_STABLE,
         },
@@ -140,7 +140,7 @@ export const regimes: Regime[] = [
           scenario: 'FGI hovers between 46-54 for weeks.',
           userIntent: "I don't want to overtrade or pay fees.",
           zapAction:
-            'Zero rebalancing. Only monitors borrowing rate risk. Repays debt or removes leverage if threshold exceeded.',
+            'Zero rebalancing. Monitors borrowing rates and auto-repays debt if costs get too high. Enjoy the break.',
           allocationBefore: ALLOCATION_STATES.HEAVY_SPOT,
           allocationAfter: ALLOCATION_STATES.HEAVY_SPOT,
         },
@@ -166,7 +166,7 @@ export const regimes: Regime[] = [
           scenario: 'FGI rises to 65 during a bull run.',
           userIntent: 'I want to lock in gains while keeping exposure and earning fees.',
           zapAction:
-            'Sells 5% spot → USDC, then pairs 5% spot + 5% stable → 10% LP over 7 days (~1.4%/day).',
+            'Locks in gains by moving spot Bitcoin into yield-bearing Liquidity Pools. Earns fees while the market chops sideways.',
           allocationBefore: ALLOCATION_STATES.HEAVY_SPOT,
           allocationAfter: ALLOCATION_STATES.BALANCED_LP,
         },
@@ -176,7 +176,7 @@ export const regimes: Regime[] = [
         useCase: {
           scenario: 'Bitcoin corrects 25% from peak. FGI drops to 65.',
           userIntent: 'I want to avoid catching falling knives.',
-          zapAction: 'Maintains current positions without new trades. Already de-risked.',
+          zapAction: 'Sits tight. Your portfolio was already de-risked before the drop.',
           allocationBefore: ALLOCATION_STATES.PROFIT_TAKEN,
           allocationAfter: ALLOCATION_STATES.PROFIT_TAKEN,
         },
@@ -205,7 +205,7 @@ export const regimes: Regime[] = [
           scenario: 'Bitcoin rallies 67% from recent lows. FGI hits 92.',
           userIntent: 'I want to take profits but keep some exposure.',
           zapAction:
-            'Sells 50% spot → stable. Uses remaining 10% spot + 10% stable → 20% LP. Over 10 days (2.5%/day sell rate).',
+            'Takes maximum profits. Sells 50% of crypto into stablecoins to lock in generational wealth before the crash.',
           allocationBefore: ALLOCATION_STATES.BALANCED_LP,
           allocationAfter: ALLOCATION_STATES.PROFIT_TAKEN,
         },

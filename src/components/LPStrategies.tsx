@@ -4,8 +4,14 @@ import { motion } from 'framer-motion';
 import { Droplets, TrendingUp, ShieldCheck } from 'lucide-react';
 import { LPPoolBadge } from './LPPoolBadge';
 import { SectionHeader, CardGrid, CardItem } from './layout';
+import { revealOnView } from '@/lib/motion/animations';
 
 export function LPStrategies() {
+  const corePools = [
+    { token1: 'BTC', token2: 'USDC' },
+    { token1: 'ETH', token2: 'USDC' },
+  ];
+
   const strategies = [
     {
       icon: Droplets,
@@ -13,10 +19,7 @@ export function LPStrategies() {
       description:
         'When greed rises (FGI 55-75), shift spot holdings into BTC-USDC and ETH-USDC liquidity pools. Earn trading fees while locking in gains with balanced exposure.',
       gradient: 'from-green-400 to-teal-500',
-      pools: [
-        { token1: 'BTC', token2: 'USDC' },
-        { token1: 'ETH', token2: 'USDC' },
-      ],
+      pools: corePools,
     },
     {
       icon: TrendingUp,
@@ -24,10 +27,7 @@ export function LPStrategies() {
       description:
         'When fear emerges (FGI 26-45), gradually unwind LP positions back to spot. Use the USDC portion to DCA into BTC/ETH, preparing for potential Extreme Fear opportunities.',
       gradient: 'from-orange-400 to-red-500',
-      pools: [
-        { token1: 'BTC', token2: 'USDC' },
-        { token1: 'ETH', token2: 'USDC' },
-      ],
+      pools: corePools,
     },
     {
       icon: ShieldCheck,
@@ -90,10 +90,7 @@ export function LPStrategies() {
 
         {/* Bottom Note */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
+          {...revealOnView({ delay: 0.4, duration: 0.8 })}
           className="text-center mt-16 p-6 bg-purple-500/10 rounded-2xl border border-purple-500/20"
         >
           <p className="text-gray-300 text-lg">

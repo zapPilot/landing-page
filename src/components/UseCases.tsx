@@ -6,6 +6,7 @@ import { SectionHeader } from './layout';
 import { regimes } from '@/lib/regimeData';
 import { transformRegimesToUseCases } from '@/lib/regimeTransformers';
 import { REGIME_VISUALIZER_CONFIG } from '@/config/regimeVisualizerConfig';
+import { revealOnView } from '@/lib/motion/animations';
 
 export function UseCases() {
   const tabbedUseCases = transformRegimesToUseCases(regimes);
@@ -47,10 +48,7 @@ export function UseCases() {
 
         {/* Bottom message */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: slideIn.duration, delay: 0.6 }}
-          viewport={{ once: true }}
+          {...revealOnView({ delay: 0.6, duration: slideIn.duration })}
           className="text-center mt-20"
         >
           <p className="text-xl text-gray-300 mb-6">Let market sentiment guide your decisions.</p>

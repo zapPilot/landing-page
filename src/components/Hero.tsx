@@ -53,12 +53,14 @@ export function Hero() {
             className="text-6xl sm:text-7xl md:text-8xl font-bold mb-8 sm:mb-10 md:mb-12 leading-[1.1] tracking-tight"
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 drop-shadow-[0_0_30px_rgba(168,85,247,0.4)]">
-            {MESSAGES.slogans.primary.split('.')[0]}.
+            {MESSAGES.slogans.primary.includes('.') ? MESSAGES.slogans.primary.split('.')[0] + '.' : MESSAGES.slogans.primary}
             </span>
             <br />
-            <span className="text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-            {MESSAGES.slogans.primary.split('.')[1].trim()}.
-            </span>
+            {MESSAGES.slogans.primary.includes('.') && MESSAGES.slogans.primary.split('.')[1] && (
+                <span className="text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                {MESSAGES.slogans.primary.split('.')[1].trim()}.
+                </span>
+            )}
           </motion.h1>
 
           {/* Subtitle */}

@@ -37,38 +37,32 @@ export function LPPoolBadge({
     return iconMap[token.toUpperCase()] || '/usdc.webp';
   };
 
+  const tokens = [
+    { token: token1, zIndex: 'z-10', style: undefined },
+    { token: token2, zIndex: 'z-0', style: { marginLeft: config.overlap } },
+  ];
+
   return (
     <div className={`inline-flex flex-col items-center ${className}`}>
       {/* Overlapping Token Icons */}
       <div className="relative flex items-center" style={{ marginRight: config.overlap }}>
-        <motion.div
-          className="relative z-10 rounded-full bg-gray-800 p-1 border-2 border-gray-700"
-          whileHover={{ scale: 1.1, zIndex: 20 }}
-          transition={{ type: 'spring', stiffness: 300 }}
-        >
-          <Image
-            src={getTokenIcon(token1)}
-            alt={token1}
-            width={config.icon}
-            height={config.icon}
-            className="rounded-full"
-          />
-        </motion.div>
-
-        <motion.div
-          className="relative z-0 rounded-full bg-gray-800 p-1 border-2 border-gray-700"
-          style={{ marginLeft: config.overlap }}
-          whileHover={{ scale: 1.1, zIndex: 20 }}
-          transition={{ type: 'spring', stiffness: 300 }}
-        >
-          <Image
-            src={getTokenIcon(token2)}
-            alt={token2}
-            width={config.icon}
-            height={config.icon}
-            className="rounded-full"
-          />
-        </motion.div>
+        {tokens.map(({ token, zIndex, style }) => (
+          <motion.div
+            key={token}
+            className={`relative ${zIndex} rounded-full bg-gray-800 p-1 border-2 border-gray-700`}
+            style={style}
+            whileHover={{ scale: 1.1, zIndex: 20 }}
+            transition={{ type: 'spring', stiffness: 300 }}
+          >
+            <Image
+              src={getTokenIcon(token)}
+              alt={token}
+              width={config.icon}
+              height={config.icon}
+              className="rounded-full"
+            />
+          </motion.div>
+        ))}
       </div>
 
       {/* Label */}

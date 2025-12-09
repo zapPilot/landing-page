@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Brain, Shield, Calendar, LineChart } from 'lucide-react';
 import { SectionHeader, CardGrid, CardItem } from './layout';
+import { revealOnView } from '@/lib/motion/animations';
 
 export function Features() {
   const features = [
@@ -68,7 +69,7 @@ export function Features() {
 
               {/* Animated border effect */}
               <motion.div
-                className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"
                 style={{
                   background: `conic-gradient(from 0deg, transparent, rgba(147, 51, 234, 0.1), transparent)`,
                 }}
@@ -76,7 +77,7 @@ export function Features() {
                   rotate: [0, 360],
                 }}
                 transition={{
-                  duration: 4,
+                  duration: 12,
                   repeat: Infinity,
                   ease: 'linear',
                 }}
@@ -131,10 +132,7 @@ export function Features() {
 
         {/* Bottom CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          viewport={{ once: true }}
+          {...revealOnView({ delay: 0.5, duration: 0.8 })}
           className="text-center mt-20"
         >
           <motion.a
