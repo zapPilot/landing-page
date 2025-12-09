@@ -6,7 +6,6 @@ import { Activity, Brain } from 'lucide-react';
 import { getNetworkNodes, initialConnections, type Connection } from '@/data/networkNodes';
 import { getCurrentIntentFlow, getIntentFlowsCount } from '@/data/intentFlows';
 import { getPerformanceMetrics } from '@/data/performanceMetrics';
-import { dataPacketAnimation } from '@/lib/motion/animations';
 
 export function NetworkGraph() {
   const [activeNode, setActiveNode] = useState<string | null>(null);
@@ -218,7 +217,9 @@ export function NetworkGraph() {
                   <motion.circle
                     r="6"
                     fill={connection.color}
-                    {...dataPacketAnimation(fromPos, toPos)}
+                    initial={{ cx: fromPos.x, cy: fromPos.y }}
+                    animate={{ cx: toPos.x, cy: toPos.y }}
+                    transition={{ duration: 1.5, ease: 'easeInOut', repeat: Infinity }}
                   />
                   <motion.circle
                     r="12"
@@ -226,12 +227,13 @@ export function NetworkGraph() {
                     stroke={connection.color}
                     strokeWidth="2"
                     opacity="0.5"
-                    {...dataPacketAnimation(fromPos, toPos)}
+                    initial={{ cx: fromPos.x, cy: fromPos.y }}
                     animate={{
-                      x: toPos.x,
-                      y: toPos.y,
+                      cx: toPos.x,
+                      cy: toPos.y,
                       scale: [0, 1, 0],
                     }}
+                    transition={{ duration: 1.5, ease: 'easeInOut', repeat: Infinity }}
                   />
                 </>
               )}
