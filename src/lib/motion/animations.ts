@@ -50,38 +50,14 @@ export function revealOnView({
  * @param staggerDelay - Delay between items in seconds
  * @returns Animation props with staggered timing
  */
-export function staggeredSlideIn(index: number, from: 'left' | 'right' = 'left', staggerDelay = 0.1) {
+export function staggeredSlideIn(
+  index: number,
+  from: 'left' | 'right' = 'left',
+  staggerDelay = 0.1
+) {
   return {
     initial: { opacity: 0, x: from === 'left' ? -20 : 20 },
     animate: { opacity: 1, x: 0 },
     transition: { delay: index * staggerDelay },
   } as const;
-}
-
-/**
- * Creates animation props for a traveling data packet between two points
- * Used for network graph visualizations
- */
-export function dataPacketAnimation(
-  fromPos: { x: string | number; y: string | number },
-  toPos: { x: string | number; y: string | number },
-  delay = 0.3
-) {
-  return {
-    initial: {
-      x: fromPos.x,
-      y: fromPos.y,
-      opacity: 0,
-    },
-    animate: {
-      x: toPos.x,
-      y: toPos.y,
-      opacity: [0, 1, 1, 0],
-    },
-    transition: {
-      duration: 1.5,
-      ease: 'easeInOut' as const,
-      delay,
-    },
-  } satisfies Record<string, unknown>;
 }
