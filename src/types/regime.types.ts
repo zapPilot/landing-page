@@ -2,7 +2,7 @@
 export type { AllocationBreakdown } from '@/components/ui/allocation/types';
 
 // Re-export existing regime types from regimeData.ts
-export type { RegimeId, AssetFlow, RegimeStrategy, Regime } from '@/lib/regimeData';
+export type { RegimeId, RegimeStrategy, Regime } from '@/lib/regimeData';
 
 /**
  * LP transformation direction indicator

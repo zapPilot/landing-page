@@ -1,7 +1,8 @@
 import type { AllocationBreakdown, LpDirection } from '@/types/regime.types';
+import type { StrategyDirection } from '@/config/useCaseLabels';
 
 export interface UseCaseVariant {
-  direction: 'from-left' | 'from-right';
+  direction: StrategyDirection; // 'from-left' | 'from-right' | 'default'
   tabLabel: string;
   title: string;
   scenario: string;

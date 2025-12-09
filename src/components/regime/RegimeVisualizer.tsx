@@ -8,135 +8,71 @@ import {
   getActiveStrategy,
   getDirectionLabel,
 } from '@/lib/regimeData';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { useRegimeAutoPlay } from '@/hooks/useRegimeAutoPlay';
+import { useRegimeLayout } from '@/hooks/useRegimeLayout';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { RegimeArc } from './RegimeArc';
 import { AllocationPanel } from './AllocationPanel';
 import { GlowFilter } from '@/components/ui';
+import { REGIME_VISUALIZER_CONFIG } from '@/config/regimeVisualizerConfig';
 
 interface RegimeVisualizerProps {
   autoPlayInterval?: number;
   startRegime?: RegimeId;
-  showInteractivity?: boolean;
   className?: string;
 }
 
 export function RegimeVisualizer({
-  autoPlayInterval = 5000,
-  startRegime = 'n',
-  showInteractivity: _showInteractivity = false,
+  autoPlayInterval,
+  startRegime,
   className = '',
 }: RegimeVisualizerProps) {
-  const [activeRegime, setActiveRegime] = useState<RegimeId>(startRegime);
-  const [previousRegime, setPreviousRegime] = useState<RegimeId>(startRegime);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [animationDirection, setAnimationDirection] = useState<'forward' | 'backward'>('forward');
   const [isLoading, setIsLoading] = useState(true);
   const isMobile = useMediaQuery('(max-width: 1024px)');
   const prefersReducedMotion = useReducedMotion();
 
-  // Track previous regime for strategy selection
-  useEffect(() => {
-    setPreviousRegime(activeRegime);
-  }, [activeRegime]);
+  // Extract auto-play logic to custom hook
+  const { activeRegime, previousRegime, isAutoPlaying, animationDirection, handleRegimeClick } =
+    useRegimeAutoPlay({
+      startRegime,
+      autoPlayInterval,
+      prefersReducedMotion,
+    });
 
-  // Simulate loading state for smooth initial render
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 300);
-    return () => clearTimeout(timer);
-  }, []);
+  // Extract layout logic to custom hook
+  const layout = useRegimeLayout(isMobile);
 
   const activeRegimeData = getRegimeById(activeRegime);
-
-  // Get active strategy and direction label
   const activeStrategy = getActiveStrategy(activeRegime, animationDirection, previousRegime);
   const directionLabel = getDirectionLabel(activeRegime, animationDirection);
 
-  // Layout configuration
-  const viewBoxWidth = isMobile ? 900 : 1600;
-  const viewBoxHeight = isMobile ? 1000 : 600; // Reduced from 1200 to 1000 for mobile
-
-  // Alignment constants
-  // We want the top of the Arc (EF/EG nodes) to align with the top of the Panel
-  const PANEL_Y = isMobile ? 620 : 60;
-  const PANEL_HEIGHT = 560;
-
-  // For the Arc to align, its top nodes (at y = centerY) need to be visually aligned with PANEL_Y
-  // However, the nodes have a radius of ~80px (with glow), so the center should be lower
-  // If Top of Node Visual = PANEL_Y
-  // Then Center Y = PANEL_Y + Node Radius + some padding
-  const ARC_CENTER_Y = isMobile ? 280 : PANEL_Y + 80 + 40; // 180ish
-
-  const centerX = isMobile ? viewBoxWidth / 2 : 420;
-  const centerY = ARC_CENTER_Y;
-  const arcRadius = isMobile ? 240 : 240;
-
-
-
-  // Handle regime click - pause autoplay and jump to clicked regime
-  const handleRegimeClick = (regimeId: RegimeId) => {
-    setIsAutoPlaying(false);
-    setActiveRegime(regimeId);
-    setAnimationDirection('forward'); // Reset to forward on manual interaction
-  };
-
-  // Auto-play logic with ping-pong animation
+  // Simulate loading state for smooth initial render
   useEffect(() => {
-    if (!isAutoPlaying || prefersReducedMotion) return;
+    const timer = setTimeout(
+      () => setIsLoading(false),
+      REGIME_VISUALIZER_CONFIG.animation.loadingDelay
+    );
+    return () => clearTimeout(timer);
+  }, []);
 
-    const timer = setInterval(() => {
-      setActiveRegime(current => {
-        const currentIdx = regimeOrder.indexOf(current);
-        let nextIdx: number;
+  // Memoize position calculation to prevent unnecessary re-renders
+  const calculatePosition = useCallback(
+    (index: number) => {
+      const { arcAngleStart, arcAngleRange } = REGIME_VISUALIZER_CONFIG.layout.constants;
+      // Fix dead code: angleStep should derive from regimeOrder.length - 1, not hardcoded ternary
+      const angleStep = arcAngleRange / (regimeOrder.length - 1);
+      const angle = (arcAngleStart - index * angleStep) * (Math.PI / 180);
 
-        if (animationDirection === 'forward') {
-          nextIdx = currentIdx + 1;
-
-          // Reached extreme greed (eg) - reverse direction
-          if (nextIdx >= regimeOrder.length) {
-            setAnimationDirection('backward');
-            nextIdx = regimeOrder.length - 2; // Move to 'g'
-          }
-        } else {
-          nextIdx = currentIdx - 1;
-
-          // Reached extreme fear (ef) - reverse direction
-          if (nextIdx < 0) {
-            setAnimationDirection('forward');
-            nextIdx = 1; // Move to 'f'
-          }
-        }
-
-        return regimeOrder[nextIdx];
-      });
-    }, autoPlayInterval);
-
-    return () => clearInterval(timer);
-  }, [autoPlayInterval, isAutoPlaying, animationDirection, prefersReducedMotion]);
-
-  // Calculate positions in gentle 180° arc (centered for vertical layout)
-  const calculatePosition = (index: number) => {
-    const startAngle = 180; // Left side
-    const angleStep = 180 / (getRegimeById('ef').id === 'ef' ? 4 : 4); // 5 regimes -> 4 steps
-    const angle = (startAngle - index * angleStep) * (Math.PI / 180);
-
-    return {
-      x: centerX + arcRadius * Math.cos(angle),
-      y: centerY + arcRadius * Math.sin(angle),
-    };
-  };
-
-  const getViewBox = () => `0 0 ${viewBoxWidth} ${viewBoxHeight}`;
-
-  const getPanelPosition = () => {
-    return isMobile
-      ? { x: 50, y: PANEL_Y, width: 800, height: PANEL_HEIGHT }
-      : { x: 900, y: PANEL_Y, width: 600, height: PANEL_HEIGHT };
-  };
-
-  const panelPos = getPanelPosition();
+      return {
+        x: layout.arcGeometry.centerX + layout.arcGeometry.radius * Math.cos(angle),
+        y: layout.arcGeometry.centerY + layout.arcGeometry.radius * Math.sin(angle),
+      };
+    },
+    [layout]
+  );
 
   return (
     <ErrorBoundary
@@ -201,16 +137,16 @@ export function RegimeVisualizer({
                     y: [-10, 0, 0, -10],
                   }}
                   transition={{
-                    duration: 6,
-                    times: [0, 0.1, 0.9, 1],
-                    repeat: 2,
+                    duration: REGIME_VISUALIZER_CONFIG.animation.interactionHint.duration,
+                    times: [...REGIME_VISUALIZER_CONFIG.animation.interactionHint.times],
+                    repeat: REGIME_VISUALIZER_CONFIG.animation.interactionHint.repeat,
                   }}
                 >
                   👆 Explore each regime to see how we respond
                 </motion.div>
               )}
               <div className="w-full">
-                <svg viewBox={getViewBox()} className="w-full h-auto">
+                <svg viewBox={layout.viewBox} className="w-full h-auto">
                   <defs>
                     {/* Gradients for liquid fills */}
                     <linearGradient id="stableGradient" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -243,7 +179,7 @@ export function RegimeVisualizer({
 
                   <AllocationPanel
                     activeRegimeData={activeRegimeData}
-                    panelPosition={panelPos}
+                    panelPosition={layout.panelPosition}
                     isMobile={isMobile}
                     animationDirection={animationDirection}
                     activeStrategy={activeStrategy}

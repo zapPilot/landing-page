@@ -2,29 +2,22 @@ import type { AllocationBreakdown } from '@/components/ui/allocation/types';
 import type { LucideIcon } from 'lucide-react';
 import { TrendingDown, TrendingUp, Pause } from 'lucide-react';
 
-export type RegimeId = 'ef' | 'f' | 'n' | 'g' | 'eg';
+/**
+ * Shared allocation states used across regime transitions.
+ * Each state represents a unique portfolio composition in the flow.
+ * Using shared objects ensures allocation consistency between connected regimes.
+ */
+export const ALLOCATION_STATES = {
+  HEAVY_STABLE: { spot: 10, lp: 30, stable: 60 },
+  HEAVY_SPOT: { spot: 70, lp: 0, stable: 30 },
+  PROFIT_TAKEN: { spot: 0, lp: 30, stable: 70 },
+  BALANCED_LP: { spot: 60, lp: 10, stable: 30 },
+} as const;
 
-export type AssetFlow =
-  | 'hold'
-  | 'dca-buy'
-  | 'dca-sell'
-  | 'lp-to-spot'
-  | 'spot-to-lp'
-  | 'monitor-leverage';
+export type RegimeId = 'ef' | 'f' | 'n' | 'g' | 'eg';
 
 export interface RegimeStrategy {
   title: string;
-  description: string;
-  actions: string[];
-  assetFlow: AssetFlow;
-  lpTransformation?: {
-    from: 'spot' | 'lp';
-    to: 'spot' | 'lp';
-    percentage: number;
-    duration: string;
-  };
-  leverageAction?: string;
-  // Use case scenario data (matches UseCases.tsx)
   useCase?: {
     scenario: string;
     userIntent: string;
@@ -98,20 +91,13 @@ export const regimes: Regime[] = [
     strategies: {
       default: {
         title: 'Maximum Accumulation',
-        description: 'Historical crypto bottoms occur during extreme fear',
-        actions: [
-          'DCA into BTC/ETH using only your stables',
-          'Prioritize debt repayment if LTV rises',
-          'No new leverage during this cycle',
-        ],
-        assetFlow: 'dca-buy',
         useCase: {
           scenario: 'Bitcoin crashes from $60K to $40K. FGI drops to 15.',
           userIntent: 'I want to DCA into BTC/ETH without timing the bottom.',
           zapAction:
             'DCA from 30% → 70% crypto over 10 days (4%/day buy rate) using stable reserves.',
-          allocationBefore: { spot: 10, lp: 30, stable: 60 },
-          allocationAfter: { spot: 70, lp: 0, stable: 30 },
+          allocationBefore: ALLOCATION_STATES.HEAVY_STABLE,
+          allocationAfter: ALLOCATION_STATES.HEAVY_SPOT,
         },
       },
     },
@@ -142,56 +128,28 @@ export const regimes: Regime[] = [
     strategies: {
       fromLeft: {
         title: 'Monitor Market Recovery',
-        description: 'Market recovering from extreme fear - hold steady',
-        actions: [
-          'Monitor positions without new trades',
-          'Watch for confirmation of recovery',
-          'Repay debt if borrowing rates spike',
-        ],
-        assetFlow: 'hold',
-        leverageAction: 'Repay debt if LTV > 50%',
         useCase: {
           scenario: 'Bitcoin stabilizes at $45K after bouncing from $40K. FGI rises to 35.',
           userIntent: 'I want to hold my positions during early recovery.',
           zapAction:
             'Maintains current allocation with zero rebalancing. Only monitors for risk spikes.',
-          allocationBefore: { spot: 70, lp: 0, stable: 30 },
-          allocationAfter: { spot: 70, lp: 0, stable: 30 },
+          allocationBefore: ALLOCATION_STATES.HEAVY_SPOT,
+          allocationAfter: ALLOCATION_STATES.HEAVY_SPOT,
         },
       },
       fromRight: {
         title: 'Unwind LP for Spot',
-        description: 'Market declining from neutral - prepare for deeper fear',
-        actions: [
-          'Unwind 5% of LP positions into spot BTC/ETH',
-          'DCA execution over 5 days (1%/day)',
-          'Prepare for potential Extreme Fear buying opportunity',
-        ],
-        assetFlow: 'lp-to-spot',
-        lpTransformation: {
-          from: 'lp',
-          to: 'spot',
-          percentage: 5,
-          duration: '5 days',
-        },
         useCase: {
           scenario: 'Bitcoin drops to $55K. FGI falls to 35.',
           userIntent: 'I want to increase spot exposure as market fear grows.',
           zapAction:
             'Decomposes 10% LP → 5% crypto + 5% stable. Uses that 5% stable to DCA into spot over 5 days (1%/day).',
-          allocationBefore: { spot: 0, lp: 30, stable: 70 },
-          allocationAfter: { spot: 10, lp: 30, stable: 60 },
+          allocationBefore: ALLOCATION_STATES.PROFIT_TAKEN,
+          allocationAfter: ALLOCATION_STATES.HEAVY_STABLE,
         },
       },
       default: {
         title: 'Cautious Positioning',
-        description: 'Markets often retest lows',
-        actions: [
-          'Small probe entries with light DCA',
-          'Partial BTC/ETH-USD LP positions',
-          'Take profits if borrowing rates spike',
-        ],
-        assetFlow: 'hold',
       },
     },
   },
@@ -221,20 +179,12 @@ export const regimes: Regime[] = [
     strategies: {
       default: {
         title: 'Holiday Mode',
-        description: 'Markets lack clear direction - preserve capital',
-        actions: [
-          'Minimal trading activity',
-          'Light rebalancing only if allocation drifts significantly',
-          'Maintain current positions and wait for clearer signals',
-        ],
-        assetFlow: 'monitor-leverage',
-        leverageAction: 'Only deleverage if borrowing rates spike above threshold',
         useCase: {
           scenario: 'FGI hovers between 46-54 for weeks.',
           userIntent: "I don't want to overtrade or pay fees.",
           zapAction: 'Zero rebalancing. Only monitors borrowing rate risk.',
-          allocationBefore: { spot: 70, lp: 0, stable: 30 },
-          allocationAfter: { spot: 70, lp: 0, stable: 30 },
+          allocationBefore: ALLOCATION_STATES.HEAVY_SPOT,
+          allocationAfter: ALLOCATION_STATES.HEAVY_SPOT,
         },
       },
     },
@@ -265,55 +215,27 @@ export const regimes: Regime[] = [
     strategies: {
       fromLeft: {
         title: 'Lock Gains into LP',
-        description: 'Market rising from neutral - take soft profits',
-        actions: [
-          'Shift 5% from spot BTC/ETH into crypto-USDC LP',
-          'DCA execution over 5 days (1%/day)',
-          'Earn trading fees while maintaining crypto exposure',
-        ],
-        assetFlow: 'spot-to-lp',
-        lpTransformation: {
-          from: 'spot',
-          to: 'lp',
-          percentage: 5,
-          duration: '5 days',
-        },
         useCase: {
           scenario: 'Bitcoin rallies to $75K. FGI hits 65.',
           userIntent: 'I want to lock in gains while keeping exposure and earning fees.',
           zapAction:
             'Sells 15% spot → USDC, then pairs 10% spot + 10% stable → 20% LP over 7 days (~1.4%/day).',
-          allocationBefore: { spot: 70, lp: 0, stable: 30 },
-          allocationAfter: { spot: 60, lp: 10, stable: 30 },
+          allocationBefore: ALLOCATION_STATES.HEAVY_SPOT,
+          allocationAfter: ALLOCATION_STATES.BALANCED_LP,
         },
       },
       fromRight: {
         title: 'Take a Rest',
-        description: 'Market correcting from extreme greed - bear market mode',
-        actions: [
-          'Holiday mode - avoid new positions',
-          'Let existing positions ride',
-          'Wait for clearer directional signals',
-        ],
-        assetFlow: 'hold',
-        leverageAction: 'Monitor but avoid trading during correction',
         useCase: {
           scenario: 'Bitcoin corrects from $100K to $75K. FGI drops to 65.',
           userIntent: 'I want to avoid catching falling knives.',
           zapAction: 'Maintains current positions without new trades. Already de-risked.',
-          allocationBefore: { spot: 0, lp: 30, stable: 70 },
-          allocationAfter: { spot: 0, lp: 30, stable: 70 },
+          allocationBefore: ALLOCATION_STATES.PROFIT_TAKEN,
+          allocationAfter: ALLOCATION_STATES.PROFIT_TAKEN,
         },
       },
       default: {
         title: 'Soft Profit-Taking',
-        description: 'Lock gains while retaining exposure',
-        actions: [
-          'Gradually shift spot BTC/ETH into LP positions',
-          'DCA-sell if coming from Neutral',
-          'Avoid new purchases unless from higher regime',
-        ],
-        assetFlow: 'spot-to-lp',
       },
     },
   },
@@ -343,20 +265,13 @@ export const regimes: Regime[] = [
     strategies: {
       default: {
         title: 'Maximum Profit-Taking',
-        description: 'Market tops coincide with extreme greed',
-        actions: [
-          'DCA-sell excess BTC/ETH into stables',
-          'Retain small beta via token-USD LPs',
-          'Move stables to conservative yields (perp vaults, stable pools)',
-        ],
-        assetFlow: 'dca-sell',
         useCase: {
           scenario: 'Bitcoin rallies to $100K. FGI hits 92.',
           userIntent: 'I want to take profits but keep some exposure.',
           zapAction:
             'Sells 50% spot → stable. Uses remaining 10% spot + 10% stable → 20% LP. Over 10 days (2.5%/day sell rate).',
-          allocationBefore: { spot: 60, lp: 10, stable: 30 },
-          allocationAfter: { spot: 0, lp: 30, stable: 70 },
+          allocationBefore: ALLOCATION_STATES.BALANCED_LP,
+          allocationAfter: ALLOCATION_STATES.PROFIT_TAKEN,
         },
       },
     },
