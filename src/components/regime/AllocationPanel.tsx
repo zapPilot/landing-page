@@ -53,6 +53,7 @@ export function AllocationPanel({
             <p className="text-lg italic" style={{ color: activeRegimeData.fillColor }}>
               {activeRegimeData.philosophy}
             </p>
+            <p className="text-sm text-gray-400 mt-1">— {activeRegimeData.author}</p>
           </div>
 
           {/* Strategy Action */}
