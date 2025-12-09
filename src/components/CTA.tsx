@@ -1,12 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, BookOpen, Github, MessageCircle } from 'lucide-react';
+import { ArrowRight, BookOpen } from 'lucide-react';
 import { LINKS, openExternalLink } from '@/config/links';
-import { STATISTICS } from '@/lib/statistics';
-import { StatDisplay } from '@/components/StatDisplay';
 import { MESSAGES } from '@/config/messages';
-import { fadeInUpStaggered, scaleOnHover, scaleOnHoverSubtle } from '@/lib/motion/animations';
+import { fadeInUpStaggered, scaleOnHover } from '@/lib/motion/animations';
 
 export function CTA() {
   return (
@@ -64,12 +62,20 @@ export function CTA() {
             <span className="block">{MESSAGES.cta.titleSecondLine}</span>
           </h2>
 
-          <motion.p className="text-xl text-white/90 mb-12 max-w-3xl mx-auto" {...fadeInUpStaggered(0.2)} transition={{ duration: 0.8 }}>
+          <motion.p
+            className="text-xl text-white/90 mb-12 max-w-3xl mx-auto"
+            {...fadeInUpStaggered(0.2)}
+            transition={{ duration: 0.8 }}
+          >
             {MESSAGES.cta.subtitle}
           </motion.p>
 
           {/* Main CTA Buttons */}
-          <motion.div className="flex flex-col sm:flex-row gap-6 justify-center mb-16" {...fadeInUpStaggered(0.4)} transition={{ duration: 0.8 }}>
+          <motion.div
+            className="flex flex-col sm:flex-row gap-6 justify-center mb-16"
+            {...fadeInUpStaggered(0.4)}
+            transition={{ duration: 0.8 }}
+          >
             <motion.button
               className="group bg-white text-purple-600 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
               {...scaleOnHover}
@@ -91,52 +97,6 @@ export function CTA() {
                 {MESSAGES.cta.ctaSecondary}
               </span>
             </motion.button>
-          </motion.div>
-
-          {/* Additional Links */}
-          <motion.div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto" {...fadeInUpStaggered(0.6)} transition={{ duration: 0.8 }}>
-            <motion.div
-              className="group bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer"
-              {...scaleOnHoverSubtle}
-              onClick={() => openExternalLink(LINKS.social.github)}
-            >
-              <Github className="w-8 h-8 text-white mb-4 mx-auto group-hover:scale-110 transition-transform" />
-              <h3 className="text-white font-semibold mb-2">{MESSAGES.cta.cards[0].title}</h3>
-              <p className="text-white/80 text-sm">
-                {MESSAGES.cta.cards[0].description}
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="group bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer"
-              {...scaleOnHoverSubtle}
-              onClick={() => openExternalLink(LINKS.social.discord)}
-            >
-              <MessageCircle className="w-8 h-8 text-white mb-4 mx-auto group-hover:scale-110 transition-transform" />
-              <h3 className="text-white font-semibold mb-2">{MESSAGES.cta.cards[1].title}</h3>
-              <p className="text-white/80 text-sm">
-                {MESSAGES.cta.cards[1].description}
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="group bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-300 cursor-pointer"
-              {...scaleOnHoverSubtle}
-              onClick={() => openExternalLink(LINKS.documentation)}
-            >
-              <BookOpen className="w-8 h-8 text-white mb-4 mx-auto group-hover:scale-110 transition-transform" />
-              <h3 className="text-white font-semibold mb-2">{MESSAGES.cta.cards[2].title}</h3>
-              <p className="text-white/80 text-sm">
-                {MESSAGES.cta.cards[2].description}
-              </p>
-            </motion.div>
-          </motion.div>
-
-          {/* Stats Row */}
-          <motion.div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16 pt-16 border-t border-white/20" {...fadeInUpStaggered(0.8)} transition={{ duration: 0.8 }}>
-            {STATISTICS.map((stat, index) => (
-              <StatDisplay key={stat.label} stat={stat} index={index} variant="cta" animate />
-            ))}
           </motion.div>
         </motion.div>
       </div>

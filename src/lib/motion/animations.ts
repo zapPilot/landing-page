@@ -9,11 +9,6 @@ export const scaleOnHover = {
   whileTap: { scale: 0.95 },
 } as const;
 
-// Subtle hover effect for cards/links
-export const scaleOnHoverSubtle = {
-  whileHover: { scale: 1.03, y: -5 },
-} as const;
-
 /**
  * Creates a staggered fade-in animation
  * @param delay - Base delay in seconds

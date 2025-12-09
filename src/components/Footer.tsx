@@ -48,7 +48,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
         <div className="py-16">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Brand Section */}
             <div className="lg:col-span-1">
               <div className="flex items-center space-x-2 mb-6">
@@ -85,32 +85,6 @@ export function Footer() {
 
             {/* Resources Links */}
             <FooterLinkSection title="Resources" links={resourceLinks} _delay={0.2} />
-
-            {/* Newsletter Signup */}
-            <div>
-              <h3 className="text-white font-semibold text-lg mb-6">Stay Updated</h3>
-              <p className="text-gray-300 mb-4">
-                Get the latest updates on new features and DeFi insights.
-              </p>
-
-              <div className="space-y-3">
-                <div className="flex">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="flex-1 bg-gray-800 border border-gray-700 rounded-l-lg px-4 py-3 text-white placeholder-gray-300 focus:outline-none focus:border-purple-500 transition-colors"
-                  />
-                  <motion.button
-                    className="bg-gradient-to-r from-purple-500 to-blue-600 text-white px-6 py-3 rounded-r-lg font-semibold hover:from-purple-600 hover:to-blue-700 transition-all duration-200"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    Subscribe
-                  </motion.button>
-                </div>
-                <p className="text-gray-500 text-sm">No spam, unsubscribe at any time.</p>
-              </div>
-            </div>
           </div>
         </div>
 

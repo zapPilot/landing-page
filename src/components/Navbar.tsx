@@ -19,10 +19,6 @@ export function Navbar() {
   }, []);
 
   const navItems = NAVIGATION.internal;
-  const mobileCtaVariants = {
-    hidden: { opacity: 0, y: 12, scale: 0.98 },
-    visible: { opacity: 1, y: 0, scale: 1 },
-  };
 
   return (
     <motion.nav
