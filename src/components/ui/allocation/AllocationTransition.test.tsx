@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { AllocationTransition } from './AllocationTransition';
 import type { AllocationBreakdown } from './types';
 
@@ -41,9 +41,96 @@ describe('AllocationTransition', () => {
     stable: 20,
   };
 
+  describe('Expand/Collapse behavior', () => {
+    it('should show "Show Transition" button by default', () => {
+      render(<AllocationTransition before={mockBefore} after={mockAfter} />);
+
+      expect(screen.getByText('Show Transition')).toBeInTheDocument();
+    });
+
+    it('should only show Target Allocation when collapsed', () => {
+      render(<AllocationTransition before={mockBefore} after={mockAfter} />);
+
+      // Target Allocation should be visible
+      expect(screen.getByText('Target Allocation')).toBeInTheDocument();
+
+      // Starting Allocation should NOT be visible
+      expect(screen.queryByText('Starting Allocation')).not.toBeInTheDocument();
+    });
+
+    it('should show Starting Allocation when expanded', () => {
+      render(<AllocationTransition before={mockBefore} after={mockAfter} />);
+
+      // Click to expand
+      fireEvent.click(screen.getByText('Show Transition'));
+
+      // Starting Allocation should now be visible
+      expect(screen.getByText('Starting Allocation')).toBeInTheDocument();
+    });
+
+    it('should show both allocations when expanded', () => {
+      render(<AllocationTransition before={mockBefore} after={mockAfter} />);
+
+      // Click to expand
+      fireEvent.click(screen.getByText('Show Transition'));
+
+      // Both should be visible
+      expect(screen.getByText('Starting Allocation')).toBeInTheDocument();
+      expect(screen.getByText('Target Allocation')).toBeInTheDocument();
+    });
+
+    it('should display Starting Allocation above Target Allocation in DOM order', () => {
+      const { container } = render(<AllocationTransition before={mockBefore} after={mockAfter} />);
+
+      // Click to expand
+      fireEvent.click(screen.getByText('Show Transition'));
+
+      // Get the text content order - Starting should come before Target
+      const textContent = container.textContent || '';
+      const startingIndex = textContent.indexOf('Starting Allocation');
+      const targetIndex = textContent.indexOf('Target Allocation');
+
+      expect(startingIndex).toBeLessThan(targetIndex);
+    });
+
+    it('should toggle button text when clicked', () => {
+      render(<AllocationTransition before={mockBefore} after={mockAfter} />);
+
+      // Initially shows "Show Transition"
+      expect(screen.getByText('Show Transition')).toBeInTheDocument();
+
+      // Click to expand
+      fireEvent.click(screen.getByText('Show Transition'));
+
+      // Now shows "Hide Transition"
+      expect(screen.getByText('Hide Transition')).toBeInTheDocument();
+
+      // Click to collapse
+      fireEvent.click(screen.getByText('Hide Transition'));
+
+      // Back to "Show Transition"
+      expect(screen.getByText('Show Transition')).toBeInTheDocument();
+    });
+
+    it('should hide Starting Allocation when collapsed again', () => {
+      render(<AllocationTransition before={mockBefore} after={mockAfter} />);
+
+      // Expand
+      fireEvent.click(screen.getByText('Show Transition'));
+      expect(screen.getByText('Starting Allocation')).toBeInTheDocument();
+
+      // Collapse
+      fireEvent.click(screen.getByText('Hide Transition'));
+      expect(screen.queryByText('Starting Allocation')).not.toBeInTheDocument();
+    });
+  });
+
   describe('Label rendering', () => {
     it('should NOT render "Before" text label', () => {
       render(<AllocationTransition before={mockBefore} after={mockAfter} />);
+
+      // Expand to show all content
+      fireEvent.click(screen.getByText('Show Transition'));
 
       // The text "Before" should NOT be rendered
       expect(screen.queryByText('Before')).not.toBeInTheDocument();
@@ -52,12 +139,18 @@ describe('AllocationTransition', () => {
     it('should NOT render "After" text label', () => {
       render(<AllocationTransition before={mockBefore} after={mockAfter} />);
 
+      // Expand to show all content
+      fireEvent.click(screen.getByText('Show Transition'));
+
       // The text "After" should NOT be rendered
       expect(screen.queryByText('After')).not.toBeInTheDocument();
     });
 
-    it('should render allocation percentages from both before and after allocations', () => {
+    it('should render allocation percentages from both before and after allocations when expanded', () => {
       render(<AllocationTransition before={mockBefore} after={mockAfter} />);
+
+      // Expand to show all content
+      fireEvent.click(screen.getByText('Show Transition'));
 
       // From before allocation (30, 40, 30)
       expect(screen.getAllByText(/30%/).length).toBeGreaterThan(0);
@@ -70,37 +163,57 @@ describe('AllocationTransition', () => {
   });
 
   describe('Arrow and timeframe rendering', () => {
-    it('should render arrow by default', () => {
+    it('should render downward arrow when expanded', () => {
       render(<AllocationTransition before={mockBefore} after={mockAfter} />);
 
+      // Arrow should not be visible when collapsed
+      expect(screen.queryByText('↓')).not.toBeInTheDocument();
+
+      // Expand
+      fireEvent.click(screen.getByText('Show Transition'));
+
+      // Arrow should now be visible
       expect(screen.getByText('↓')).toBeInTheDocument();
     });
 
-    it('should render default timeframe "Over 5-10 days"', () => {
+    it('should render "Transitioning to" text when expanded', () => {
       render(<AllocationTransition before={mockBefore} after={mockAfter} />);
 
-      expect(screen.getByText('Over 5-10 days')).toBeInTheDocument();
+      // Expand
+      fireEvent.click(screen.getByText('Show Transition'));
+
+      expect(screen.getByText('Transitioning to')).toBeInTheDocument();
     });
 
-    it('should render custom timeframe when provided', () => {
-      render(
-        <AllocationTransition before={mockBefore} after={mockAfter} timeframe="Over 2-3 weeks" />
-      );
+    it('should render default timeframe when expanded', () => {
+      render(<AllocationTransition before={mockBefore} after={mockAfter} />);
 
-      expect(screen.getByText('Over 2-3 weeks')).toBeInTheDocument();
+      // Timeframe should not be visible when collapsed
+      expect(screen.queryByText(/Execution:/)).not.toBeInTheDocument();
+
+      // Expand
+      fireEvent.click(screen.getByText('Show Transition'));
+
+      expect(screen.getByText('Execution: Over 5-10 days')).toBeInTheDocument();
     });
 
     it('should hide arrow when showArrow is false', () => {
       render(<AllocationTransition before={mockBefore} after={mockAfter} showArrow={false} />);
 
+      // Expand
+      fireEvent.click(screen.getByText('Show Transition'));
+
       expect(screen.queryByText('↓')).not.toBeInTheDocument();
-      expect(screen.queryByText('Over 5-10 days')).not.toBeInTheDocument();
+      expect(screen.queryByText('Transitioning to')).not.toBeInTheDocument();
     });
   });
 
   describe('Non-scrollable content', () => {
     it('should not have overflow or scroll styles on the container', () => {
       const { container } = render(<AllocationTransition before={mockBefore} after={mockAfter} />);
+
+      // Expand to show all content
+      fireEvent.click(screen.getByText('Show Transition'));
 
       const rootDiv = container.firstChild as HTMLElement;
 
@@ -112,8 +225,11 @@ describe('AllocationTransition', () => {
       expect(rootDiv.className).not.toContain('scroll');
     });
 
-    it('should render all allocation bars without scrolling', () => {
+    it('should render all allocation bars without scrolling when expanded', () => {
       const { container } = render(<AllocationTransition before={mockBefore} after={mockAfter} />);
+
+      // Expand to show all content
+      fireEvent.click(screen.getByText('Show Transition'));
 
       // Count the allocation bars (before and after)
       // Each ThreePartAllocationBar renders a div with class 'space-y-3'
@@ -121,8 +237,19 @@ describe('AllocationTransition', () => {
       expect(allocationBars.length).toBe(2); // One for before, one for after
     });
 
-    it('should render all allocation segments without truncation', () => {
+    it('should render only one allocation bar when collapsed', () => {
+      const { container } = render(<AllocationTransition before={mockBefore} after={mockAfter} />);
+
+      // Only target allocation should be visible
+      const allocationBars = container.querySelectorAll('.space-y-3');
+      expect(allocationBars.length).toBe(1); // Only after/target
+    });
+
+    it('should render all allocation segments without truncation when expanded', () => {
       render(<AllocationTransition before={mockBefore} after={mockAfter} />);
+
+      // Expand to show all content
+      fireEvent.click(screen.getByText('Show Transition'));
 
       // Each allocation bar should have its legend rendered
       // Check for "Spot", "LP", and "Stable" labels (rendered twice - once for each bar)
@@ -138,6 +265,9 @@ describe('AllocationTransition', () => {
     it('should not apply max-height constraints', () => {
       const { container } = render(<AllocationTransition before={mockBefore} after={mockAfter} />);
 
+      // Expand to show all content
+      fireEvent.click(screen.getByText('Show Transition'));
+
       const rootDiv = container.firstChild as HTMLElement;
 
       // Check that no max-height is applied via inline styles
@@ -149,12 +279,26 @@ describe('AllocationTransition', () => {
   });
 
   describe('Size prop', () => {
-    it('should default to "lg" size', () => {
+    it('should default to "lg" size for target allocation', () => {
       const { container } = render(<AllocationTransition before={mockBefore} after={mockAfter} />);
 
-      // ThreePartAllocationBar uses h-8 for lg size
-      const bars = container.querySelectorAll('.h-8');
-      expect(bars.length).toBe(2); // Before and After
+      // ThreePartAllocationBar uses h-8 for lg size (allocation bar has bg-gray-800)
+      const bars = container.querySelectorAll('.h-8.bg-gray-800');
+      expect(bars.length).toBe(1); // Only target allocation when collapsed
+    });
+
+    it('should use "md" size for starting allocation and "lg" for target when expanded', () => {
+      const { container } = render(<AllocationTransition before={mockBefore} after={mockAfter} />);
+
+      // Expand to show all content
+      fireEvent.click(screen.getByText('Show Transition'));
+
+      // Starting allocation uses md (h-6), target uses lg (h-8)
+      // Allocation bars have bg-gray-800 class
+      const mdBars = container.querySelectorAll('.h-6.bg-gray-800');
+      const lgBars = container.querySelectorAll('.h-8.bg-gray-800');
+      expect(mdBars.length).toBe(1); // Starting allocation
+      expect(lgBars.length).toBe(1); // Target allocation
     });
 
     it('should apply "sm" size when specified', () => {
@@ -162,9 +306,15 @@ describe('AllocationTransition', () => {
         <AllocationTransition before={mockBefore} after={mockAfter} size="sm" />
       );
 
-      // ThreePartAllocationBar uses h-3 for sm size
-      const bars = container.querySelectorAll('.h-3');
-      expect(bars.length).toBe(2); // Before and After
+      // Expand to show all content
+      fireEvent.click(screen.getByText('Show Transition'));
+
+      // ThreePartAllocationBar uses h-3 for sm size (target), h-6 for md (starting)
+      // Allocation bars have bg-gray-800 class
+      const smBars = container.querySelectorAll('.h-3.bg-gray-800');
+      const mdBars = container.querySelectorAll('.h-6.bg-gray-800');
+      expect(smBars.length).toBe(1); // Target allocation with sm
+      expect(mdBars.length).toBe(1); // Starting allocation always md
     });
 
     it('should apply "md" size when specified', () => {
@@ -172,9 +322,12 @@ describe('AllocationTransition', () => {
         <AllocationTransition before={mockBefore} after={mockAfter} size="md" />
       );
 
-      // ThreePartAllocationBar uses h-6 for md size
-      const bars = container.querySelectorAll('.h-6');
-      expect(bars.length).toBe(2); // Before and After
+      // Expand to show all content
+      fireEvent.click(screen.getByText('Show Transition'));
+
+      // Both use h-6 for md size (allocation bars have bg-gray-800)
+      const mdBars = container.querySelectorAll('.h-6.bg-gray-800');
+      expect(mdBars.length).toBe(2); // Both starting and target use md
     });
   });
 
@@ -192,6 +345,9 @@ describe('AllocationTransition', () => {
       };
 
       render(<AllocationTransition before={beforeNoLP} after={afterNoLP} />);
+
+      // Expand to show all content
+      fireEvent.click(screen.getByText('Show Transition'));
 
       // LP labels should not appear when value is 0
       expect(screen.queryByText('LP:')).not.toBeInTheDocument();

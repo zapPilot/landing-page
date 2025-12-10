@@ -20,7 +20,7 @@ export function AllocationComparison({
           Let's try to remove the confusing cognitive load. 
           Actually, the user approved the plan which said "Hide detailed % breakdown by default".
        */}
-      <AllocationTransition before={before} after={after} timeframe={timeframe} />
+      <AllocationTransition before={before} after={after} />
 
       {/* Execution Details */}
       <div className="pt-4 border-t border-gray-700">
