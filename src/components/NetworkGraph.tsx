@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { getPerformanceMetrics } from '@/data/performanceMetrics';
 import { useNetworkGraph } from '@/hooks/useNetworkGraph';
+import { NETWORK_GRAPH_ANIMATION } from '@/config/visualization.config';
 import { NetworkBackground } from './network-graph/NetworkBackground';
 import { NetworkConnection } from './network-graph/NetworkConnection';
 import { NetworkNode } from './network-graph/NetworkNode';
@@ -26,7 +27,7 @@ export function NetworkGraph() {
     let timeoutId: NodeJS.Timeout;
     const throttledResize = () => {
       clearTimeout(timeoutId);
-      timeoutId = setTimeout(checkMobile, 150);
+      timeoutId = setTimeout(checkMobile, NETWORK_GRAPH_ANIMATION.RESIZE_THROTTLE);
     };
 
     window.addEventListener('resize', throttledResize);

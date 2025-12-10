@@ -28,15 +28,16 @@ const config = {
     '!src/app/**', // Next.js app router files (mostly routing)
     '!src/types/**', // Type definitions
     '!src/**/index.ts', // Barrel exports
+    '!src/test-utils/**', // Test utilities
   ],
   coverageDirectory: 'coverage',
   coverageReporters: ['text', 'text-summary', 'html', 'lcov'],
   coverageThreshold: {
     global: {
-      statements: 60,
-      branches: 55,
+      statements: 65,
+      branches: 60,
       functions: 60,
-      lines: 60,
+      lines: 65,
     },
     // Critical business logic - higher thresholds
     './src/lib/regimeUtils.ts': {
@@ -51,11 +52,24 @@ const config = {
       functions: 85,
       lines: 85,
     },
-    './src/types/regime.types.ts': {
-      statements: 90,
-      branches: 85,
-      functions: 90,
-      lines: 90,
+    // Hooks with comprehensive testing
+    './src/hooks/useMediaQuery.ts': {
+      statements: 80,
+      branches: 75,
+      functions: 80,
+      lines: 80,
+    },
+    './src/hooks/useReducedMotion.ts': {
+      statements: 80,
+      branches: 75,
+      functions: 80,
+      lines: 80,
+    },
+    './src/hooks/useRegimeAutoPlay.ts': {
+      statements: 80,
+      branches: 70,
+      functions: 80,
+      lines: 80,
     },
   },
 };

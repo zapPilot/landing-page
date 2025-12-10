@@ -137,7 +137,7 @@ export const MESSAGES = {
         name: 'Hyperliquid',
         category: 'Perpetuals',
         description:
-          'High-performance perpetuals DEX. Deposit USDC collateral for trading with institutional-grade infrastructure.',
+          'Provide stablecoins to Hyperliquid HLP (Hyperliquid Liquidity Pool) for stablecoin positions. Earn trading fees from liquidity provision.',
         logo: '/protocols/hyperliquid.webp',
         link: 'https://hyperfoundation.org/',
       },
@@ -145,7 +145,7 @@ export const MESSAGES = {
         name: 'Aster',
         category: 'Perpetuals',
         description:
-          'Multi-chain perpetuals platform. Deposit stablecoins as collateral and earn yield while trading across networks.',
+          'Provide stablecoins to Aster ALP (Aster Liquidity Pool) for stablecoin positions. Earn trading fees from liquidity provision.',
         logo: '/protocols/aster.webp',
         link: 'https://www.asterdex.com/en',
       },

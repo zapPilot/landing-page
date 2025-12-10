@@ -30,10 +30,13 @@ const eslintConfig = [
     },
   },
   {
-    files: ['jest.setup.js'],
+    files: ['jest.setup.js', 'src/test-utils/**/*.{ts,tsx}'],
     rules: {
       '@typescript-eslint/no-require-imports': 'off',
       '@typescript-eslint/no-var-requires': 'off',
+      '@typescript-eslint/no-unused-vars': 'off', // Mock files intentionally ignore vars
+      '@typescript-eslint/no-empty-object-type': 'off',
+      'import/no-anonymous-default-export': 'off',
     },
   },
   {

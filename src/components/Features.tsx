@@ -1,57 +1,24 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Brain, Shield, Calendar, LineChart } from 'lucide-react';
 import { SectionHeader, CardGrid, CardItem } from './layout';
 import { revealOnView } from '@/lib/motion/animations';
+import { getFeatures, FEATURES_CONFIG } from '@/config/features';
 
 export function Features() {
-  const features = [
-    {
-      icon: Brain,
-      title: 'Sentiment-Driven Intelligence',
-      description:
-        'Monitors the Fear & Greed Index 24/7 and only suggests rebalancing when market emotions reach extremes — helping you buy fear and sell greed.',
-      gradient: 'from-purple-500 to-violet-600',
-      delay: 0.1,
-    },
-    {
-      icon: Shield,
-      title: 'Self-Custodial. Always.',
-      description:
-        'Every token stays in your wallet. Zap Pilot generates optimized rebalancing routes — you sign every transaction. No custody, no compromise.',
-      gradient: 'from-blue-500 to-cyan-600',
-      delay: 0.2,
-    },
-    {
-      icon: Calendar,
-      title: 'Gradual, Disciplined Execution',
-      description:
-        'Rebalancing adapts to market intensity: 5 days (1%/day) for intermediate regimes, 10 days (2.5%/day) for extreme regimes. No panic selling, no FOMO buying — just systematic execution.',
-      gradient: 'from-green-500 to-emerald-600',
-      delay: 0.3,
-    },
-    {
-      icon: LineChart,
-      title: 'Transparent & Backtestable',
-      description:
-        'All parameters are visible and adjustable. Regime thresholds, allocation targets, execution pace — everything is designed to be backtested and optimized.',
-      gradient: 'from-orange-500 to-red-600',
-      delay: 0.4,
-    },
-  ];
+  const features = getFeatures();
 
   return (
-    <section id="features" className="py-24 relative">
+    <section id={FEATURES_CONFIG.sectionId} className="py-24 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           title={
             <>
-              Why
-              <span className="ml-3">Zap Pilot?</span>
+              {FEATURES_CONFIG.title.prefix}
+              <span className="ml-3">{FEATURES_CONFIG.title.highlight}</span>
             </>
           }
-          subtitle="Built for the future of DeFi, designed for today's users"
+          subtitle={FEATURES_CONFIG.subtitle}
         />
 
         <CardGrid columns={2}>
@@ -109,7 +76,7 @@ export function Features() {
                 >
                   <a
                     className="text-sm font-medium mr-2"
-                    href="https://docs.zap-pilot.org/docs/how-it-works"
+                    href={FEATURES_CONFIG.learnMoreLink}
                     target="_blank"
                   >
                     Learn more
@@ -133,13 +100,13 @@ export function Features() {
         {/* Bottom CTA */}
         <motion.div {...revealOnView({ delay: 0.5, duration: 0.8 })} className="text-center mt-20">
           <motion.a
-            href="https://docs.zap-pilot.org/docs/how-it-works"
+            href={FEATURES_CONFIG.ctaButton.href}
             className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-purple-500/25 transition-all duration-300"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             target="_blank"
           >
-            Explore All Features
+            {FEATURES_CONFIG.ctaButton.text}
           </motion.a>
         </motion.div>
       </div>

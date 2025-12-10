@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { getNetworkNodes, initialConnections, type Connection } from '@/data/networkNodes';
 import { getCurrentIntentFlow, getIntentFlowsCount } from '@/data/intentFlows';
+import { NETWORK_GRAPH_ANIMATION } from '@/config/visualization.config';
 
 export function useNetworkGraph(isMobile: boolean) {
   const [activeNode, setActiveNode] = useState<string | null>(null);
@@ -31,14 +32,14 @@ export function useNetworkGraph(isMobile: boolean) {
         const currentFlowData = getCurrentIntentFlow(currentFlow);
         const progressInterval = setInterval(() => {
           setExecutionProgress(prev => {
-            if (prev >= 100) {
+            if (prev >= NETWORK_GRAPH_ANIMATION.PROGRESS_MAX) {
               clearInterval(progressInterval);
               setIsExecuting(false);
-              return 100;
+              return NETWORK_GRAPH_ANIMATION.PROGRESS_MAX;
             }
-            return prev + 2;
+            return prev + NETWORK_GRAPH_ANIMATION.PROGRESS_STEP;
           });
-        }, 40);
+        }, NETWORK_GRAPH_ANIMATION.PROGRESS_INTERVAL);
 
         // Animate current flow path
         setConnections(prev =>
@@ -62,9 +63,9 @@ export function useNetworkGraph(isMobile: boolean) {
         // Move to next flow
         setTimeout(() => {
           setCurrentFlow(prev => (prev + 1) % getIntentFlowsCount());
-        }, 1000);
-      }, 500);
-    }, 4000);
+        }, NETWORK_GRAPH_ANIMATION.NEXT_FLOW_DELAY);
+      }, NETWORK_GRAPH_ANIMATION.FLOW_START_DELAY);
+    }, NETWORK_GRAPH_ANIMATION.EXECUTION_INTERVAL);
 
     return () => clearInterval(interval);
   }, [currentFlow]);
