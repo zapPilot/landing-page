@@ -52,8 +52,19 @@ export interface Feature extends FeatureConfig {
 
 /**
  * Get all features with combined text and visual data
+ * @throws Error if MESSAGES.features.items and FEATURE_VISUALS arrays have different lengths
  */
 export function getFeatures(): Feature[] {
+  const itemsLength = MESSAGES.features.items.length;
+  const visualsLength = FEATURE_VISUALS.length;
+
+  if (itemsLength !== visualsLength) {
+    throw new Error(
+      `Features configuration mismatch: MESSAGES.features.items has ${itemsLength} items, ` +
+        `but FEATURE_VISUALS has ${visualsLength} items. These arrays must be synchronized.`
+    );
+  }
+
   return MESSAGES.features.items.map((item, index) => ({
     ...item,
     ...FEATURE_VISUALS[index],
