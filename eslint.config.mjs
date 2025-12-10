@@ -30,6 +30,13 @@ const eslintConfig = [
     },
   },
   {
+    files: ['jest.setup.js'],
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off',
+      '@typescript-eslint/no-var-requires': 'off',
+    },
+  },
+  {
     ignores: [
       'node_modules/**',
       '.next/**',
@@ -39,6 +46,7 @@ const eslintConfig = [
       '.jscpd/**',
       '.claude/**',
       'scripts/**',
+      'coverage/**',
     ],
   },
 ];

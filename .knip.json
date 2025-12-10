@@ -14,5 +14,6 @@
     "tailwindcss",
     "postcss"
   ],
-  "ignoreExportsUsedInFile": true
+  "ignoreExportsUsedInFile": true,
+  "ignoreMembers": ["metadata", "viewport", "generateMetadata", "generateStaticParams"]
 }
