@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { SectionHeader, CardGrid, CardItem } from './layout';
-import { revealOnView } from '@/lib/motion/animations';
+import { revealOnView, rotatingBorder } from '@/lib/motion/animations';
 import { getFeatures, FEATURES_CONFIG } from '@/config/features';
 
 export function Features() {
@@ -40,14 +40,7 @@ export function Features() {
                 style={{
                   background: `conic-gradient(from 0deg, transparent, rgba(147, 51, 234, 0.1), transparent)`,
                 }}
-                animate={{
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  duration: 12,
-                  repeat: Infinity,
-                  ease: 'linear',
-                }}
+                {...rotatingBorder()}
               />
 
               <div className="relative z-10">

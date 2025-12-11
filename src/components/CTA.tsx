@@ -5,54 +5,24 @@ import { ArrowRight, BookOpen } from 'lucide-react';
 import { LINKS, openExternalLink } from '@/config/links';
 import { MESSAGES } from '@/config/messages';
 import { fadeInUpStaggered, scaleOnHover } from '@/lib/motion/animations';
+import { FloatingOrb, AnimatedGradientBg } from '@/components/ui';
+import { GRADIENTS } from '@/config/gradients';
 
 export function CTA() {
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Animated background */}
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-blue-600 to-purple-600 opacity-90" />
-      <motion.div
-        className="absolute inset-0"
-        style={{
-          background:
-            'linear-gradient(45deg, rgba(147, 51, 234, 0.1) 0%, rgba(59, 130, 246, 0.1) 50%, rgba(147, 51, 234, 0.1) 100%)',
-          backgroundSize: '400% 400%',
-        }}
-        animate={{
-          backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
+      <AnimatedGradientBg gradient={GRADIENTS.ctaBg} />
 
       {/* Floating orbs */}
-      <motion.div
-        className="absolute top-20 left-20 w-32 h-32 bg-white/10 rounded-full blur-xl"
-        animate={{
-          y: [0, -20, 0],
-          scale: [1, 1.1, 1],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
-      <motion.div
-        className="absolute bottom-20 right-20 w-40 h-40 bg-white/10 rounded-full blur-xl"
-        animate={{
-          y: [0, 20, 0],
-          scale: [1, 0.9, 1],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: 'easeInOut',
-          delay: 2,
-        }}
+      <FloatingOrb size={128} position="top-20 left-20" duration={6} yRange={20} />
+      <FloatingOrb
+        size={160}
+        position="bottom-20 right-20"
+        duration={8}
+        yRange={20}
+        scaleRange={[1, 0.9]}
+        delay={2}
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

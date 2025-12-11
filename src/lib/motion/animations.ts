@@ -61,3 +61,83 @@ export function staggeredSlideIn(
     transition: { delay: index * staggerDelay },
   } as const;
 }
+
+/**
+ * Pulsing ring animation for circular elements
+ * @param delay - Delay before animation starts
+ * @param duration - Duration of one pulse cycle
+ * @returns Animation props for pulsing effect
+ */
+export function pulsingRing(delay = 0, duration = 4) {
+  return {
+    animate: {
+      scale: [1, 1.1, 1] as number[],
+      opacity: [0.1, 0, 0.1] as number[],
+    },
+    transition: {
+      duration,
+      repeat: Infinity,
+      ease: 'easeInOut' as const,
+      delay,
+    },
+  };
+}
+
+/**
+ * Container variants with staggered children animation
+ * @param staggerDelay - Delay between children animations
+ * @param delayChildren - Initial delay before children animations start
+ * @returns Container and item variants
+ */
+export function containerWithStagger(staggerDelay = 0.2, delayChildren = 0.3) {
+  return {
+    container: {
+      hidden: { opacity: 0 },
+      visible: {
+        opacity: 1,
+        transition: {
+          staggerChildren: staggerDelay,
+          delayChildren,
+        },
+      },
+    },
+    item: {
+      hidden: { opacity: 0, y: 30 },
+      visible: {
+        opacity: 1,
+        y: 0,
+      },
+    },
+  } as const;
+}
+
+/**
+ * Staggered child item animation (for use with container)
+ * @param offsetY - Vertical offset for initial state
+ * @returns Animation variants for child items
+ */
+export const staggeredChild = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+  },
+} as const;
+
+/**
+ * Rotating border effect animation
+ * @param duration - Duration of one rotation cycle
+ * @returns Animation props for rotating border
+ */
+export function rotatingBorder(duration = 12) {
+  return {
+    animate: {
+      rotate: [0, 360] as number[],
+    },
+    transition: {
+      duration,
+      repeat: Infinity,
+      ease: 'linear' as const,
+    },
+  };
+}

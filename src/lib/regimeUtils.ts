@@ -5,6 +5,7 @@ import {
   type Regime,
   type RegimeStrategy,
 } from './regimeData';
+import { REGIME_VISUALIZER_CONFIG } from '@/config/regimeVisualizerConfig';
 
 export function getRegimeIndex(id: RegimeId): number {
   return regimeOrder.indexOf(id);
@@ -75,4 +76,30 @@ export function getDirectionLabel(
   }
 
   return null;
+}
+
+interface ArcGeometry {
+  centerX: number;
+  centerY: number;
+  radius: number;
+}
+
+/**
+ * Calculate the position of a regime node on the arc
+ * @param index The index of the regime in the order
+ * @param arcGeometry The arc geometry parameters
+ * @returns The x and y coordinates of the regime node
+ */
+export function calculateRegimePosition(
+  index: number,
+  arcGeometry: ArcGeometry
+): { x: number; y: number } {
+  const { arcAngleStart, arcAngleRange } = REGIME_VISUALIZER_CONFIG.layout.constants;
+  const angleStep = arcAngleRange / (regimeOrder.length - 1);
+  const angle = (arcAngleStart - index * angleStep) * (Math.PI / 180);
+
+  return {
+    x: arcGeometry.centerX + arcGeometry.radius * Math.cos(angle),
+    y: arcGeometry.centerY + arcGeometry.radius * Math.sin(angle),
+  };
 }

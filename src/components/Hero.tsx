@@ -6,27 +6,11 @@ import { LINKS, openExternalLink } from '@/config/links';
 import { STATISTICS } from '@/lib/statistics';
 import { StatDisplay } from '@/components/StatDisplay';
 import { MESSAGES } from '@/config/messages';
-import { scaleOnHover } from '@/lib/motion/animations';
+import { scaleOnHover, containerWithStagger } from '@/lib/motion/animations';
+import { GRADIENTS } from '@/config/gradients';
 
 export function Hero() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-    },
-  };
+  const { container: containerVariants, item: itemVariants } = containerWithStagger();
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-16">
@@ -79,7 +63,7 @@ export function Hero() {
             className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16 sm:mb-20 md:mb-24"
           >
             <motion.button
-              className="group relative px-12 py-6 text-lg sm:text-xl bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-2xl shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 ring-2 ring-purple-400/20 hover:ring-purple-400/50"
+              className={`group relative px-12 py-6 text-lg sm:text-xl bg-gradient-to-r ${GRADIENTS.primary} text-white font-semibold rounded-2xl shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 ring-2 ring-purple-400/20 hover:ring-purple-400/50`}
               {...scaleOnHover}
               whileTap={{ scale: 0.98 }}
               onClick={() => openExternalLink(LINKS.app)}

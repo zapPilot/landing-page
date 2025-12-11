@@ -9,3 +9,5 @@ npm run type-check
 
 # Check for code duplication
 npm run dup:check
+
+npm run test:coverage

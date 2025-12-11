@@ -8,3 +8,5 @@ export { useNetworkGraph } from './useNetworkGraph';
 export { useReducedMotion } from './useReducedMotion';
 export { useRegimeAutoPlay } from './useRegimeAutoPlay';
 export { useRegimeLayout } from './useRegimeLayout';
+export { useResponsiveLayout } from './useResponsiveLayout';
+export { useKeyboardNavigation } from './useKeyboardNavigation';

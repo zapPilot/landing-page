@@ -1,9 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { type RegimeId, regimeOrder } from '@/lib/regimeData';
-import { getRegimeById, getActiveStrategy, getDirectionLabel } from '@/lib/regimeUtils';
-import { useState, useEffect, useCallback } from 'react';
+import { type RegimeId } from '@/lib/regimeData';
+import {
+  getRegimeById,
+  getActiveStrategy,
+  getDirectionLabel,
+  calculateRegimePosition,
+} from '@/lib/regimeUtils';
+import { useState, useEffect } from 'react';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { useRegimeAutoPlay } from '@/hooks/useRegimeAutoPlay';
@@ -52,21 +57,6 @@ export function RegimeVisualizer({
     );
     return () => clearTimeout(timer);
   }, []);
-
-  // Memoize position calculation to prevent unnecessary re-renders
-  const calculatePosition = useCallback(
-    (index: number) => {
-      const { arcAngleStart, arcAngleRange } = REGIME_VISUALIZER_CONFIG.layout.constants;
-      const angleStep = arcAngleRange / (regimeOrder.length - 1);
-      const angle = (arcAngleStart - index * angleStep) * (Math.PI / 180);
-
-      return {
-        x: layout.arcGeometry.centerX + layout.arcGeometry.radius * Math.cos(angle),
-        y: layout.arcGeometry.centerY + layout.arcGeometry.radius * Math.sin(angle),
-      };
-    },
-    [layout]
-  );
 
   return (
     <ErrorBoundary
@@ -164,7 +154,7 @@ export function RegimeVisualizer({
 
                   <RegimeArc
                     activeRegime={activeRegime}
-                    calculatePosition={calculatePosition}
+                    calculatePosition={index => calculateRegimePosition(index, layout.arcGeometry)}
                     isMobile={isMobile}
                     onRegimeClick={handleRegimeClick}
                     isAutoPlaying={isAutoPlaying}

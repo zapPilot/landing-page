@@ -3,6 +3,7 @@ import {
   getRegimeById,
   getActiveStrategy,
   getDirectionLabel,
+  calculateRegimePosition,
 } from '../regimeUtils';
 import { regimes, type RegimeId } from '../regimeData';
 
@@ -189,6 +190,99 @@ describe('regimeUtils', () => {
         const label = getDirectionLabel('g', 'backward');
         expect(label).toBe('From Extreme Greed (correction)');
       });
+    });
+  });
+
+  describe('calculateRegimePosition', () => {
+    const mockArcGeometry = {
+      centerX: 450,
+      centerY: 280,
+      radius: 240,
+    };
+
+    it('should calculate position for first regime (index 0)', () => {
+      const position = calculateRegimePosition(0, mockArcGeometry);
+
+      // For index 0 at 180 degrees: x = centerX + radius * cos(180°) = 450 + 240 * (-1) = 210
+      // y = centerY + radius * sin(180°) = 280 + 240 * 0 = 280
+      expect(position.x).toBeCloseTo(210, 1);
+      expect(position.y).toBeCloseTo(280, 1);
+    });
+
+    it('should calculate position for middle regime (index 2)', () => {
+      const position = calculateRegimePosition(2, mockArcGeometry);
+
+      // For index 2 at 90 degrees (middle of 180° arc)
+      // x = centerX + radius * cos(90°) = 450 + 240 * 0 = 450
+      // y = centerY + radius * sin(90°) = 280 + 240 * 1 = 520
+      expect(position.x).toBeCloseTo(450, 1);
+      expect(position.y).toBeCloseTo(520, 1);
+    });
+
+    it('should calculate position for last regime (index 4)', () => {
+      const position = calculateRegimePosition(4, mockArcGeometry);
+
+      // For index 4 at 0 degrees
+      // x = centerX + radius * cos(0°) = 450 + 240 * 1 = 690
+      // y = centerY + radius * sin(0°) = 280 + 240 * 0 = 280
+      expect(position.x).toBeCloseTo(690, 1);
+      expect(position.y).toBeCloseTo(280, 1);
+    });
+
+    it('should calculate correct positions for all 5 regimes', () => {
+      const positions = [0, 1, 2, 3, 4].map(index =>
+        calculateRegimePosition(index, mockArcGeometry)
+      );
+
+      // All positions should be within the arc radius from center
+      positions.forEach(pos => {
+        const distanceFromCenter = Math.sqrt(
+          Math.pow(pos.x - mockArcGeometry.centerX, 2) +
+            Math.pow(pos.y - mockArcGeometry.centerY, 2)
+        );
+        expect(distanceFromCenter).toBeCloseTo(mockArcGeometry.radius, 1);
+      });
+
+      // Positions should be evenly spaced along the arc
+      // First and last should be at the same y-coordinate (horizontal line)
+      expect(positions[0].y).toBeCloseTo(positions[4].y, 1);
+
+      // Middle position should be the lowest (highest y value)
+      const middleY = positions[2].y;
+      positions.forEach((pos, idx) => {
+        if (idx !== 2) {
+          expect(pos.y).toBeLessThanOrEqual(middleY);
+        }
+      });
+    });
+
+    it('should use different arc geometry correctly', () => {
+      const differentArcGeometry = {
+        centerX: 420,
+        centerY: 180,
+        radius: 300,
+      };
+
+      const position = calculateRegimePosition(0, differentArcGeometry);
+
+      // x = 420 + 300 * cos(180°) = 420 + 300 * (-1) = 120
+      // y = 180 + 300 * sin(180°) = 180 + 300 * 0 = 180
+      expect(position.x).toBeCloseTo(120, 1);
+      expect(position.y).toBeCloseTo(180, 1);
+    });
+
+    it('should handle edge case of zero radius', () => {
+      const zeroRadiusGeometry = {
+        centerX: 100,
+        centerY: 100,
+        radius: 0,
+      };
+
+      const position = calculateRegimePosition(2, zeroRadiusGeometry);
+
+      // With zero radius, all positions should be at the center
+      expect(position.x).toBeCloseTo(100, 1);
+      expect(position.y).toBeCloseTo(100, 1);
     });
   });
 });

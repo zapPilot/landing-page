@@ -1,9 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { getPerformanceMetrics } from '@/data/performanceMetrics';
-import { useNetworkGraph } from '@/hooks/useNetworkGraph';
+import { useNetworkGraph, useResponsiveLayout, useKeyboardNavigation } from '@/hooks';
 import { NETWORK_GRAPH_ANIMATION } from '@/config/visualization.config';
 import { NetworkBackground } from './network-graph/NetworkBackground';
 import { NetworkConnection } from './network-graph/NetworkConnection';
@@ -14,28 +14,13 @@ import { AIStatusIndicator } from './network-graph/AIStatusIndicator';
 import { InteractionHint } from './network-graph/InteractionHint';
 
 export function NetworkGraph() {
-  const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Responsive layout detection
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    checkMobile();
-    let timeoutId: NodeJS.Timeout;
-    const throttledResize = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(checkMobile, NETWORK_GRAPH_ANIMATION.RESIZE_THROTTLE);
-    };
-
-    window.addEventListener('resize', throttledResize);
-    return () => {
-      window.removeEventListener('resize', throttledResize);
-      clearTimeout(timeoutId);
-    };
-  }, []);
+  const isMobile = useResponsiveLayout({
+    breakpoint: 768,
+    throttleDelay: NETWORK_GRAPH_ANIMATION.RESIZE_THROTTLE,
+  });
 
   const {
     nodes,
@@ -53,39 +38,17 @@ export function NetworkGraph() {
   const performanceMetrics = getPerformanceMetrics();
 
   // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (!containerRef.current?.contains(document.activeElement)) return;
-
-      switch (event.key) {
-        case 'ArrowRight':
-        case 'ArrowDown':
-          event.preventDefault();
-          setFocusedNodeIndex(prev => (prev < nodes.length - 1 ? prev + 1 : 0));
-          break;
-        case 'ArrowLeft':
-        case 'ArrowUp':
-          event.preventDefault();
-          setFocusedNodeIndex(prev => (prev > 0 ? prev - 1 : nodes.length - 1));
-          break;
-        case 'Enter':
-        case ' ':
-          event.preventDefault();
-          if (focusedNodeIndex >= 0) {
-            setActiveNode(nodes[focusedNodeIndex].id);
-          }
-          break;
-        case 'Escape':
-          event.preventDefault();
-          setActiveNode(null);
-          setFocusedNodeIndex(-1);
-          break;
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [nodes, focusedNodeIndex, setActiveNode, setFocusedNodeIndex]);
+  useKeyboardNavigation({
+    containerRef,
+    items: nodes,
+    focusedIndex: focusedNodeIndex,
+    setFocusedIndex: setFocusedNodeIndex,
+    onSelect: node => setActiveNode(node.id),
+    onEscape: () => {
+      setActiveNode(null);
+      setFocusedNodeIndex(-1);
+    },
+  });
 
   return (
     <motion.div
