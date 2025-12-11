@@ -12,7 +12,7 @@ export const MESSAGES = {
     badge: '📊 Sentiment-Driven Rebalancing',
     subtitle:
       'Zap Pilot is a self-custodial, sentiment-driven rebalancing engine that adjusts your BTC/ETH exposure at emotional extremes — with every action executed directly from your own wallet.',
-    ctaPrimary: 'Discover Your Allocation',
+    ctaPrimary: 'Connect Wallet',
     ctaSecondary: 'Watch Demo',
   },
 
@@ -109,7 +109,7 @@ export const MESSAGES = {
       buttonText: 'Subscribe',
       disclaimer: 'No spam, unsubscribe at any time.',
     },
-    copyright: '© 2023 Zap Pilot. All rights reserved.',
+    copyright: '© 2024 Zap Pilot. All rights reserved.',
     builtWith: 'Built with ❤️ for DeFi',
   },
 

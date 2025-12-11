@@ -24,7 +24,7 @@ describe('HomePage', () => {
       expect(screen.getAllByText('Zap Pilot').length).toBeGreaterThan(0);
 
       // Hero section content
-      const heroButtons = screen.getAllByRole('button', { name: /Discover Your Allocation/i });
+      const heroButtons = screen.getAllByRole('button', { name: /Connect Wallet/i });
       expect(heroButtons.length).toBeGreaterThan(0);
 
       // Features section
@@ -92,7 +92,7 @@ describe('HomePage', () => {
       const content = container.textContent || '';
 
       // Hero should come before Features
-      const heroIndex = content.indexOf('Discover Your Allocation');
+      const heroIndex = content.indexOf('Connect Wallet');
       const featuresIndex = content.indexOf('Sentiment-Driven Intelligence');
       expect(heroIndex).toBeLessThan(featuresIndex);
 
@@ -137,7 +137,7 @@ describe('HomePage', () => {
       render(<HomePage />);
 
       // Hero CTA
-      expect(screen.getByRole('button', { name: /Discover Your Allocation/i })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /Connect Wallet/i })).toBeInTheDocument();
 
       // Watch Demo button
       expect(screen.getByRole('button', { name: /Watch Demo/i })).toBeInTheDocument();

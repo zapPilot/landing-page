@@ -27,6 +27,14 @@ export function CTA() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div {...fadeInUpStaggered(0)} transition={{ duration: 0.8 }}>
+          {/* Philosophy Quote */}
+          <p className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-blue-300 mb-4">
+            &ldquo;{MESSAGES.slogans.philosophy}&rdquo;
+          </p>
+          <p className="text-white/60 text-sm mb-10 max-w-xl mx-auto">
+            {MESSAGES.slogans.philosophyDescription}
+          </p>
+
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
             {MESSAGES.cta.title}
             <span className="block">{MESSAGES.cta.titleSecondLine}</span>
