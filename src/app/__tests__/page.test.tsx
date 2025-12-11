@@ -11,10 +11,6 @@ jest.mock('@/components/regime', () => ({
   RegimeVisualizer: () => <div data-testid="regime-visualizer" />,
 }));
 
-jest.mock('@/components/NetworkGraph', () => ({
-  NetworkGraph: () => <div data-testid="network-graph" />,
-}));
-
 describe('HomePage', () => {
   describe('section rendering', () => {
     it('should render all major sections', () => {
