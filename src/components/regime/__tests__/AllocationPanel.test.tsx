@@ -143,17 +143,12 @@ describe('AllocationPanel', () => {
     it('should render direction badge when directionLabel is provided', () => {
       render(
         <svg>
-          <AllocationPanel
-            {...defaultProps}
-            directionLabel="From Extreme Fear (recovery)"
-          />
+          <AllocationPanel {...defaultProps} directionLabel="From Extreme Fear (recovery)" />
         </svg>
       );
 
       expect(screen.getByTestId('direction-badge')).toBeInTheDocument();
-      expect(screen.getByTestId('label')).toHaveTextContent(
-        'From Extreme Fear (recovery)'
-      );
+      expect(screen.getByTestId('label')).toHaveTextContent('From Extreme Fear (recovery)');
     });
 
     it('should pass correct direction to badge', () => {
@@ -175,10 +170,7 @@ describe('AllocationPanel', () => {
     it('should show AllocationComparison when allocations differ', () => {
       render(
         <svg>
-          <AllocationPanel
-            {...defaultProps}
-            activeStrategy={mockStrategyWithChange}
-          />
+          <AllocationPanel {...defaultProps} activeStrategy={mockStrategyWithChange} />
         </svg>
       );
 
@@ -188,10 +180,7 @@ describe('AllocationPanel', () => {
     it('should pass correct allocation data to AllocationComparison', () => {
       render(
         <svg>
-          <AllocationPanel
-            {...defaultProps}
-            activeStrategy={mockStrategyWithChange}
-          />
+          <AllocationPanel {...defaultProps} activeStrategy={mockStrategyWithChange} />
         </svg>
       );
 
@@ -206,10 +195,7 @@ describe('AllocationPanel', () => {
     it('should pass timeframe to AllocationComparison', () => {
       render(
         <svg>
-          <AllocationPanel
-            {...defaultProps}
-            activeStrategy={mockStrategyWithChange}
-          />
+          <AllocationPanel {...defaultProps} activeStrategy={mockStrategyWithChange} />
         </svg>
       );
 
@@ -219,17 +205,12 @@ describe('AllocationPanel', () => {
     it('should show MaintainingAllocation when allocations are the same', () => {
       render(
         <svg>
-          <AllocationPanel
-            {...defaultProps}
-            activeStrategy={mockStrategyWithoutChange}
-          />
+          <AllocationPanel {...defaultProps} activeStrategy={mockStrategyWithoutChange} />
         </svg>
       );
 
       expect(screen.getByTestId('maintaining-allocation')).toBeInTheDocument();
-      expect(
-        screen.queryByTestId('allocation-comparison')
-      ).not.toBeInTheDocument();
+      expect(screen.queryByTestId('allocation-comparison')).not.toBeInTheDocument();
     });
 
     it('should show MaintainingAllocation when useCase is undefined', () => {
@@ -239,10 +220,7 @@ describe('AllocationPanel', () => {
 
       render(
         <svg>
-          <AllocationPanel
-            {...defaultProps}
-            activeStrategy={strategyWithoutUseCase}
-          />
+          <AllocationPanel {...defaultProps} activeStrategy={strategyWithoutUseCase} />
         </svg>
       );
 

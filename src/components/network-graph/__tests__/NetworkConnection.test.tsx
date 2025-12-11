@@ -19,11 +19,7 @@ describe('NetworkConnection', () => {
     it('should render base line with correct positions', () => {
       const { container } = render(
         <svg>
-          <NetworkConnection
-            connection={mockConnection}
-            fromPos={mockFromPos}
-            toPos={mockToPos}
-          />
+          <NetworkConnection connection={mockConnection} fromPos={mockFromPos} toPos={mockToPos} />
         </svg>
       );
 
@@ -38,11 +34,7 @@ describe('NetworkConnection', () => {
     it('should render base line with gray stroke', () => {
       const { container } = render(
         <svg>
-          <NetworkConnection
-            connection={mockConnection}
-            fromPos={mockFromPos}
-            toPos={mockToPos}
-          />
+          <NetworkConnection connection={mockConnection} fromPos={mockFromPos} toPos={mockToPos} />
         </svg>
       );
 
@@ -53,11 +45,7 @@ describe('NetworkConnection', () => {
     it('should calculate stroke width based on connection strength', () => {
       const { container } = render(
         <svg>
-          <NetworkConnection
-            connection={mockConnection}
-            fromPos={mockFromPos}
-            toPos={mockToPos}
-          />
+          <NetworkConnection connection={mockConnection} fromPos={mockFromPos} toPos={mockToPos} />
         </svg>
       );
 
@@ -69,11 +57,7 @@ describe('NetworkConnection', () => {
     it('should have correct opacity', () => {
       const { container } = render(
         <svg>
-          <NetworkConnection
-            connection={mockConnection}
-            fromPos={mockFromPos}
-            toPos={mockToPos}
-          />
+          <NetworkConnection connection={mockConnection} fromPos={mockFromPos} toPos={mockToPos} />
         </svg>
       );
 
@@ -86,11 +70,7 @@ describe('NetworkConnection', () => {
     it('should render only base line when not animated', () => {
       const { container } = render(
         <svg>
-          <NetworkConnection
-            connection={mockConnection}
-            fromPos={mockFromPos}
-            toPos={mockToPos}
-          />
+          <NetworkConnection connection={mockConnection} fromPos={mockFromPos} toPos={mockToPos} />
         </svg>
       );
 
@@ -233,11 +213,7 @@ describe('NetworkConnection', () => {
       const weakConnection = { ...mockConnection, strength: 0.5 };
       const { container } = render(
         <svg>
-          <NetworkConnection
-            connection={weakConnection}
-            fromPos={mockFromPos}
-            toPos={mockToPos}
-          />
+          <NetworkConnection connection={weakConnection} fromPos={mockFromPos} toPos={mockToPos} />
         </svg>
       );
 
@@ -256,11 +232,7 @@ describe('NetworkConnection', () => {
 
       const { container } = render(
         <svg>
-          <NetworkConnection
-            connection={redConnection}
-            fromPos={mockFromPos}
-            toPos={mockToPos}
-          />
+          <NetworkConnection connection={redConnection} fromPos={mockFromPos} toPos={mockToPos} />
         </svg>
       );
 
@@ -278,11 +250,7 @@ describe('NetworkConnection', () => {
     it('should render within a g element', () => {
       const { container } = render(
         <svg>
-          <NetworkConnection
-            connection={mockConnection}
-            fromPos={mockFromPos}
-            toPos={mockToPos}
-          />
+          <NetworkConnection connection={mockConnection} fromPos={mockFromPos} toPos={mockToPos} />
         </svg>
       );
 

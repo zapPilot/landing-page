@@ -137,14 +137,10 @@ describe('HomePage', () => {
       render(<HomePage />);
 
       // Hero CTA
-      expect(
-        screen.getByRole('button', { name: /Discover Your Allocation/i })
-      ).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /Discover Your Allocation/i })).toBeInTheDocument();
 
       // Watch Demo button
-      expect(
-        screen.getByRole('button', { name: /Watch Demo/i })
-      ).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /Watch Demo/i })).toBeInTheDocument();
     });
 
     it('should render Launch App buttons', () => {

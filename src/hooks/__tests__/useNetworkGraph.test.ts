@@ -23,9 +23,7 @@ jest.mock('@/data/networkNodes', () => ({
       size: isMobile ? 32 : 45,
     },
   ]),
-  initialConnections: [
-    { from: 'user', to: 'uniswap', color: '#8B5CF6', strength: 0.8 },
-  ],
+  initialConnections: [{ from: 'user', to: 'uniswap', color: '#8B5CF6', strength: 0.8 }],
 }));
 
 jest.mock('@/data/intentFlows', () => ({
@@ -233,10 +231,9 @@ describe('useNetworkGraph', () => {
 
   describe('memoization', () => {
     it('should memoize nodes based on isMobile', () => {
-      const { result, rerender } = renderHook(
-        ({ isMobile }) => useNetworkGraph(isMobile),
-        { initialProps: { isMobile: false } }
-      );
+      const { result, rerender } = renderHook(({ isMobile }) => useNetworkGraph(isMobile), {
+        initialProps: { isMobile: false },
+      });
 
       const initialNodes = result.current.nodes;
 

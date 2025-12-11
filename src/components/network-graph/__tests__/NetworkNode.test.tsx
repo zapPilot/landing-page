@@ -39,10 +39,7 @@ describe('NetworkNode', () => {
       render(<NetworkNode {...defaultProps} />);
 
       const button = screen.getByRole('button');
-      expect(button).toHaveAttribute(
-        'aria-label',
-        'Test Protocol - protocol with 18.4% APY'
-      );
+      expect(button).toHaveAttribute('aria-label', 'Test Protocol - protocol with 18.4% APY');
     });
 
     it('should render the node icon', () => {
@@ -126,18 +123,14 @@ describe('NetworkNode', () => {
 
   describe('active connection indicator', () => {
     it('should show green indicator when hasActiveConnection is true', () => {
-      const { container } = render(
-        <NetworkNode {...defaultProps} hasActiveConnection={true} />
-      );
+      const { container } = render(<NetworkNode {...defaultProps} hasActiveConnection={true} />);
 
       const indicator = container.querySelector('.bg-green-400');
       expect(indicator).toBeInTheDocument();
     });
 
     it('should not show indicator when hasActiveConnection is false', () => {
-      const { container } = render(
-        <NetworkNode {...defaultProps} hasActiveConnection={false} />
-      );
+      const { container } = render(<NetworkNode {...defaultProps} hasActiveConnection={false} />);
 
       const indicator = container.querySelector('.bg-green-400');
       expect(indicator).not.toBeInTheDocument();

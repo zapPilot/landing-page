@@ -34,7 +34,7 @@ export const MESSAGES = {
       {
         title: 'Gradual, Disciplined Execution',
         description:
-          'Rebalancing adapts to market intensity: 5 days (1%/day) for intermediate regimes, 10 days (2.5%/day) for extreme regimes. No panic selling, no FOMO buying — just systematic execution.',
+          'Rebalancing adapts to market intensity. Calendar-guided execution prevents panic selling and ensures disciplined DCA over 5-10 days.',
       },
       {
         title: 'Transparent & Backtestable',
@@ -53,21 +53,22 @@ export const MESSAGES = {
         number: 1,
         icon: 'Settings' as const,
         title: 'Define Strategy',
-        description: 'Set your target allocations for each regime',
+        description:
+          'Set your target allocations. Zap Pilot calculates the optimal rebalancing route.',
         color: 'from-purple-500 to-violet-600',
       },
       {
         number: 2,
-        icon: 'Activity' as const,
-        title: 'Monitor Sentiment',
-        description: 'Zap Pilot watches Fear & Greed Index 24/7',
+        icon: 'Calendar' as const,
+        title: 'Smart Calendar Sync',
+        description: 'Zap Pilot adds execute links to your calendar when market regimes shift.',
         color: 'from-blue-500 to-cyan-600',
       },
       {
         number: 3,
         icon: 'Shield' as const,
-        title: 'Execute Gradually',
-        description: 'Rebalancing happens over 5-10 days (regime-specific) in your wallet',
+        title: 'Execute & Sign',
+        description: 'Click the calendar link to sign the transaction. You stay in control.',
         color: 'from-green-500 to-emerald-600',
       },
     ],

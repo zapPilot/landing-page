@@ -16,14 +16,7 @@ interface TabbedUseCaseProps {
   icon: LucideIcon;
 }
 
-export function TabbedUseCase({
-  number,
-  regime,
-  regimeBadge,
-  gradient,
-  variants,
-  icon,
-}: TabbedUseCaseProps) {
+export function TabbedUseCase({ number, regime, gradient, variants }: TabbedUseCaseProps) {
   const [activeTab, setActiveTab] = useState(0);
   const activeVariant = variants[activeTab];
 
@@ -37,15 +30,13 @@ export function TabbedUseCase({
           whileHover={{ opacity: 0.05 }}
         />
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Left: Content */}
           <UseCaseContent
             number={number}
             regime={regime}
-            regimeBadge={regimeBadge}
             gradient={gradient}
             variant={activeVariant}
-            icon={icon}
           />
 
           {/* Right: Allocation Panel with Tabs */}

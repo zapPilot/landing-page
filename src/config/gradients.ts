@@ -36,12 +36,3 @@ export const GRADIENTS = {
   featureGreen: 'from-green-400 to-emerald-600',
   featureOrange: 'from-orange-400 to-red-600',
 } as const;
-
-export type GradientKey = keyof typeof GRADIENTS;
-
-/**
- * Helper function to get gradient class
- */
-export function getGradient(key: GradientKey): string {
-  return GRADIENTS[key];
-}

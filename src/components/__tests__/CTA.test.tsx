@@ -61,11 +61,7 @@ describe('CTA', () => {
       });
       fireEvent.click(primaryButton);
 
-      expect(mockWindowOpen).toHaveBeenCalledWith(
-        LINKS.app,
-        '_blank',
-        'noopener,noreferrer'
-      );
+      expect(mockWindowOpen).toHaveBeenCalledWith(LINKS.app, '_blank', 'noopener,noreferrer');
     });
 
     it('should open documentation link when secondary CTA is clicked', () => {

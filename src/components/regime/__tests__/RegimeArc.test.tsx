@@ -79,9 +79,7 @@ describe('RegimeArc', () => {
 
       // Active regime (Neutral) should have r=65
       const circles = container.querySelectorAll('circle');
-      const activeCircle = Array.from(circles).find(
-        c => c.getAttribute('r') === '65'
-      );
+      const activeCircle = Array.from(circles).find(c => c.getAttribute('r') === '65');
       expect(activeCircle).toBeInTheDocument();
     });
 
@@ -155,19 +153,13 @@ describe('RegimeArc', () => {
     it('should highlight active pathway when animating forward', () => {
       const { container } = render(
         <svg>
-          <RegimeArc
-            {...defaultProps}
-            activeRegime="n"
-            animationDirection="forward"
-          />
+          <RegimeArc {...defaultProps} activeRegime="n" animationDirection="forward" />
         </svg>
       );
 
       // Lines connecting to active regime should have wider stroke
       const lines = container.querySelectorAll('line');
-      const wideLines = Array.from(lines).filter(
-        line => line.getAttribute('stroke-width') === '6'
-      );
+      const wideLines = Array.from(lines).filter(line => line.getAttribute('stroke-width') === '6');
       // Should have at least one wide line (active path)
       expect(wideLines.length).toBeGreaterThan(0);
     });
@@ -184,12 +176,8 @@ describe('RegimeArc', () => {
       const buttons = screen.getAllByRole('button');
       buttons.forEach((button, index) => {
         const regime = regimes[index];
-        expect(button.getAttribute('aria-label')).toContain(
-          `${regime.allocation.crypto}% crypto`
-        );
-        expect(button.getAttribute('aria-label')).toContain(
-          `${regime.allocation.stable}% stable`
-        );
+        expect(button.getAttribute('aria-label')).toContain(`${regime.allocation.crypto}% crypto`);
+        expect(button.getAttribute('aria-label')).toContain(`${regime.allocation.stable}% stable`);
       });
     });
 
@@ -203,9 +191,7 @@ describe('RegimeArc', () => {
       const activeButton = screen.getByRole('button', {
         name: /Neutral regime/,
       });
-      expect(activeButton.getAttribute('aria-label')).toContain(
-        'Currently selected'
-      );
+      expect(activeButton.getAttribute('aria-label')).toContain('Currently selected');
     });
 
     it('should indicate click to select for inactive regimes', () => {
@@ -218,9 +204,7 @@ describe('RegimeArc', () => {
       const inactiveButton = screen.getByRole('button', {
         name: /Extreme Fear regime/,
       });
-      expect(inactiveButton.getAttribute('aria-label')).toContain(
-        'Click to select'
-      );
+      expect(inactiveButton.getAttribute('aria-label')).toContain('Click to select');
     });
 
     it('should have tabIndex on all regime buttons', () => {
@@ -250,9 +234,7 @@ describe('RegimeArc', () => {
       // Should have animated glow circle for active regime
       const circles = container.querySelectorAll('circle');
       // Look for the glow circle (r=80)
-      const glowCircle = Array.from(circles).find(
-        c => c.getAttribute('r') === '80'
-      );
+      const glowCircle = Array.from(circles).find(c => c.getAttribute('r') === '80');
       expect(glowCircle).toBeInTheDocument();
     });
 
@@ -281,9 +263,7 @@ describe('RegimeArc', () => {
       );
 
       // Should render all regimes
-      expect(
-        screen.getByRole('button', { name: /Neutral regime/ })
-      ).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /Neutral regime/ })).toBeInTheDocument();
     });
   });
 

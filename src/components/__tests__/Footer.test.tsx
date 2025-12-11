@@ -32,45 +32,45 @@ describe('Footer', () => {
     it('should render Discord link', () => {
       render(<Footer />);
 
-      const discordLinks = screen.getAllByRole('link').filter(link =>
-        link.getAttribute('href') === LINKS.social.discord
-      );
+      const discordLinks = screen
+        .getAllByRole('link')
+        .filter(link => link.getAttribute('href') === LINKS.social.discord);
       expect(discordLinks.length).toBeGreaterThan(0);
     });
 
     it('should render Twitter/X link', () => {
       render(<Footer />);
 
-      const twitterLinks = screen.getAllByRole('link').filter(link =>
-        link.getAttribute('href') === LINKS.social.twitter
-      );
+      const twitterLinks = screen
+        .getAllByRole('link')
+        .filter(link => link.getAttribute('href') === LINKS.social.twitter);
       expect(twitterLinks.length).toBeGreaterThan(0);
     });
 
     it('should render GitHub link', () => {
       render(<Footer />);
 
-      const githubLinks = screen.getAllByRole('link').filter(link =>
-        link.getAttribute('href') === LINKS.social.github
-      );
+      const githubLinks = screen
+        .getAllByRole('link')
+        .filter(link => link.getAttribute('href') === LINKS.social.github);
       expect(githubLinks.length).toBeGreaterThan(0);
     });
 
     it('should render contact email link', () => {
       render(<Footer />);
 
-      const emailLinks = screen.getAllByRole('link').filter(link =>
-        link.getAttribute('href') === LINKS.support.contactUs
-      );
+      const emailLinks = screen
+        .getAllByRole('link')
+        .filter(link => link.getAttribute('href') === LINKS.support.contactUs);
       expect(emailLinks.length).toBeGreaterThan(0);
     });
 
     it('should open social links in new tab', () => {
       render(<Footer />);
 
-      const socialLinks = screen.getAllByRole('link').filter(link =>
-        link.getAttribute('target') === '_blank'
-      );
+      const socialLinks = screen
+        .getAllByRole('link')
+        .filter(link => link.getAttribute('target') === '_blank');
       expect(socialLinks.length).toBeGreaterThan(0);
     });
   });

@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { Rocket } from 'lucide-react';
 import { TabbedUseCase } from './use-case';
 import { SectionHeader } from './layout';
 import { regimes } from '@/lib/regimeData';
@@ -52,9 +53,22 @@ export function UseCases() {
           className="text-center mt-20"
         >
           <p className="text-xl text-gray-300 mb-6">Let market sentiment guide your decisions.</p>
-          <p className="text-2xl font-semibold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+          <p className="text-2xl font-semibold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-8">
             Zap Pilot handles the gradual execution — entirely within your wallet.
           </p>
+
+          {/* Global CTA */}
+          <motion.a
+            href="http://app.zap-pilot.org/"
+            className="inline-flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold text-lg hover:shadow-2xl hover:shadow-purple-500/50 transition-all duration-300"
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Rocket className="w-6 h-6 mr-2" />
+            Launch Zap Pilot
+          </motion.a>
         </motion.div>
       </div>
     </section>

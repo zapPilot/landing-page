@@ -25,36 +25,28 @@ describe('Features', () => {
       render(<Features />);
 
       expect(screen.getByText('Sentiment-Driven Intelligence')).toBeInTheDocument();
-      expect(
-        screen.getByText(/Monitors the Fear & Greed Index 24\/7/)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Monitors the Fear & Greed Index 24\/7/)).toBeInTheDocument();
     });
 
     it('should render Self-Custodial feature', () => {
       render(<Features />);
 
       expect(screen.getByText('Self-Custodial. Always.')).toBeInTheDocument();
-      expect(
-        screen.getByText(/Every token stays in your wallet/)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Every token stays in your wallet/)).toBeInTheDocument();
     });
 
     it('should render Gradual Execution feature', () => {
       render(<Features />);
 
       expect(screen.getByText('Gradual, Disciplined Execution')).toBeInTheDocument();
-      expect(
-        screen.getByText(/Rebalancing adapts to market intensity/)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Rebalancing adapts to market intensity/)).toBeInTheDocument();
     });
 
     it('should render Transparent feature', () => {
       render(<Features />);
 
       expect(screen.getByText('Transparent & Backtestable')).toBeInTheDocument();
-      expect(
-        screen.getByText(/All parameters are visible and adjustable/)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/All parameters are visible and adjustable/)).toBeInTheDocument();
     });
 
     it('should render exactly 4 feature cards', () => {
@@ -86,10 +78,7 @@ describe('Features', () => {
 
       const learnMoreLinks = screen.getAllByRole('link', { name: 'Learn more' });
       learnMoreLinks.forEach(link => {
-        expect(link).toHaveAttribute(
-          'href',
-          'https://docs.zap-pilot.org/docs/how-it-works'
-        );
+        expect(link).toHaveAttribute('href', 'https://docs.zap-pilot.org/docs/how-it-works');
       });
     });
 
@@ -107,19 +96,14 @@ describe('Features', () => {
     it('should render Explore All Features button', () => {
       render(<Features />);
 
-      expect(
-        screen.getByRole('link', { name: 'Explore All Features' })
-      ).toBeInTheDocument();
+      expect(screen.getByRole('link', { name: 'Explore All Features' })).toBeInTheDocument();
     });
 
     it('should have correct href for CTA button', () => {
       render(<Features />);
 
       const ctaButton = screen.getByRole('link', { name: 'Explore All Features' });
-      expect(ctaButton).toHaveAttribute(
-        'href',
-        'https://docs.zap-pilot.org/docs/how-it-works'
-      );
+      expect(ctaButton).toHaveAttribute('href', 'https://docs.zap-pilot.org/docs/how-it-works');
     });
 
     it('should open CTA in new tab', () => {

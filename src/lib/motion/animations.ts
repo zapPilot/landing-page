@@ -112,19 +112,6 @@ export function containerWithStagger(staggerDelay = 0.2, delayChildren = 0.3) {
 }
 
 /**
- * Staggered child item animation (for use with container)
- * @param offsetY - Vertical offset for initial state
- * @returns Animation variants for child items
- */
-export const staggeredChild = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-  },
-} as const;
-
-/**
  * Rotating border effect animation
  * @param duration - Duration of one rotation cycle
  * @returns Animation props for rotating border

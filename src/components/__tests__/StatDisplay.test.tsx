@@ -55,18 +55,14 @@ describe('StatDisplay', () => {
 
   describe('variant prop', () => {
     it('should apply hero variant styling', () => {
-      const { container } = render(
-        <StatDisplay stat={mockTextStat} index={0} variant="hero" />
-      );
+      const { container } = render(<StatDisplay stat={mockTextStat} index={0} variant="hero" />);
 
       // Hero has rounded-2xl container
       expect(container.querySelector('.rounded-2xl')).toBeInTheDocument();
     });
 
     it('should apply cta variant styling', () => {
-      const { container } = render(
-        <StatDisplay stat={mockTextStat} index={0} variant="cta" />
-      );
+      const { container } = render(<StatDisplay stat={mockTextStat} index={0} variant="cta" />);
 
       // CTA has text-center container
       expect(container.querySelector('.text-center')).toBeInTheDocument();

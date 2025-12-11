@@ -70,11 +70,7 @@ describe('Navbar', () => {
       const buttons = screen.getAllByRole('button', { name: /Launch App/i });
       fireEvent.click(buttons[0]);
 
-      expect(mockWindowOpen).toHaveBeenCalledWith(
-        LINKS.app,
-        '_blank',
-        'noopener,noreferrer'
-      );
+      expect(mockWindowOpen).toHaveBeenCalledWith(LINKS.app, '_blank', 'noopener,noreferrer');
     });
   });
 

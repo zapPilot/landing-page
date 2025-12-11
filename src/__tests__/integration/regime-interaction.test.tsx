@@ -40,9 +40,7 @@ describe('RegimeVisualizer Integration', () => {
       });
 
       // Should show section header
-      expect(
-        screen.getByText('Market Sentiment Drives Every Decision')
-      ).toBeInTheDocument();
+      expect(screen.getByText('Market Sentiment Drives Every Decision')).toBeInTheDocument();
     });
   });
 
@@ -89,9 +87,7 @@ describe('RegimeVisualizer Integration', () => {
       });
 
       // The hint should appear during autoplay
-      expect(
-        screen.getByText(/Explore each regime to see how we respond/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/Explore each regime to see how we respond/i)).toBeInTheDocument();
     });
 
     it('should stop autoplay when regime is clicked', async () => {
@@ -128,9 +124,10 @@ describe('RegimeVisualizer Integration', () => {
 
       // Neutral is the default starting regime
       // Should show Warren Buffett quote (from Neutral or default)
-      const hasPhilosophy = screen.queryByText(/Be greedy when others are fearful/i)
-        || screen.queryByText(/It was always my sitting/i)
-        || screen.queryByText(/Buy when there's blood/i);
+      const hasPhilosophy =
+        screen.queryByText(/Be greedy when others are fearful/i) ||
+        screen.queryByText(/It was always my sitting/i) ||
+        screen.queryByText(/Buy when there's blood/i);
 
       expect(hasPhilosophy).toBeTruthy();
     });
@@ -143,8 +140,9 @@ describe('RegimeVisualizer Integration', () => {
       });
 
       // Should have either allocation comparison or maintaining allocation
-      const hasAllocation = screen.queryByTestId('allocation-comparison')
-        || screen.queryByTestId('maintaining-allocation');
+      const hasAllocation =
+        screen.queryByTestId('allocation-comparison') ||
+        screen.queryByTestId('maintaining-allocation');
 
       expect(hasAllocation).toBeInTheDocument();
     });
@@ -202,9 +200,7 @@ describe('RegimeVisualizer Integration', () => {
       });
 
       const buttons = screen.getAllByRole('button');
-      const regimeButtons = buttons.filter(b =>
-        b.getAttribute('aria-label')?.includes('regime')
-      );
+      const regimeButtons = buttons.filter(b => b.getAttribute('aria-label')?.includes('regime'));
 
       expect(regimeButtons.length).toBe(5);
 
@@ -223,9 +219,7 @@ describe('RegimeVisualizer Integration', () => {
       });
 
       const buttons = screen.getAllByRole('button');
-      const regimeButtons = buttons.filter(b =>
-        b.getAttribute('aria-label')?.includes('regime')
-      );
+      const regimeButtons = buttons.filter(b => b.getAttribute('aria-label')?.includes('regime'));
 
       regimeButtons.forEach(button => {
         expect(button).toHaveAttribute('tabindex', '0');
