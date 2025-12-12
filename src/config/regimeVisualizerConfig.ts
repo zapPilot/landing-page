@@ -5,6 +5,17 @@
 
 export const REGIME_VISUALIZER_CONFIG = {
   layout: {
+    smallMobile: {
+      viewBoxWidth: 700,
+      viewBoxHeight: 900,
+      panelY: 500,
+      panelHeight: 480,
+      arcCenterY: 220,
+      centerX: 350, // viewBoxWidth / 2
+      arcRadius: 180,
+      panelX: 30,
+      panelWidth: 640,
+    },
     mobile: {
       viewBoxWidth: 900,
       viewBoxHeight: 1000,

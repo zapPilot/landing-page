@@ -30,14 +30,20 @@ export interface RegimeLayout {
 
 /**
  * Calculate layout values for regime visualizer based on viewport size
- * @param isMobile - Whether the viewport is mobile-sized
+ * @param isMobile - Whether the viewport is mobile-sized (< 1024px)
+ * @param isSmallMobile - Whether the viewport is very small mobile (< 375px)
  * @returns Memoized layout configuration
  */
-export function useRegimeLayout(isMobile: boolean): RegimeLayout {
+export function useRegimeLayout(isMobile: boolean, isSmallMobile: boolean = false): RegimeLayout {
   return useMemo(() => {
-    const layout = isMobile
-      ? REGIME_VISUALIZER_CONFIG.layout.mobile
-      : REGIME_VISUALIZER_CONFIG.layout.desktop;
+    let layout;
+    if (isSmallMobile) {
+      layout = REGIME_VISUALIZER_CONFIG.layout.smallMobile;
+    } else if (isMobile) {
+      layout = REGIME_VISUALIZER_CONFIG.layout.mobile;
+    } else {
+      layout = REGIME_VISUALIZER_CONFIG.layout.desktop;
+    }
 
     return {
       viewBox: `0 0 ${layout.viewBoxWidth} ${layout.viewBoxHeight}`,
@@ -55,5 +61,5 @@ export function useRegimeLayout(isMobile: boolean): RegimeLayout {
         radius: layout.arcRadius,
       },
     };
-  }, [isMobile]);
+  }, [isMobile, isSmallMobile]);
 }

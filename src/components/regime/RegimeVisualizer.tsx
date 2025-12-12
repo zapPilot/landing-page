@@ -32,6 +32,7 @@ export function RegimeVisualizer({
 }: RegimeVisualizerProps) {
   const [isLoading, setIsLoading] = useState(true);
   const isMobile = useMediaQuery('(max-width: 1024px)');
+  const isSmallMobile = useMediaQuery('(max-width: 375px)');
   const prefersReducedMotion = useReducedMotion();
 
   // Extract auto-play logic to custom hook
@@ -43,7 +44,7 @@ export function RegimeVisualizer({
     });
 
   // Extract layout logic to custom hook
-  const layout = useRegimeLayout(isMobile);
+  const layout = useRegimeLayout(isMobile, isSmallMobile);
 
   const activeRegimeData = getRegimeById(activeRegime);
   const activeStrategy = getActiveStrategy(activeRegime, animationDirection, previousRegime);
