@@ -10,8 +10,7 @@ export const MESSAGES = {
   // Hero section
   hero: {
     badge: '📊 Sentiment-Driven Rebalancing',
-    subtitle:
-      'Zap Pilot is a self-custodial, sentiment-driven rebalancing engine that adjusts your BTC/ETH exposure at emotional extremes — with every action executed directly from your own wallet.',
+    subtitle: 'Sentiment-driven rebalancing for BTC & ETH — fully self-custodial.',
     ctaPrimary: 'Connect Wallet',
     ctaSecondary: 'Watch Demo',
   },
@@ -67,8 +66,9 @@ export const MESSAGES = {
       {
         number: 3,
         icon: 'Shield' as const,
-        title: 'Execute & Sign',
-        description: 'Click the calendar link to sign the transaction. You stay in control.',
+        title: 'Review & Sign',
+        description:
+          "When it's time to rebalance, click the link in your calendar — review the route and sign directly from your wallet.",
         color: 'from-green-500 to-emerald-600',
       },
     ],
@@ -131,31 +131,31 @@ export const MESSAGES = {
         name: 'Morpho',
         category: 'Lending',
         description:
-          'Decentralized lending optimizer delivering superior yields with minimized risk through efficient capital allocation.',
+          'Optimized lending vaults with curated risk profiles. Earn yield on idle stablecoins with transparent, audited strategies.',
         logo: '/protocols/morpho.webp',
         link: 'https://morpho.org',
       },
       {
         name: 'GMX v2',
-        category: 'Perpetuals',
+        category: 'LP Vaults',
         description:
-          'Provide liquidity to GM Pools backing BTC/ETH perpetuals. Earn fees from trading activity and trader liquidations.',
+          'Provide liquidity to GM Pools backing BTC/ETH perpetuals. Earn fees from trader activity and liquidations.',
         logo: '/protocols/gmx-v2.webp',
         link: 'https://gmx.io',
       },
       {
         name: 'Hyperliquid',
-        category: 'Perpetuals',
+        category: 'Delta-Neutral',
         description:
-          'Provide stablecoins to Hyperliquid HLP (Hyperliquid Liquidity Pool) for stablecoin positions. Earn trading fees from liquidity provision.',
+          'Market-make on the fastest L1 perp DEX. HLP earns from bid-ask spreads with balanced long/short exposure.',
         logo: '/protocols/hyperliquid.webp',
         link: 'https://hyperfoundation.org/',
       },
       {
         name: 'Aster',
-        category: 'Perpetuals',
+        category: 'Yield',
         description:
-          'Provide stablecoins to Aster ALP (Aster Liquidity Pool) for stablecoin positions. Earn trading fees from liquidity provision.',
+          "Deposit stablecoins into ALP for passive yield. Earn trading fees as the protocol's liquidity backbone.",
         logo: '/protocols/aster.webp',
         link: 'https://www.asterdex.com/en',
       },

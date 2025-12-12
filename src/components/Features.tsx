@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { SectionHeader, CardGrid, CardItem } from './layout';
-import { revealOnView, rotatingBorder } from '@/lib/motion/animations';
+import { rotatingBorder } from '@/lib/motion/animations';
 import { getFeatures, FEATURES_CONFIG } from '@/config/features';
 
 export function Features() {
@@ -89,19 +89,6 @@ export function Features() {
             </CardItem>
           ))}
         </CardGrid>
-
-        {/* Bottom CTA */}
-        <motion.div {...revealOnView({ delay: 0.5, duration: 0.8 })} className="text-center mt-20">
-          <motion.a
-            href={FEATURES_CONFIG.ctaButton.href}
-            className="inline-block bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-purple-500/25 transition-all duration-300"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            target="_blank"
-          >
-            {FEATURES_CONFIG.ctaButton.text}
-          </motion.a>
-        </motion.div>
       </div>
     </section>
   );

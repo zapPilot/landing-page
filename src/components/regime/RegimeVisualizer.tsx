@@ -71,7 +71,7 @@ export function RegimeVisualizer({
         </section>
       }
     >
-      <section className={`relative py-20 ${className}`}>
+      <section className={`relative py-24 ${className}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <motion.div
