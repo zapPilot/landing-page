@@ -18,10 +18,10 @@ export default function HomePage() {
 
       <Navbar />
       <Hero />
-      <HowItWorks />
       <RegimeVisualizer />
-      <UseCases />
+      <HowItWorks />
       <Features />
+      <UseCases />
       <Protocols />
       <CTA />
       <Footer />
