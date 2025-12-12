@@ -19,7 +19,10 @@ describe('RegimeVisualizer Integration', () => {
   });
 
   afterEach(() => {
-    jest.runOnlyPendingTimers();
+    // Flush any queued timer-driven state updates inside act to avoid warnings
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
     jest.useRealTimers();
   });
 

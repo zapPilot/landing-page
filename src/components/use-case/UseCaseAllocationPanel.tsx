@@ -50,7 +50,7 @@ export function UseCaseAllocationPanel({
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.3 }}
-          className="relative bg-gray-800/50 rounded-2xl p-8 border border-gray-700"
+          className="relative bg-gray-800/50 rounded-2xl p-6 lg:p-8 border border-gray-700"
           whileHover={{ scale: 1.02 }}
         >
           {/* Allocation Visualization */}

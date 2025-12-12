@@ -25,7 +25,7 @@ export function AllocationPanel({
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.4 }}
-          className="bg-gray-900/50 backdrop-blur-lg border border-gray-800 rounded-2xl p-8 h-full overflow-y-auto"
+          className="bg-gray-900/50 backdrop-blur-lg border border-gray-800 rounded-2xl p-4 sm:p-6 lg:p-8 h-full overflow-y-auto"
         >
           {/* Direction Badge */}
           {directionLabel && (

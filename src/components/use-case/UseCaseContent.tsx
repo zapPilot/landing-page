@@ -23,7 +23,7 @@ export function UseCaseContent({ number, regime, gradient, variant }: UseCaseCon
 
       {/* Scenario - Primary content */}
       <div className="mb-8">
-        <p className="text-white text-xl lg:text-2xl font-bold leading-relaxed mb-6">
+        <p className="text-white text-lg lg:text-2xl font-bold leading-relaxed mb-4 lg:mb-6">
           {variant.scenario}
         </p>
       </div>

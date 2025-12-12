@@ -81,20 +81,6 @@ export const MESSAGES = {
     subtitle: 'Join investors who rebalance based on market extremes — not impulsive emotions',
     ctaPrimary: 'Launch Zap Pilot',
     ctaSecondary: 'Read Documentation',
-    cards: [
-      {
-        title: 'Open Source',
-        description: 'Explore our codebase and contribute to the future of DeFi',
-      },
-      {
-        title: 'Community',
-        description: 'Join our Discord and learn regime-based allocation strategies',
-      },
-      {
-        title: 'Learn More',
-        description: 'Explore the Fear & Greed Index methodology and backtest results',
-      },
-    ],
   },
 
   // Footer section

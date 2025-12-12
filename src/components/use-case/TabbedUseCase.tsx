@@ -22,7 +22,7 @@ export function TabbedUseCase({ number, regime, gradient, variants }: TabbedUseC
 
   return (
     <div className="group relative">
-      <div className="bg-gray-900/50 backdrop-blur-lg border border-gray-800 rounded-3xl p-8 lg:p-12 hover:border-gray-700 transition-all duration-500 relative overflow-hidden">
+      <div className="bg-gray-900/50 backdrop-blur-lg border border-gray-800 rounded-3xl p-6 sm:p-8 lg:p-12 hover:border-gray-700 transition-all duration-500 relative overflow-hidden">
         {/* Animated background */}
         <motion.div
           className={`absolute inset-0 bg-gradient-to-r ${gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none`}
@@ -30,7 +30,7 @@ export function TabbedUseCase({ number, regime, gradient, variants }: TabbedUseC
           whileHover={{ opacity: 0.05 }}
         />
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           {/* Left: Content */}
           <UseCaseContent
             number={number}

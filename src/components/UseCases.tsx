@@ -25,7 +25,7 @@ export function UseCases() {
           subtitle="Real scenarios where Zap Pilot keeps you disciplined"
         />
 
-        <div className="space-y-12">
+        <div className="space-y-8 lg:space-y-12">
           {tabbedUseCases.map((useCase, index) => (
             <motion.div
               key={useCase.number}

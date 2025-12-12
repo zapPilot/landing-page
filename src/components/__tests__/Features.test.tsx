@@ -93,24 +93,10 @@ describe('Features', () => {
   });
 
   describe('CTA button', () => {
-    it('should render Explore All Features button', () => {
+    it('should rely on per-card learn more links (no standalone CTA)', () => {
       render(<Features />);
 
-      expect(screen.getByRole('link', { name: 'Explore All Features' })).toBeInTheDocument();
-    });
-
-    it('should have correct href for CTA button', () => {
-      render(<Features />);
-
-      const ctaButton = screen.getByRole('link', { name: 'Explore All Features' });
-      expect(ctaButton).toHaveAttribute('href', 'https://docs.zap-pilot.org/docs/how-it-works');
-    });
-
-    it('should open CTA in new tab', () => {
-      render(<Features />);
-
-      const ctaButton = screen.getByRole('link', { name: 'Explore All Features' });
-      expect(ctaButton).toHaveAttribute('target', '_blank');
+      expect(screen.queryByRole('link', { name: 'Explore All Features' })).not.toBeInTheDocument();
     });
   });
 
