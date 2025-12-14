@@ -1,7 +1,14 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import {
+  render,
+  screen,
+  createAllocationPanelProps,
+  createMockStrategy,
+  createMaintainingStrategy,
+  getRegimeById,
+} from '@/test-utils';
 import { AllocationPanel } from '../AllocationPanel';
-import { regimes, type Regime, type RegimeStrategy } from '@/lib/regimeData';
+import { regimes, type RegimeStrategy } from '@/lib/regimeData';
 
 // Mock the child components
 jest.mock('@/components/ui/allocation', () => ({
@@ -43,88 +50,47 @@ jest.mock('../DirectionBadge', () => ({
 }));
 
 describe('AllocationPanel', () => {
-  const mockPanelPosition = {
-    x: 100,
-    y: 50,
-    width: 400,
-    height: 500,
-  };
-
-  const mockStrategyWithChange: RegimeStrategy = {
-    title: 'Maximum Accumulation',
-    useCase: {
-      scenario: 'Bitcoin drops 33% from recent highs.',
-      userIntent: 'I want to DCA into BTC/ETH.',
-      zapAction: 'Aggressively accumulates Bitcoin.',
-      allocationBefore: { spot: 10, lp: 20, stable: 70 },
-      allocationAfter: { spot: 70, lp: 0, stable: 30 },
-    },
-  };
-
-  const mockStrategyWithoutChange: RegimeStrategy = {
-    title: 'Holiday Mode',
-    useCase: {
-      scenario: 'FGI hovers between 46-54 for weeks.',
-      userIntent: "I don't want to overtrade.",
-      zapAction: 'Zero rebalancing.',
-      allocationBefore: { spot: 50, lp: 20, stable: 30 },
-      allocationAfter: { spot: 50, lp: 20, stable: 30 },
-    },
-  };
-
-  const mockRegime: Regime = regimes.find(r => r.id === 'ef')!;
-
-  const defaultProps = {
-    activeRegimeData: mockRegime,
-    panelPosition: mockPanelPosition,
-    isMobile: false,
-    animationDirection: 'forward' as const,
-    activeStrategy: mockStrategyWithChange,
-    directionLabel: null,
-    isAutoPlaying: false,
-  };
-
   describe('rendering', () => {
     it('should render regime label', () => {
       render(
         <svg>
-          <AllocationPanel {...defaultProps} />
+          <AllocationPanel {...createAllocationPanelProps()} />
         </svg>
       );
 
-      expect(screen.getByText(mockRegime.label)).toBeInTheDocument();
+      expect(screen.getByText(getRegimeById('ef').label)).toBeInTheDocument();
     });
 
     it('should render regime philosophy', () => {
       render(
         <svg>
-          <AllocationPanel {...defaultProps} />
+          <AllocationPanel {...createAllocationPanelProps()} />
         </svg>
       );
 
-      expect(screen.getByText(mockRegime.philosophy)).toBeInTheDocument();
+      expect(screen.getByText(getRegimeById('ef').philosophy)).toBeInTheDocument();
     });
 
     it('should render philosophy author', () => {
       render(
         <svg>
-          <AllocationPanel {...defaultProps} />
+          <AllocationPanel {...createAllocationPanelProps()} />
         </svg>
       );
 
-      expect(screen.getByText(`— ${mockRegime.author}`)).toBeInTheDocument();
+      expect(screen.getByText(`— ${getRegimeById('ef').author}`)).toBeInTheDocument();
     });
 
     it('should render color indicator', () => {
       const { container } = render(
         <svg>
-          <AllocationPanel {...defaultProps} />
+          <AllocationPanel {...createAllocationPanelProps()} />
         </svg>
       );
 
       const colorIndicator = container.querySelector('.rounded-full');
       expect(colorIndicator).toHaveStyle({
-        backgroundColor: mockRegime.fillColor,
+        backgroundColor: getRegimeById('ef').fillColor,
       });
     });
   });
@@ -133,7 +99,7 @@ describe('AllocationPanel', () => {
     it('should not render direction badge when directionLabel is null', () => {
       render(
         <svg>
-          <AllocationPanel {...defaultProps} directionLabel={null} />
+          <AllocationPanel {...createAllocationPanelProps()} directionLabel={null} />
         </svg>
       );
 
@@ -143,7 +109,10 @@ describe('AllocationPanel', () => {
     it('should render direction badge when directionLabel is provided', () => {
       render(
         <svg>
-          <AllocationPanel {...defaultProps} directionLabel="From Extreme Fear (recovery)" />
+          <AllocationPanel
+            {...createAllocationPanelProps()}
+            directionLabel="From Extreme Fear (recovery)"
+          />
         </svg>
       );
 
@@ -155,7 +124,7 @@ describe('AllocationPanel', () => {
       render(
         <svg>
           <AllocationPanel
-            {...defaultProps}
+            {...createAllocationPanelProps()}
             directionLabel="Test label"
             animationDirection="backward"
           />
@@ -170,7 +139,10 @@ describe('AllocationPanel', () => {
     it('should show AllocationComparison when allocations differ', () => {
       render(
         <svg>
-          <AllocationPanel {...defaultProps} activeStrategy={mockStrategyWithChange} />
+          <AllocationPanel
+            {...createAllocationPanelProps()}
+            activeStrategy={createMockStrategy()}
+          />
         </svg>
       );
 
@@ -180,22 +152,28 @@ describe('AllocationPanel', () => {
     it('should pass correct allocation data to AllocationComparison', () => {
       render(
         <svg>
-          <AllocationPanel {...defaultProps} activeStrategy={mockStrategyWithChange} />
+          <AllocationPanel
+            {...createAllocationPanelProps()}
+            activeStrategy={createMockStrategy()}
+          />
         </svg>
       );
 
       expect(screen.getByTestId('before')).toHaveTextContent(
-        JSON.stringify(mockStrategyWithChange.useCase!.allocationBefore)
+        JSON.stringify(createMockStrategy().useCase!.allocationBefore)
       );
       expect(screen.getByTestId('after')).toHaveTextContent(
-        JSON.stringify(mockStrategyWithChange.useCase!.allocationAfter)
+        JSON.stringify(createMockStrategy().useCase!.allocationAfter)
       );
     });
 
     it('should pass timeframe to AllocationComparison', () => {
       render(
         <svg>
-          <AllocationPanel {...defaultProps} activeStrategy={mockStrategyWithChange} />
+          <AllocationPanel
+            {...createAllocationPanelProps()}
+            activeStrategy={createMockStrategy()}
+          />
         </svg>
       );
 
@@ -205,7 +183,10 @@ describe('AllocationPanel', () => {
     it('should show MaintainingAllocation when allocations are the same', () => {
       render(
         <svg>
-          <AllocationPanel {...defaultProps} activeStrategy={mockStrategyWithoutChange} />
+          <AllocationPanel
+            {...createAllocationPanelProps()}
+            activeStrategy={createMaintainingStrategy()}
+          />
         </svg>
       );
 
@@ -220,7 +201,10 @@ describe('AllocationPanel', () => {
 
       render(
         <svg>
-          <AllocationPanel {...defaultProps} activeStrategy={strategyWithoutUseCase} />
+          <AllocationPanel
+            {...createAllocationPanelProps()}
+            activeStrategy={strategyWithoutUseCase}
+          />
         </svg>
       );
 
@@ -232,7 +216,7 @@ describe('AllocationPanel', () => {
     it('should use foreignObject for HTML content', () => {
       const { container } = render(
         <svg>
-          <AllocationPanel {...defaultProps} />
+          <AllocationPanel {...createAllocationPanelProps()} />
         </svg>
       );
 
@@ -243,7 +227,7 @@ describe('AllocationPanel', () => {
     it('should apply correct position to foreignObject', () => {
       const { container } = render(
         <svg>
-          <AllocationPanel {...defaultProps} />
+          <AllocationPanel {...createAllocationPanelProps()} />
         </svg>
       );
 
@@ -255,7 +239,7 @@ describe('AllocationPanel', () => {
     it('should apply correct dimensions to foreignObject', () => {
       const { container } = render(
         <svg>
-          <AllocationPanel {...defaultProps} />
+          <AllocationPanel {...createAllocationPanelProps()} />
         </svg>
       );
 
@@ -269,7 +253,7 @@ describe('AllocationPanel', () => {
     it('should apply backdrop blur styling', () => {
       const { container } = render(
         <svg>
-          <AllocationPanel {...defaultProps} />
+          <AllocationPanel {...createAllocationPanelProps()} />
         </svg>
       );
 
@@ -280,7 +264,7 @@ describe('AllocationPanel', () => {
     it('should apply rounded corners', () => {
       const { container } = render(
         <svg>
-          <AllocationPanel {...defaultProps} />
+          <AllocationPanel {...createAllocationPanelProps()} />
         </svg>
       );
 
@@ -291,7 +275,7 @@ describe('AllocationPanel', () => {
     it('should apply border styling', () => {
       const { container } = render(
         <svg>
-          <AllocationPanel {...defaultProps} />
+          <AllocationPanel {...createAllocationPanelProps()} />
         </svg>
       );
 
@@ -306,7 +290,7 @@ describe('AllocationPanel', () => {
         const { unmount } = render(
           <svg>
             <AllocationPanel
-              {...defaultProps}
+              {...createAllocationPanelProps()}
               activeRegimeData={regime}
               activeStrategy={regime.strategies.default}
             />

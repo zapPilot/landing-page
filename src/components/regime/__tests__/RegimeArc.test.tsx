@@ -1,35 +1,27 @@
 import '@testing-library/jest-dom';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, createRegimeArcProps } from '@/test-utils';
+import { fireEvent } from '@testing-library/react';
 import { RegimeArc } from '../RegimeArc';
-import { regimes } from '@/lib/regimeData';
-import type { RegimeId } from '@/lib/regimeData';
+import { regimes, RegimeId } from '@/lib/regimeData';
 
 describe('RegimeArc', () => {
-  const mockCalculatePosition = jest.fn((index: number) => ({
-    x: 100 + index * 100,
-    y: 200,
-  }));
-
-  const mockOnRegimeClick = jest.fn();
-
-  const defaultProps = {
-    activeRegime: 'n' as RegimeId,
-    calculatePosition: mockCalculatePosition,
-    isMobile: false,
-    onRegimeClick: mockOnRegimeClick,
-    isAutoPlaying: false,
-    animationDirection: 'forward' as const,
-  };
+  let mockOnRegimeClick: jest.Mock;
+  let mockCalculatePosition: jest.Mock;
 
   beforeEach(() => {
     jest.clearAllMocks();
+    mockOnRegimeClick = jest.fn();
+    mockCalculatePosition = jest.fn((index: number) => ({
+      x: 100 + index * 100,
+      y: 200,
+    }));
   });
 
   describe('rendering', () => {
     it('should render all regime nodes', () => {
       render(
         <svg>
-          <RegimeArc {...defaultProps} />
+          <RegimeArc {...createRegimeArcProps()} />
         </svg>
       );
 
@@ -46,7 +38,7 @@ describe('RegimeArc', () => {
     it('should render regime labels', () => {
       render(
         <svg>
-          <RegimeArc {...defaultProps} />
+          <RegimeArc {...createRegimeArcProps()} />
         </svg>
       );
 
@@ -58,7 +50,7 @@ describe('RegimeArc', () => {
     it('should call calculatePosition for each regime', () => {
       render(
         <svg>
-          <RegimeArc {...defaultProps} />
+          <RegimeArc {...createRegimeArcProps({ calculatePosition: mockCalculatePosition })} />
         </svg>
       );
 
@@ -73,7 +65,7 @@ describe('RegimeArc', () => {
     it('should apply larger radius to active regime node', () => {
       const { container } = render(
         <svg>
-          <RegimeArc {...defaultProps} activeRegime="n" />
+          <RegimeArc {...createRegimeArcProps()} activeRegime="n" />
         </svg>
       );
 
@@ -91,7 +83,7 @@ describe('RegimeArc', () => {
               <feGaussianBlur stdDeviation="5" />
             </filter>
           </defs>
-          <RegimeArc {...defaultProps} activeRegime="ef" />
+          <RegimeArc {...createRegimeArcProps()} activeRegime="ef" />
         </svg>
       );
 
@@ -105,7 +97,7 @@ describe('RegimeArc', () => {
     it('should call onRegimeClick when a regime node is clicked', () => {
       render(
         <svg>
-          <RegimeArc {...defaultProps} />
+          <RegimeArc {...createRegimeArcProps({ onRegimeClick: mockOnRegimeClick })} />
         </svg>
       );
 
@@ -121,7 +113,7 @@ describe('RegimeArc', () => {
     it('should call onRegimeClick with correct regime id', () => {
       render(
         <svg>
-          <RegimeArc {...defaultProps} />
+          <RegimeArc {...createRegimeArcProps({ onRegimeClick: mockOnRegimeClick })} />
         </svg>
       );
 
@@ -141,7 +133,7 @@ describe('RegimeArc', () => {
     it('should render path lines between regimes', () => {
       const { container } = render(
         <svg>
-          <RegimeArc {...defaultProps} />
+          <RegimeArc {...createRegimeArcProps()} />
         </svg>
       );
 
@@ -153,7 +145,7 @@ describe('RegimeArc', () => {
     it('should highlight active pathway when animating forward', () => {
       const { container } = render(
         <svg>
-          <RegimeArc {...defaultProps} activeRegime="n" animationDirection="forward" />
+          <RegimeArc {...createRegimeArcProps()} activeRegime="n" animationDirection="forward" />
         </svg>
       );
 
@@ -169,7 +161,7 @@ describe('RegimeArc', () => {
     it('should have aria-label with regime information', () => {
       render(
         <svg>
-          <RegimeArc {...defaultProps} />
+          <RegimeArc {...createRegimeArcProps()} />
         </svg>
       );
 
@@ -184,7 +176,7 @@ describe('RegimeArc', () => {
     it('should indicate currently selected regime in aria-label', () => {
       render(
         <svg>
-          <RegimeArc {...defaultProps} activeRegime="n" />
+          <RegimeArc {...createRegimeArcProps()} activeRegime="n" />
         </svg>
       );
 
@@ -197,7 +189,7 @@ describe('RegimeArc', () => {
     it('should indicate click to select for inactive regimes', () => {
       render(
         <svg>
-          <RegimeArc {...defaultProps} activeRegime="n" />
+          <RegimeArc {...createRegimeArcProps()} activeRegime="n" />
         </svg>
       );
 
@@ -210,7 +202,7 @@ describe('RegimeArc', () => {
     it('should have tabIndex on all regime buttons', () => {
       render(
         <svg>
-          <RegimeArc {...defaultProps} />
+          <RegimeArc {...createRegimeArcProps()} />
         </svg>
       );
 
@@ -227,7 +219,7 @@ describe('RegimeArc', () => {
     it('should show animated glow when isAutoPlaying is true', () => {
       const { container } = render(
         <svg>
-          <RegimeArc {...defaultProps} isAutoPlaying={true} activeRegime="n" />
+          <RegimeArc {...createRegimeArcProps()} isAutoPlaying={true} activeRegime="n" />
         </svg>
       );
 
@@ -241,7 +233,7 @@ describe('RegimeArc', () => {
     it('should not show animated glow when isAutoPlaying is false', () => {
       const { container } = render(
         <svg>
-          <RegimeArc {...defaultProps} isAutoPlaying={false} activeRegime="n" />
+          <RegimeArc {...createRegimeArcProps()} isAutoPlaying={false} activeRegime="n" />
         </svg>
       );
 
@@ -258,7 +250,7 @@ describe('RegimeArc', () => {
       // We verify the component renders without errors in mobile mode
       render(
         <svg>
-          <RegimeArc {...defaultProps} isMobile={true} />
+          <RegimeArc {...createRegimeArcProps()} isMobile={true} />
         </svg>
       );
 
@@ -276,7 +268,7 @@ describe('RegimeArc', () => {
               <feGaussianBlur stdDeviation="5" />
             </filter>
           </defs>
-          <RegimeArc {...defaultProps} isAutoPlaying={true} activeRegime="n" />
+          <RegimeArc {...createRegimeArcProps()} isAutoPlaying={true} activeRegime="n" />
         </svg>
       );
 

@@ -1,19 +1,15 @@
 import '@testing-library/jest-dom';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, setupWindowMock } from '@/test-utils';
+import { fireEvent } from '@testing-library/react';
 import { CTA } from '../CTA';
 import { MESSAGES } from '@/config/messages';
 import { LINKS } from '@/config/links';
 
-// Mock window.open for testing external links
-const mockWindowOpen = jest.fn();
-Object.defineProperty(window, 'open', {
-  writable: true,
-  value: mockWindowOpen,
-});
-
 describe('CTA', () => {
+  let mockWindowOpen: jest.Mock;
+
   beforeEach(() => {
-    mockWindowOpen.mockClear();
+    mockWindowOpen = setupWindowMock.open();
   });
 
   describe('content rendering', () => {

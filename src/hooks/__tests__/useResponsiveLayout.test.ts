@@ -1,26 +1,13 @@
 import { renderHook, act } from '@testing-library/react';
+import { setupWindowMock } from '@/test-utils';
 import { useResponsiveLayout } from '../useResponsiveLayout';
 
 describe('useResponsiveLayout', () => {
-  // Store original window.innerWidth
-  const originalInnerWidth = window.innerWidth;
+  let width: ReturnType<typeof setupWindowMock.innerWidth>;
 
   beforeEach(() => {
     // Reset window.innerWidth before each test
-    Object.defineProperty(window, 'innerWidth', {
-      writable: true,
-      configurable: true,
-      value: 1024,
-    });
-  });
-
-  afterEach(() => {
-    // Restore original window.innerWidth
-    Object.defineProperty(window, 'innerWidth', {
-      writable: true,
-      configurable: true,
-      value: originalInnerWidth,
-    });
+    width = setupWindowMock.innerWidth(1024);
   });
 
   it('should return false for desktop viewport by default', () => {
@@ -29,22 +16,14 @@ describe('useResponsiveLayout', () => {
   });
 
   it('should return true for mobile viewport by default', () => {
-    Object.defineProperty(window, 'innerWidth', {
-      writable: true,
-      configurable: true,
-      value: 500,
-    });
+    width.set(500);
 
     const { result } = renderHook(() => useResponsiveLayout());
     expect(result.current).toBe(true);
   });
 
   it('should use custom breakpoint', () => {
-    Object.defineProperty(window, 'innerWidth', {
-      writable: true,
-      configurable: true,
-      value: 900,
-    });
+    width.set(900);
 
     const { result } = renderHook(() => useResponsiveLayout({ breakpoint: 1024 }));
     expect(result.current).toBe(true);
@@ -58,11 +37,7 @@ describe('useResponsiveLayout', () => {
 
     // Resize to mobile
     act(() => {
-      Object.defineProperty(window, 'innerWidth', {
-        writable: true,
-        configurable: true,
-        value: 500,
-      });
+      width.set(500);
       window.dispatchEvent(new Event('resize'));
     });
 
@@ -79,11 +54,7 @@ describe('useResponsiveLayout', () => {
 
     // Trigger multiple resize events rapidly
     act(() => {
-      Object.defineProperty(window, 'innerWidth', {
-        writable: true,
-        configurable: true,
-        value: 500,
-      });
+      width.set(500);
       window.dispatchEvent(new Event('resize'));
       window.dispatchEvent(new Event('resize'));
       window.dispatchEvent(new Event('resize'));

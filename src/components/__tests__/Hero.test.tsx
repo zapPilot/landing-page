@@ -1,20 +1,16 @@
 import '@testing-library/jest-dom';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, setupWindowMock } from '@/test-utils';
+import { fireEvent } from '@testing-library/react';
 import { Hero } from '../Hero';
 import { MESSAGES } from '@/config/messages';
 import { STATISTICS } from '@/lib/statistics';
 import { LINKS } from '@/config/links';
 
-// Mock window.open for testing external links
-const mockWindowOpen = jest.fn();
-Object.defineProperty(window, 'open', {
-  writable: true,
-  value: mockWindowOpen,
-});
-
 describe('Hero', () => {
+  let mockWindowOpen: jest.Mock;
+
   beforeEach(() => {
-    mockWindowOpen.mockClear();
+    mockWindowOpen = setupWindowMock.open();
   });
 
   describe('content rendering', () => {

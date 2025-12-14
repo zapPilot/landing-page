@@ -1,25 +1,16 @@
 import '@testing-library/jest-dom';
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, act, setupWindowMock } from '@/test-utils';
+import { fireEvent } from '@testing-library/react';
 import { Navbar } from '../Navbar';
 import { NAVIGATION, LINKS } from '@/config/links';
 
-// Mock window.open for testing external links
-const mockWindowOpen = jest.fn();
-Object.defineProperty(window, 'open', {
-  writable: true,
-  value: mockWindowOpen,
-});
-
-// Mock scrollY
-let mockScrollY = 0;
-Object.defineProperty(window, 'scrollY', {
-  get: () => mockScrollY,
-});
-
 describe('Navbar', () => {
+  let mockWindowOpen: jest.Mock;
+  let scroll: ReturnType<typeof setupWindowMock.scrollY>;
+
   beforeEach(() => {
-    mockWindowOpen.mockClear();
-    mockScrollY = 0;
+    mockWindowOpen = setupWindowMock.open();
+    scroll = setupWindowMock.scrollY(0);
   });
 
   describe('branding', () => {
@@ -117,7 +108,7 @@ describe('Navbar', () => {
 
       // Simulate scroll
       act(() => {
-        mockScrollY = 100;
+        scroll.set(100);
         window.dispatchEvent(new Event('scroll'));
       });
 
@@ -131,7 +122,7 @@ describe('Navbar', () => {
 
       // Scroll down first
       act(() => {
-        mockScrollY = 100;
+        scroll.set(100);
         window.dispatchEvent(new Event('scroll'));
       });
 
@@ -140,7 +131,7 @@ describe('Navbar', () => {
 
       // Scroll back to top
       act(() => {
-        mockScrollY = 0;
+        scroll.set(0);
         window.dispatchEvent(new Event('scroll'));
       });
 

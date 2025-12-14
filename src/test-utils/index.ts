@@ -6,8 +6,17 @@
 // Custom render with providers
 export * from './render';
 
-// Mocks - import individually as needed
+// Window mocking utilities
+export * from './mocks/window';
+
+// Test fixtures for regime components
+export * from './fixtures/regime';
+
+// Router mocks
 export * from './mocks/next-router';
 
 // Re-export common testing utilities
-export { waitFor, within, screen } from '@testing-library/react';
+export { waitFor, within, screen, act } from '@testing-library/react';
+
+// Note: Framer Motion is mocked globally in jest.setup.js
+// No need to import it in individual test files
