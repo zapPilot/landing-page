@@ -4,6 +4,7 @@ import { Settings, Activity, Shield, Calendar, type LucideIcon } from 'lucide-re
 import { SectionHeader } from './layout';
 import { StepCard } from './ui';
 import { MESSAGES } from '@/config/messages';
+import { revealOnView } from '@/lib/motion/animations';
 
 // Icon mapping
 const iconMap: Record<string, LucideIcon> = {
@@ -19,17 +20,12 @@ export function HowItWorks() {
     icon: iconMap[step.icon],
   }));
 
-  const baseStepMotion = {
-    initial: { opacity: 0, y: 50 },
-    whileInView: { opacity: 1, y: 0 },
-    transition: { duration: 0.8 },
-    viewport: { once: true },
-  } as const;
-
-  const stepMotion = (index: number) => ({
-    ...baseStepMotion,
-    transition: { ...baseStepMotion.transition, delay: index * 0.2 },
-  });
+  const stepMotion = (index: number) =>
+    revealOnView({
+      delay: index * 0.2,
+      duration: 0.8,
+      offsetY: 50,
+    });
 
   return (
     <section id="how-it-works" className="py-24 relative">

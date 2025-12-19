@@ -2,6 +2,8 @@ export const MESSAGES = {
   // Primary slogans
   slogans: {
     primary: 'Your Portfolio. Guided by Market Sentiment',
+    primaryLine1: 'Your Portfolio.',
+    primaryLine2: 'Guided by Market Sentiment.',
     philosophy: 'Buy in fear. Defend in greed.',
     philosophyDescription:
       'A disciplined, sentiment-based strategy designed to help you allocate smarter, avoid extremes, and grow long-term BTC/ETH holdings with confidence.',

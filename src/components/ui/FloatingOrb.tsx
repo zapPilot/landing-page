@@ -22,13 +22,25 @@ interface FloatingOrbProps {
    */
   yRange?: number;
   /**
+   * Horizontal movement range in pixels
+   */
+  xRange?: number;
+  /**
    * Scale variation
    */
   scaleRange?: [number, number];
   /**
+   * Rotation variation in degrees
+   */
+  rotateRange?: [number, number];
+  /**
    * Opacity of the orb
    */
   opacity?: number;
+  /**
+   * Optional className for custom styling (e.g., background color)
+   */
+  className?: string;
 }
 
 /**
@@ -40,20 +52,25 @@ export function FloatingOrb({
   duration = 6,
   delay = 0,
   yRange = 20,
+  xRange = 0,
   scaleRange = [1, 1.1],
+  rotateRange,
   opacity = 0.1,
+  className = '',
 }: FloatingOrbProps) {
   return (
     <motion.div
-      className={`absolute ${position} rounded-full blur-xl bg-white pointer-events-none`}
+      className={`absolute ${position} rounded-full blur-xl bg-white pointer-events-none ${className}`}
       style={{
         width: size,
         height: size,
         opacity,
       }}
       animate={{
+        x: xRange ? [0, xRange, 0] : undefined,
         y: [0, -yRange, 0],
         scale: [scaleRange[0], scaleRange[1], scaleRange[0]],
+        rotate: rotateRange ? [rotateRange[0], rotateRange[1], rotateRange[0]] : undefined,
       }}
       transition={{
         duration,
