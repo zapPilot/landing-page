@@ -72,7 +72,7 @@ export function RegimeVisualizer({
         </section>
       }
     >
-      <section className={`relative py-24 ${className}`}>
+      <section className={`relative py-24 z-10 ${className}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <motion.div
@@ -130,7 +130,7 @@ export function RegimeVisualizer({
                   👆 Explore each regime to see how we respond
                 </motion.div>
               )}
-              <div className="w-full">
+              <div className="w-full overflow-hidden">
                 <svg viewBox={layout.viewBox} className="w-full h-auto">
                   <defs>
                     {/* Gradients for liquid fills */}

@@ -59,12 +59,12 @@ export const regimes: Regime[] = [
     id: 'ef',
     label: 'Extreme Fear',
     allocation: { crypto: 70, stable: 30 },
-    fillColor: '#ef4444',
+    fillColor: '#22c55e',
     philosophy: '"Be greedy when others are fearful"',
     author: 'Warren Buffett',
     visual: {
-      badge: 'bg-red-500/20 text-red-400 border-red-500/30',
-      gradient: 'from-red-400 to-orange-500',
+      badge: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
+      gradient: 'from-emerald-400 to-green-500',
       icon: TrendingDown,
     },
     strategies: {
@@ -85,12 +85,12 @@ export const regimes: Regime[] = [
     id: 'f',
     label: 'Fear',
     allocation: { crypto: 60, stable: 40 },
-    fillColor: '#f97316',
+    fillColor: '#84cc16',
     philosophy: '"Buy when there\'s blood in the streets"',
     author: 'Nathan Rothschild',
     visual: {
-      badge: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
-      gradient: 'from-orange-400 to-red-500',
+      badge: 'bg-green-500/20 text-green-400 border-green-500/30',
+      gradient: 'from-green-400 to-teal-500',
       icon: TrendingDown,
     },
     strategies: {
@@ -151,12 +151,12 @@ export const regimes: Regime[] = [
     id: 'g',
     label: 'Greed',
     allocation: { crypto: 40, stable: 60 },
-    fillColor: '#84cc16',
+    fillColor: '#f97316',
     philosophy: '"Nobody ever went broke taking a profit"',
     author: 'Bernard Baruch',
     visual: {
-      badge: 'bg-green-500/20 text-green-400 border-green-500/30',
-      gradient: 'from-green-400 to-teal-500',
+      badge: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
+      gradient: 'from-orange-400 to-red-500',
       icon: TrendingUp,
     },
     strategies: {
@@ -190,12 +190,12 @@ export const regimes: Regime[] = [
     id: 'eg',
     label: 'Extreme Greed',
     allocation: { crypto: 30, stable: 70 },
-    fillColor: '#22c55e',
+    fillColor: '#ef4444',
     philosophy: '"Be fearful when others are greedy"',
     author: 'Warren Buffett',
     visual: {
-      badge: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
-      gradient: 'from-emerald-400 to-green-500',
+      badge: 'bg-red-500/20 text-red-400 border-red-500/30',
+      gradient: 'from-red-400 to-orange-500',
       icon: TrendingUp,
     },
     strategies: {

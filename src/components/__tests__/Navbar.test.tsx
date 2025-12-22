@@ -96,6 +96,21 @@ describe('Navbar', () => {
       // We just verify the click handler was attached
       expect(links.length).toBeGreaterThan(0);
     });
+
+    it('should open app link when mobile Launch App button is clicked', () => {
+      render(<Navbar />);
+
+      // Open menu first
+      const menuButton = screen.getByRole('button', { name: '' });
+      fireEvent.click(menuButton);
+
+      // Get all Launch App buttons and click the mobile one (usually the second)
+      const buttons = screen.getAllByRole('button', { name: /Launch App/i });
+      // The mobile button is inside the AnimatePresence, click the last one
+      fireEvent.click(buttons[buttons.length - 1]);
+
+      expect(mockWindowOpen).toHaveBeenCalledWith(LINKS.app, '_blank', 'noopener,noreferrer');
+    });
   });
 
   describe('scroll behavior', () => {

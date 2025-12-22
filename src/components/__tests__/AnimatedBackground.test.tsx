@@ -31,9 +31,9 @@ describe('AnimatedBackground', () => {
   it('should render animated orbs', () => {
     const { container } = render(<AnimatedBackground />);
 
-    // Should have multiple orb elements
-    const orbs = container.querySelectorAll('.rounded-full.blur-3xl');
-    expect(orbs.length).toBeGreaterThanOrEqual(3);
+    // Should have multiple orb elements (FloatingOrb uses blur-xl, custom orb uses blur-3xl)
+    const allOrbs = container.querySelectorAll('.rounded-full');
+    expect(allOrbs.length).toBeGreaterThanOrEqual(3);
   });
 
   it('should respect reduced motion preference', () => {

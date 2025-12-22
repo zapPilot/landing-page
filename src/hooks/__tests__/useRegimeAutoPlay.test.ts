@@ -54,6 +54,53 @@ describe('useRegimeAutoPlay', () => {
     expect(result.current.activeRegime).toBe('g');
   });
 
+  it('should reverse direction at extreme fear during backward animation', () => {
+    // Need to reach ef while in backward direction to trigger reversal
+    const { result } = renderHook(() =>
+      useRegimeAutoPlay({
+        startRegime: 'g',
+        autoPlayInterval: 1000,
+      })
+    );
+
+    // Go forward to eg (hitting the right boundary triggers backward)
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    }); // g → eg
+    expect(result.current.activeRegime).toBe('eg');
+
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    }); // eg → g (now going backward)
+    expect(result.current.animationDirection).toBe('backward');
+    expect(result.current.activeRegime).toBe('g');
+
+    // Continue backward: g → n → f → ef → (triggers reversal) → f
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    }); // g → n
+    expect(result.current.activeRegime).toBe('n');
+
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    }); // n → f
+    expect(result.current.activeRegime).toBe('f');
+
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    }); // f → ef
+    expect(result.current.activeRegime).toBe('ef');
+    expect(result.current.animationDirection).toBe('backward');
+
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    }); // ef → (nextIdx = -1, triggers reversal to forward) → f
+
+    // When going backward from ef (index 0), nextIdx becomes -1, triggering reversal
+    expect(result.current.animationDirection).toBe('forward');
+    expect(result.current.activeRegime).toBe('f');
+  });
+
   it('should reverse direction at extreme fear', () => {
     const { result } = renderHook(() =>
       useRegimeAutoPlay({
