@@ -38,13 +38,20 @@ jest.mock('next/image', () => ({
   default: ({ alt, ...props }) => {
     const React = require('react');
     // Filter out Next.js specific props
-    const { priority: _p, placeholder: _ph, blurDataURL: _blur, loading: _l, unoptimized: _u, ...htmlProps } = props;
+    const {
+      priority: _p,
+      placeholder: _ph,
+      blurDataURL: _blur,
+      loading: _l,
+      unoptimized: _u,
+      ...htmlProps
+    } = props;
     return React.createElement('img', { alt: alt ?? '', ...htmlProps });
   },
 }));
 
 // Helper to filter framer-motion props from DOM elements
-const filterMotionProps = (props) => {
+const filterMotionProps = props => {
   const {
     // Animation props
     initial: _initial,
@@ -104,7 +111,7 @@ const filterMotionProps = (props) => {
 jest.mock('framer-motion', () => {
   const React = require('react');
 
-  const createMotionComponent = (element) => {
+  const createMotionComponent = element => {
     const MotionComponent = React.forwardRef(({ children, ...props }, ref) => {
       const filteredProps = filterMotionProps(props);
       return React.createElement(element, { ...filteredProps, ref }, children);

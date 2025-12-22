@@ -68,5 +68,3 @@ describe('features config', () => {
     });
   });
 });
-
-
