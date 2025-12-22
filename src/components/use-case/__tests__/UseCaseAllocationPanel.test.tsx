@@ -11,7 +11,7 @@ jest.mock('framer-motion', () => ({
     div: ({
       children,
       className,
-      whileHover,
+      whileHover: _whileHover,
       ...props
     }: {
       children: React.ReactNode;
@@ -110,7 +110,9 @@ describe('UseCaseAllocationPanel', () => {
     );
 
     // Should not render tab buttons
-    expect(screen.queryByRole('button', { name: variantWithChange.tabLabel })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: variantWithChange.tabLabel })
+    ).not.toBeInTheDocument();
   });
 
   it('should show tabs when multiple variants exist', () => {
