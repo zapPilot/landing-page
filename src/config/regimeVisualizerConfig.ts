@@ -7,7 +7,7 @@ export const REGIME_VISUALIZER_CONFIG = {
   layout: {
     smallMobile: {
       viewBoxWidth: 700,
-      viewBoxHeight: 900,
+      viewBoxHeight: 1000, // Increased to fit panel (panelY + panelHeight = 500 + 480 = 980)
       panelY: 500,
       panelHeight: 480,
       arcCenterY: 220,
@@ -18,7 +18,7 @@ export const REGIME_VISUALIZER_CONFIG = {
     },
     mobile: {
       viewBoxWidth: 900,
-      viewBoxHeight: 1000,
+      viewBoxHeight: 1200, // Increased to fit panel (panelY + panelHeight = 620 + 560 = 1180)
       panelY: 620,
       panelHeight: 560,
       /**

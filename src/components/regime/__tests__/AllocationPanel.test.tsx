@@ -250,14 +250,15 @@ describe('AllocationPanel', () => {
   });
 
   describe('styling', () => {
-    it('should apply backdrop blur styling', () => {
+    it('should apply solid background styling for iOS Safari compatibility', () => {
       const { container } = render(
         <svg>
           <AllocationPanel {...createAllocationPanelProps()} />
         </svg>
       );
 
-      const panel = container.querySelector('.backdrop-blur-lg');
+      // Using solid bg-gray-900/95 instead of backdrop-blur-lg for iOS Safari compatibility
+      const panel = container.querySelector('.bg-gray-900\\/95');
       expect(panel).toBeInTheDocument();
     });
 
