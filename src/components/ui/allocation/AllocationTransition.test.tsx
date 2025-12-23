@@ -21,8 +21,8 @@ jest.mock('@/components/ui/TokenIcon', () => ({
       {token}
     </span>
   ),
-  TokenPair: ({ tokens, size }: { tokens: string[]; size: number }) => (
-    <span data-testid={`token-pair-${tokens.join('-')}`} data-size={size}>
+  TokenPair: ({ tokens, size, overlap }: { tokens: string[]; size: number; overlap?: boolean }) => (
+    <span data-testid={`token-pair-${tokens.join('-')}`} data-size={size} data-overlap={overlap}>
       {tokens.join('-')}
     </span>
   ),
