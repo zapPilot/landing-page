@@ -38,6 +38,8 @@ interface TokenPairProps {
   tokens: [TokenSymbol, TokenSymbol];
   size?: number | 'sm' | 'md' | 'lg';
   className?: string;
+  /** Use more aggressive overlap for compact mobile layouts */
+  overlap?: boolean;
 }
 
 /**
@@ -45,10 +47,16 @@ interface TokenPairProps {
  * @param tokens - Tuple of two token symbols
  * @param size - Icon size (numeric or preset: sm/md/lg)
  * @param className - Additional CSS classes for the container
+ * @param overlap - Use more aggressive overlap for mobile
  */
-export function TokenPair({ tokens, size = 'md', className = '' }: TokenPairProps) {
+export function TokenPair({
+  tokens,
+  size = 'md',
+  className = '',
+  overlap = false,
+}: TokenPairProps) {
   return (
-    <div className={`flex -space-x-1 ${className}`}>
+    <div className={`flex ${overlap ? '-space-x-2' : '-space-x-1'} ${className}`}>
       <TokenIcon token={tokens[0]} size={size} />
       <TokenIcon token={tokens[1]} size={size} />
     </div>

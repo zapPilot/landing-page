@@ -42,22 +42,23 @@ export function ThreePartAllocationBar({
 
   const Bar = animated ? motion.div : 'div';
 
+  // Use solid background colors instead of gradients for iOS Safari foreignObject compatibility
   const segments: SegmentConfig[] = [
     {
       key: 'spot',
       value: allocation.spot,
-      gradient: 'from-orange-600 to-orange-500',
+      gradient: 'bg-orange-500', // Solid color for iOS Safari compatibility
       color: 'orange',
-      tokenIcon: <TokenPair tokens={['btc', 'eth']} size={heights[size].icon} />,
+      tokenIcon: <TokenPair tokens={['btc', 'eth']} size={heights[size].icon} overlap />,
       label: 'Spot',
       delay: 0,
     },
     {
       key: 'lp',
       value: allocation.lp,
-      gradient: 'from-purple-600 to-purple-500',
+      gradient: 'bg-purple-500', // Solid color for iOS Safari compatibility
       color: 'purple',
-      tokenIcon: <TokenPair tokens={['btc', 'usdc']} size={heights[size].icon} />,
+      tokenIcon: <TokenPair tokens={['btc', 'usdc']} size={heights[size].icon} overlap />,
       label: 'LP',
       delay: 0.1,
       tooltip: '(50% crypto + 50% stable)',
@@ -65,7 +66,7 @@ export function ThreePartAllocationBar({
     {
       key: 'stable',
       value: allocation.stable,
-      gradient: 'from-blue-600 to-blue-500',
+      gradient: 'bg-blue-500', // Solid color for iOS Safari compatibility
       color: 'blue',
       tokenIcon: <TokenIcon token="usdc" size={heights[size].icon} />,
       label: 'Stable',
@@ -84,7 +85,7 @@ export function ThreePartAllocationBar({
           return (
             <Bar
               key={segment.key}
-              className={`bg-gradient-to-r ${segment.gradient} flex items-center justify-center text-white text-sm font-semibold relative group`}
+              className={`${segment.gradient} flex items-center justify-center text-white text-sm font-semibold relative group`}
               style={{ width: `${segment.value}%` }}
               {...(animated && {
                 initial: { width: 0 },
@@ -104,15 +105,15 @@ export function ThreePartAllocationBar({
         })}
       </div>
 
-      {/* Legend with icons */}
-      <div className="flex items-center justify-center gap-4 text-xs">
+      {/* Legend with icons - compact layout for mobile */}
+      <div className="flex items-center justify-center gap-2 sm:gap-4 text-xs flex-wrap">
         {segments.map(segment => {
           if (segment.value === 0) return null;
 
           return (
-            <div key={segment.key} className="flex items-center gap-1.5">
+            <div key={segment.key} className="flex items-center gap-1">
               {segment.tokenIcon}
-              <span className="text-gray-400">{segment.label}:</span>
+              <span className="text-gray-400 hidden sm:inline">{segment.label}:</span>
               <span className={`text-${segment.color}-400 font-bold`}>{segment.value}%</span>
             </div>
           );
