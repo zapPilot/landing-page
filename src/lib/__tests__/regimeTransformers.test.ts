@@ -37,6 +37,11 @@ describe('transformRegimesToUseCases', () => {
         gradient: 'from-red-400 to-orange-500',
         icon: TrendingDown,
       },
+      protocols: {
+        stable: ['Morpho'],
+        lp: ['GMX (GM)'],
+        strategyType: 'lending',
+      },
       strategies: {
         default: {
           title: 'Maximum Accumulation',
@@ -61,6 +66,11 @@ describe('transformRegimesToUseCases', () => {
         badge: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
         gradient: 'from-orange-400 to-red-500',
         icon: TrendingDown,
+      },
+      protocols: {
+        stable: ['Morpho'],
+        lp: ['GMX (GM)'],
+        strategyType: 'lending',
       },
       strategies: {
         fromLeft: {
@@ -99,6 +109,11 @@ describe('transformRegimesToUseCases', () => {
         badge: 'bg-green-500/20 text-green-400 border-green-500/30',
         gradient: 'from-green-400 to-teal-500',
         icon: TrendingUp,
+      },
+      protocols: {
+        stable: ['Aster ALP', 'Hyperliquid HLP'],
+        lp: ['GMX (GM)'],
+        strategyType: 'perps',
       },
       strategies: {
         fromLeft: {
@@ -206,6 +221,11 @@ describe('transformRegimesToUseCases', () => {
           badge: 'test-badge',
           gradient: 'test-gradient',
           icon: TrendingUp,
+        },
+        protocols: {
+          stable: ['Aster ALP', 'Hyperliquid HLP'],
+          lp: ['GMX (GM)'],
+          strategyType: 'perps',
         },
         strategies: {
           default: {

@@ -6,6 +6,7 @@ import type { AllocationComparisonProps } from './types';
 export function AllocationComparison({
   before,
   after,
+  protocols,
   timeframe = 'Over 5-10 days',
   gradient: _gradient,
 }: AllocationComparisonProps) {
@@ -20,7 +21,7 @@ export function AllocationComparison({
           Let's try to remove the confusing cognitive load. 
           Actually, the user approved the plan which said "Hide detailed % breakdown by default".
        */}
-      <AllocationTransition before={before} after={after} />
+      <AllocationTransition before={before} after={after} protocols={protocols} />
 
       {/* Execution Details */}
       <div className="pt-4 border-t border-gray-700">

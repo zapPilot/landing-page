@@ -43,6 +43,12 @@ export interface Regime {
     fromRight?: RegimeStrategy;
     default: RegimeStrategy;
   };
+  /** specific DeFi protocols used in this regime */
+  protocols: {
+    stable: string[];
+    lp: string[];
+    strategyType: 'lending' | 'perps';
+  };
   // Visual configuration for UI components
   visual: {
     /** Tailwind badge classes for regime badge styling */
@@ -66,6 +72,11 @@ export const regimes: Regime[] = [
       badge: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
       gradient: 'from-emerald-400 to-green-500',
       icon: TrendingDown,
+    },
+    protocols: {
+      stable: ['Morpho'],
+      lp: ['GMX (GM)'],
+      strategyType: 'lending',
     },
     strategies: {
       default: {
@@ -92,6 +103,11 @@ export const regimes: Regime[] = [
       badge: 'bg-green-500/20 text-green-400 border-green-500/30',
       gradient: 'from-green-400 to-teal-500',
       icon: TrendingDown,
+    },
+    protocols: {
+      stable: ['Morpho'],
+      lp: ['GMX (GM)'],
+      strategyType: 'lending',
     },
     strategies: {
       fromLeft: {
@@ -133,6 +149,11 @@ export const regimes: Regime[] = [
       gradient: 'from-yellow-400 to-amber-500',
       icon: Pause,
     },
+    protocols: {
+      stable: ['Aster ALP', 'Hyperliquid HLP'],
+      lp: ['GMX (GM)'],
+      strategyType: 'perps',
+    },
     strategies: {
       default: {
         title: 'Holiday Mode',
@@ -158,6 +179,11 @@ export const regimes: Regime[] = [
       badge: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
       gradient: 'from-orange-400 to-red-500',
       icon: TrendingUp,
+    },
+    protocols: {
+      stable: ['Aster ALP', 'Hyperliquid HLP'],
+      lp: ['GMX (GM)'],
+      strategyType: 'perps',
     },
     strategies: {
       fromLeft: {
@@ -197,6 +223,11 @@ export const regimes: Regime[] = [
       badge: 'bg-red-500/20 text-red-400 border-red-500/30',
       gradient: 'from-red-400 to-orange-500',
       icon: TrendingUp,
+    },
+    protocols: {
+      stable: ['Aster ALP', 'Hyperliquid HLP'],
+      lp: ['GMX (GM)'],
+      strategyType: 'perps',
     },
     strategies: {
       default: {

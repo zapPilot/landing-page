@@ -18,6 +18,7 @@ interface SegmentConfig {
 
 export function ThreePartAllocationBar({
   allocation,
+  protocols,
   animated = true,
   size = 'md',
   showLabels = false,
@@ -110,10 +111,20 @@ export function ThreePartAllocationBar({
         {segments.map(segment => {
           if (segment.value === 0) return null;
 
+          // Determine label content based on strategy type
+          let mainLabel = segment.label;
+
+          if (segment.key === 'stable' && protocols?.strategyType) {
+            const strategyName = protocols.strategyType === 'lending' ? 'Lending' : 'Perps';
+            mainLabel = `Stable (${strategyName})`;
+          }
+          // LP stays as "LP" — could add "(GMX)" if desired but keeping simple
+
           return (
             <div key={segment.key} className="flex items-center gap-1">
               {segment.tokenIcon}
-              <span className="text-gray-400 hidden sm:inline">{segment.label}:</span>
+              <span className="text-gray-400 hidden sm:inline">{mainLabel}:</span>
+              <span className="text-gray-400 sm:hidden text-[10px]">{segment.label.charAt(0)}</span>
               <span className={`text-${segment.color}-400 font-bold`}>{segment.value}%</span>
             </div>
           );

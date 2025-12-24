@@ -67,6 +67,7 @@ export function AllocationPanel({
                 <AllocationComparison
                   before={activeStrategy.useCase.allocationBefore}
                   after={activeStrategy.useCase.allocationAfter}
+                  protocols={activeRegimeData.protocols}
                   timeframe="Over 5-10 days"
                   gradient="from-purple-400 to-blue-400"
                 />

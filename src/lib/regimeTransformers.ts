@@ -67,6 +67,7 @@ export function transformRegimesToUseCases(regimes: Regime[]): TabbedUseCaseData
         allocationStartBreakdown: useCase.allocationBefore,
         allocationEndBreakdown: useCase.allocationAfter,
         lpDirection: calculateLpDirection(useCase.allocationBefore, useCase.allocationAfter),
+        protocols: regime.protocols,
       };
     });
 

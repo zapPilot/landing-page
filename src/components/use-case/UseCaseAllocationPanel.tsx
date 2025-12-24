@@ -63,6 +63,7 @@ export function UseCaseAllocationPanel({
               <AllocationComparison
                 before={activeVariant.allocationStartBreakdown}
                 after={activeVariant.allocationEndBreakdown}
+                protocols={activeVariant.protocols}
                 timeframe="Over 5-10 days"
                 gradient={gradient}
               />

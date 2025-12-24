@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { ThreePartAllocationBar } from './ThreePartAllocationBar';
-import type { AllocationBreakdown } from './types';
+import type { AllocationBreakdown, ProtocolInfo } from './types';
 
 interface AllocationTransitionProps {
   before: AllocationBreakdown;
   after: AllocationBreakdown;
+  protocols?: ProtocolInfo;
   size?: 'sm' | 'md' | 'lg';
   showArrow?: boolean;
 }
@@ -13,6 +14,7 @@ interface AllocationTransitionProps {
 export function AllocationTransition({
   before,
   after,
+  protocols,
   size = 'lg',
   showArrow = true,
 }: AllocationTransitionProps) {
@@ -41,7 +43,12 @@ export function AllocationTransition({
           {/* Starting Allocation (top) */}
           <div>
             <div className="text-xs text-gray-500 mb-2">Starting Allocation</div>
-            <ThreePartAllocationBar allocation={before} animated={false} size="md" />
+            <ThreePartAllocationBar
+              allocation={before}
+              protocols={protocols}
+              animated={false}
+              size="md"
+            />
           </div>
 
           {/* Arrow and timeframe */}
@@ -57,7 +64,12 @@ export function AllocationTransition({
           {/* Target Allocation (bottom) */}
           <div>
             <div className="text-sm font-medium text-gray-300 mb-2">Target Allocation</div>
-            <ThreePartAllocationBar allocation={after} animated={true} size={size} />
+            <ThreePartAllocationBar
+              allocation={after}
+              protocols={protocols}
+              animated={true}
+              size={size}
+            />
           </div>
 
           <div className="text-center text-xs text-gray-500 pt-2">Execution: Over 5-10 days</div>
@@ -66,7 +78,12 @@ export function AllocationTransition({
         /* Collapsed View - Only Target Allocation */
         <div>
           <div className="text-sm font-medium text-gray-300 mb-2">Target Allocation</div>
-          <ThreePartAllocationBar allocation={after} animated={true} size={size} />
+          <ThreePartAllocationBar
+            allocation={after}
+            protocols={protocols}
+            animated={true}
+            size={size}
+          />
         </div>
       )}
     </div>

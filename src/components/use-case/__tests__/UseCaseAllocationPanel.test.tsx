@@ -46,6 +46,11 @@ describe('UseCaseAllocationPanel', () => {
       spot: 25,
       lp: 15,
     },
+    protocols: {
+      stable: ['Morpho'],
+      lp: ['GMX (GM)'],
+      strategyType: 'lending',
+    },
   };
 
   const variantNoChange: UseCaseVariant = {
@@ -64,6 +69,11 @@ describe('UseCaseAllocationPanel', () => {
       stable: 40,
       spot: 40,
       lp: 20,
+    },
+    protocols: {
+      stable: ['Aster ALP', 'Hyperliquid HLP'],
+      lp: ['GMX (GM)'],
+      strategyType: 'perps',
     },
   };
 
