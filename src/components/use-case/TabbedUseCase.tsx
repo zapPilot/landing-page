@@ -14,9 +14,20 @@ interface TabbedUseCaseProps {
   gradient: string;
   variants: UseCaseVariant[];
   icon: LucideIcon;
+  regimeRef: {
+    philosophy: string;
+    author: string;
+    fillColor: string;
+  };
 }
 
-export function TabbedUseCase({ number, regime, gradient, variants }: TabbedUseCaseProps) {
+export function TabbedUseCase({
+  number,
+  regime,
+  gradient,
+  variants,
+  regimeRef,
+}: TabbedUseCaseProps) {
   const [activeTab, setActiveTab] = useState(0);
   const activeVariant = variants[activeTab];
 
@@ -45,6 +56,10 @@ export function TabbedUseCase({ number, regime, gradient, variants }: TabbedUseC
             activeTab={activeTab}
             onTabChange={setActiveTab}
             gradient={gradient}
+            philosophy={regimeRef.philosophy}
+            author={regimeRef.author}
+            fillColor={regimeRef.fillColor}
+            regimeLabel={regime}
           />
         </div>
       </div>

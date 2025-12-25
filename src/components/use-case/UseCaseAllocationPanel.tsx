@@ -1,7 +1,8 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { AllocationComparison, MaintainingAllocation } from '@/components/ui/allocation';
+import { SharedAllocationPanel } from '@/components/regime/SharedAllocationPanel';
+import { hasAllocationChange } from '@/lib/allocationUtils';
 import type { UseCaseVariant } from './types';
 
 interface UseCaseAllocationPanelProps {
@@ -9,6 +10,10 @@ interface UseCaseAllocationPanelProps {
   activeTab: number;
   onTabChange: (index: number) => void;
   gradient: string;
+  philosophy: string;
+  author: string;
+  fillColor: string;
+  regimeLabel: string;
 }
 
 export function UseCaseAllocationPanel({
@@ -16,14 +21,19 @@ export function UseCaseAllocationPanel({
   activeTab,
   onTabChange,
   gradient,
+  philosophy,
+  author,
+  fillColor,
+  regimeLabel,
 }: UseCaseAllocationPanelProps) {
   const activeVariant = variants[activeTab];
-  const hasAllocationChange =
-    JSON.stringify(activeVariant.allocationStartBreakdown) !==
-    JSON.stringify(activeVariant.allocationEndBreakdown);
+  const hasChange = hasAllocationChange(
+    activeVariant.allocationStartBreakdown,
+    activeVariant.allocationEndBreakdown
+  );
 
   return (
-    <div className="relative">
+    <div className="relative h-full">
       {/* Tabs - Only show if multiple variants */}
       {variants.length > 1 && (
         <div className="flex gap-2 mb-6 overflow-x-auto">
@@ -50,27 +60,22 @@ export function UseCaseAllocationPanel({
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.3 }}
-          className="relative bg-gray-800/50 rounded-2xl p-6 lg:p-8 border border-gray-700"
+          className="relative h-full"
           whileHover={{ scale: 1.02 }}
         >
-          {/* Allocation Visualization */}
-          <div className="space-y-6">
-            <div className="text-center">
-              <div className="text-sm text-gray-400 mb-2">Portfolio Allocation</div>
-            </div>
-
-            {hasAllocationChange ? (
-              <AllocationComparison
-                before={activeVariant.allocationStartBreakdown}
-                after={activeVariant.allocationEndBreakdown}
-                protocols={activeVariant.protocols}
-                timeframe="Over 5-10 days"
-                gradient={gradient}
-              />
-            ) : (
-              <MaintainingAllocation />
-            )}
-          </div>
+          <SharedAllocationPanel
+            regimeLabel={regimeLabel}
+            regimeColor={fillColor}
+            philosophy={philosophy}
+            author={author}
+            strategyTitle={activeVariant.title}
+            strategySubtitle={activeVariant.subtitle}
+            allocationBefore={activeVariant.allocationStartBreakdown}
+            allocationAfter={activeVariant.allocationEndBreakdown}
+            protocols={activeVariant.protocols}
+            isMaintaining={!hasChange}
+            comparisonGradient={gradient}
+          />
 
           {/* Floating elements */}
           <motion.div

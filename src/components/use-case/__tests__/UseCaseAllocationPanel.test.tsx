@@ -88,11 +88,15 @@ describe('UseCaseAllocationPanel', () => {
         activeTab={0}
         onTabChange={mockOnTabChange}
         gradient="from-purple-500 to-blue-500"
+        philosophy="Test Philosophy"
+        author="Test Author"
+        fillColor="#000000"
+        regimeLabel="Test Regime"
       />
     );
 
-    // Check that the component renders Portfolio Allocation
-    expect(screen.getByText('Portfolio Allocation')).toBeInTheDocument();
+    // Check that the component renders the regime label
+    expect(screen.getByText('Test Regime')).toBeInTheDocument();
   });
 
   it('should render MaintainingAllocation when allocations are the same', () => {
@@ -102,11 +106,15 @@ describe('UseCaseAllocationPanel', () => {
         activeTab={0}
         onTabChange={mockOnTabChange}
         gradient="from-purple-500 to-blue-500"
+        philosophy="Test Philosophy"
+        author="Test Author"
+        fillColor="#000000"
+        regimeLabel="Test Regime"
       />
     );
 
-    // MaintainingAllocation shows "Maintaining Current Allocation" text
-    expect(screen.getByText(/maintaining|current/i)).toBeInTheDocument();
+    // MaintainingAllocation shows the strategy title
+    expect(screen.getByText('Stable Market Scenario')).toBeInTheDocument();
   });
 
   it('should not show tabs when only one variant', () => {
@@ -116,6 +124,10 @@ describe('UseCaseAllocationPanel', () => {
         activeTab={0}
         onTabChange={mockOnTabChange}
         gradient="from-purple-500 to-blue-500"
+        philosophy="Test Philosophy"
+        author="Test Author"
+        fillColor="#000000"
+        regimeLabel="Test Regime"
       />
     );
 
@@ -132,6 +144,10 @@ describe('UseCaseAllocationPanel', () => {
         activeTab={0}
         onTabChange={mockOnTabChange}
         gradient="from-purple-500 to-blue-500"
+        philosophy="Test Philosophy"
+        author="Test Author"
+        fillColor="#000000"
+        regimeLabel="Test Regime"
       />
     );
 
@@ -147,6 +163,10 @@ describe('UseCaseAllocationPanel', () => {
         activeTab={0}
         onTabChange={mockOnTabChange}
         gradient="from-purple-500 to-blue-500"
+        philosophy="Test Philosophy"
+        author="Test Author"
+        fillColor="#000000"
+        regimeLabel="Test Regime"
       />
     );
 
@@ -163,6 +183,10 @@ describe('UseCaseAllocationPanel', () => {
         activeTab={0}
         onTabChange={mockOnTabChange}
         gradient="from-purple-500 to-blue-500"
+        philosophy="Test Philosophy"
+        author="Test Author"
+        fillColor="#000000"
+        regimeLabel="Test Regime"
       />
     );
 

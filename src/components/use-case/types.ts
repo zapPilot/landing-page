@@ -13,4 +13,5 @@ export interface UseCaseVariant {
   allocationEndBreakdown: AllocationBreakdown;
   lpDirection?: LpDirection;
   protocols: ProtocolInfo;
+  subtitle?: string; // For strategy subtitle (e.g. "Rotating Stables...")
 }

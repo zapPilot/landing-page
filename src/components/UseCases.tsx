@@ -6,11 +6,13 @@ import { SectionHeader } from './layout';
 import { regimes } from '@/lib/regimeData';
 import { transformRegimesToUseCases } from '@/lib/regimeTransformers';
 import { REGIME_VISUALIZER_CONFIG } from '@/config/regimeVisualizerConfig';
+import { USE_CASE_CONFIG } from '@/config/useCaseConfig';
 import { revealOnView } from '@/lib/motion/animations';
 
 export function UseCases() {
   const tabbedUseCases = transformRegimesToUseCases(regimes);
   const { slideIn } = REGIME_VISUALIZER_CONFIG.animation;
+  const { cardStagger, bottomMessageDelay } = USE_CASE_CONFIG.animation;
 
   return (
     <section id="use-cases" className="py-24 bg-gray-900/20">
@@ -31,7 +33,7 @@ export function UseCases() {
               key={useCase.number}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: slideIn.duration, delay: index * 0.2 }}
+              transition={{ duration: slideIn.duration, delay: index * cardStagger }}
               viewport={{ once: true }}
             >
               <TabbedUseCase
@@ -41,6 +43,7 @@ export function UseCases() {
                 gradient={useCase.gradient}
                 variants={useCase.variants}
                 icon={useCase.icon}
+                regimeRef={useCase.regimeRef}
               />
             </motion.div>
           ))}
@@ -48,7 +51,7 @@ export function UseCases() {
 
         {/* Bottom message */}
         <motion.div
-          {...revealOnView({ delay: 0.6, duration: slideIn.duration })}
+          {...revealOnView({ delay: bottomMessageDelay, duration: slideIn.duration })}
           className="text-center mt-20"
         >
           <p className="text-xl text-gray-300 mb-6">Let market sentiment guide your decisions.</p>

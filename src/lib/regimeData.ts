@@ -25,6 +25,7 @@ export interface RegimeStrategy {
     allocationBefore: AllocationBreakdown;
     allocationAfter: AllocationBreakdown;
   };
+  subtitle?: string;
 }
 
 export interface Regime {
@@ -112,6 +113,7 @@ export const regimes: Regime[] = [
     strategies: {
       fromLeft: {
         title: 'Monitor Market Recovery',
+        subtitle: 'Zero rebalancing unless risk spikes',
         useCase: {
           scenario: 'Bitcoin stabilizes after bouncing 12% from recent lows. FGI rises to 35.',
           userIntent: 'I want to hold my positions during early recovery.',
@@ -134,6 +136,7 @@ export const regimes: Regime[] = [
       },
       default: {
         title: 'Cautious Positioning',
+        subtitle: 'Maintaining defensive allocation',
       },
     },
   },
@@ -156,12 +159,13 @@ export const regimes: Regime[] = [
     },
     strategies: {
       default: {
-        title: 'Holiday Mode',
+        title: 'Maintaining Allocation',
+        subtitle: 'Rotating Stables: Lending ➔ Perps',
         useCase: {
           scenario: 'FGI hovers between 46-54 for weeks.',
           userIntent: "I don't want to overtrade or pay fees.",
           zapAction:
-            'Zero rebalancing. Monitors borrowing rates and auto-repays debt if costs get too high. Enjoy the break.',
+            'Maintains overall allocation weights. Automatically rotates stablecoin capital from Lending (defensive) to Perps LP (yield-seeking) as market sentiment improves.',
           allocationBefore: ALLOCATION_STATES.HEAVY_SPOT,
           allocationAfter: ALLOCATION_STATES.HEAVY_SPOT,
         },
@@ -199,6 +203,7 @@ export const regimes: Regime[] = [
       },
       fromRight: {
         title: 'Take a Rest',
+        subtitle: 'Holding positions; risk off',
         useCase: {
           scenario: 'Bitcoin corrects 25% from peak. FGI drops to 65.',
           userIntent: 'I want to avoid catching falling knives.',
@@ -209,6 +214,7 @@ export const regimes: Regime[] = [
       },
       default: {
         title: 'Soft Profit-Taking',
+        subtitle: 'Scaling out slowly',
       },
     },
   },

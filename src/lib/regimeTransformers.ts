@@ -16,6 +16,12 @@ export interface TabbedUseCaseData {
   regimeBadge: string;
   gradient: string;
   variants: UseCaseVariant[];
+  // Regime metadata grouped to reduce duplication
+  regimeRef: {
+    philosophy: string;
+    author: string;
+    fillColor: string;
+  };
 }
 
 /**
@@ -61,6 +67,7 @@ export function transformRegimesToUseCases(regimes: Regime[]): TabbedUseCaseData
         direction,
         tabLabel,
         title: strategy.title,
+        subtitle: strategy.subtitle,
         scenario: useCase.scenario,
         userIntent: useCase.userIntent,
         zapAction: useCase.zapAction,
@@ -78,6 +85,11 @@ export function transformRegimesToUseCases(regimes: Regime[]): TabbedUseCaseData
       regimeBadge: regime.visual.badge,
       gradient: regime.visual.gradient,
       variants,
+      regimeRef: {
+        philosophy: regime.philosophy,
+        author: regime.author,
+        fillColor: regime.fillColor,
+      },
     };
   });
 }

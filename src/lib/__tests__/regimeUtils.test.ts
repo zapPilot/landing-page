@@ -62,10 +62,10 @@ describe('regimeUtils', () => {
 
       it('should always return default strategy for n', () => {
         const strategy = getActiveStrategy('n', 'forward');
-        expect(strategy.title).toBe('Holiday Mode');
+        expect(strategy.title).toBe('Maintaining Allocation');
 
         const strategyWithPrevious = getActiveStrategy('n', 'backward', 'g');
-        expect(strategyWithPrevious.title).toBe('Holiday Mode');
+        expect(strategyWithPrevious.title).toBe('Maintaining Allocation');
       });
 
       it('should always return default strategy for eg', () => {
