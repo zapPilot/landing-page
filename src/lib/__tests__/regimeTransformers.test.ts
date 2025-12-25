@@ -247,4 +247,53 @@ describe('transformRegimesToUseCases', () => {
     expect(result[0].variants).toHaveLength(1);
     expect(result[0].variants[0].direction).toBe('default');
   });
+
+  it('should preserve subtitle parts array structure', () => {
+    const regimeWithSubtitle: Regime[] = [
+      {
+        id: 'n',
+        label: 'Neutral',
+        allocation: { crypto: 50, stable: 50 },
+        fillColor: '#eab308',
+        philosophy: '"Test"',
+        author: 'Test Author',
+        visual: {
+          badge: 'test-badge',
+          gradient: 'test-gradient',
+          icon: TrendingUp,
+        },
+        protocols: {
+          stable: ['Aster ALP', 'Hyperliquid HLP'],
+          lp: ['GMX (GM)'],
+          strategyType: 'perps',
+        },
+        strategies: {
+          default: {
+            title: 'Maintaining Allocation',
+            subtitle: [
+              { text: 'Rotating Stables: ' },
+              { text: 'Lending', emphasis: true },
+              { text: ' ➔ ' },
+              { text: 'Perps', emphasis: true },
+            ],
+            useCase: {
+              scenario: 'FGI hovers',
+              userIntent: 'Hold',
+              zapAction: 'Rotate stables',
+              allocationBefore: { spot: 50, lp: 0, stable: 50 },
+              allocationAfter: { spot: 50, lp: 0, stable: 50 },
+            },
+          },
+        },
+      },
+    ];
+
+    const result = transformRegimesToUseCases(regimeWithSubtitle);
+    expect(result[0].variants[0].subtitle).toEqual([
+      { text: 'Rotating Stables: ' },
+      { text: 'Lending', emphasis: true },
+      { text: ' ➔ ' },
+      { text: 'Perps', emphasis: true },
+    ]);
+  });
 });

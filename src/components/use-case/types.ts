@@ -1,6 +1,7 @@
 import type { AllocationBreakdown, LpDirection } from '@/types/regime.types';
 import type { StrategyDirection } from '@/config/useCaseLabels';
 import type { ProtocolInfo } from '@/components/ui/allocation/types';
+import type { SubtitlePart } from '@/components/ui/allocation';
 
 export interface UseCaseVariant {
   direction: StrategyDirection; // 'from-left' | 'from-right' | 'default'
@@ -13,5 +14,5 @@ export interface UseCaseVariant {
   allocationEndBreakdown: AllocationBreakdown;
   lpDirection?: LpDirection;
   protocols: ProtocolInfo;
-  subtitle?: string; // For strategy subtitle (e.g. "Rotating Stables...")
+  subtitle?: SubtitlePart[] | string; // For strategy subtitle (e.g. "Rotating Stables...")
 }

@@ -1,10 +1,11 @@
 'use client';
 
 import { CheckCircle } from 'lucide-react';
+import { SubtitleChip, type SubtitlePart } from './SubtitleChip';
 
-interface MaintainingAllocationProps {
+export interface MaintainingAllocationProps {
   message?: string;
-  subtitle?: string;
+  subtitle?: SubtitlePart[] | string;
 }
 
 export function MaintainingAllocation({
@@ -14,9 +15,9 @@ export function MaintainingAllocation({
   return (
     <div className="flex items-center justify-center gap-3 bg-gray-800/50 rounded-2xl p-6 border border-gray-700">
       <CheckCircle className="w-6 h-6 text-green-400" />
-      <div>
+      <div className="space-y-2">
         <p className="text-white font-semibold text-lg">{message}</p>
-        <p className="text-gray-400 text-sm">{subtitle}</p>
+        <SubtitleChip subtitle={subtitle} />
       </div>
     </div>
   );

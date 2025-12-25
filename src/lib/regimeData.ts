@@ -3,6 +3,15 @@ import type { LucideIcon } from 'lucide-react';
 import { TrendingDown, TrendingUp, Pause } from 'lucide-react';
 
 /**
+ * Represents a text segment within a subtitle with optional emphasis styling.
+ * Used to highlight keywords like protocol names (Lending, Perps) or risk indicators.
+ */
+export interface SubtitlePart {
+  text: string;
+  emphasis?: boolean;
+}
+
+/**
  * Shared allocation states used across regime transitions.
  * Each state represents a unique portfolio composition in the flow.
  * Using shared objects ensures allocation consistency between connected regimes.
@@ -25,7 +34,7 @@ export interface RegimeStrategy {
     allocationBefore: AllocationBreakdown;
     allocationAfter: AllocationBreakdown;
   };
-  subtitle?: string;
+  subtitle?: SubtitlePart[] | string;
 }
 
 export interface Regime {
@@ -113,7 +122,11 @@ export const regimes: Regime[] = [
     strategies: {
       fromLeft: {
         title: 'Monitor Market Recovery',
-        subtitle: 'Zero rebalancing unless risk spikes',
+        subtitle: [
+          { text: 'Zero rebalancing unless ' },
+          { text: 'risk', emphasis: true },
+          { text: ' spikes' },
+        ],
         useCase: {
           scenario: 'Bitcoin stabilizes after bouncing 12% from recent lows. FGI rises to 35.',
           userIntent: 'I want to hold my positions during early recovery.',
@@ -136,7 +149,11 @@ export const regimes: Regime[] = [
       },
       default: {
         title: 'Cautious Positioning',
-        subtitle: 'Maintaining defensive allocation',
+        subtitle: [
+          { text: 'Maintaining ' },
+          { text: 'defensive', emphasis: true },
+          { text: ' allocation' },
+        ],
       },
     },
   },
@@ -160,7 +177,12 @@ export const regimes: Regime[] = [
     strategies: {
       default: {
         title: 'Maintaining Allocation',
-        subtitle: 'Rotating Stables: Lending ➔ Perps',
+        subtitle: [
+          { text: 'Rotating Stables: ' },
+          { text: 'Lending', emphasis: true },
+          { text: ' ➔ ' },
+          { text: 'Perps', emphasis: true },
+        ],
         useCase: {
           scenario: 'FGI hovers between 46-54 for weeks.',
           userIntent: "I don't want to overtrade or pay fees.",
@@ -203,7 +225,7 @@ export const regimes: Regime[] = [
       },
       fromRight: {
         title: 'Take a Rest',
-        subtitle: 'Holding positions; risk off',
+        subtitle: [{ text: 'Holding positions; ' }, { text: 'risk off', emphasis: true }],
         useCase: {
           scenario: 'Bitcoin corrects 25% from peak. FGI drops to 65.',
           userIntent: 'I want to avoid catching falling knives.',
@@ -214,7 +236,7 @@ export const regimes: Regime[] = [
       },
       default: {
         title: 'Soft Profit-Taking',
-        subtitle: 'Scaling out slowly',
+        subtitle: [{ text: 'Scaling out ' }, { text: 'slowly', emphasis: true }],
       },
     },
   },

@@ -1,7 +1,11 @@
 'use client';
 
 import { DirectionBadge } from './DirectionBadge';
-import { AllocationComparison, MaintainingAllocation } from '@/components/ui/allocation';
+import {
+  AllocationComparison,
+  MaintainingAllocation,
+  type SubtitlePart,
+} from '@/components/ui/allocation';
 import type { AllocationBreakdown, ProtocolInfo } from '@/components/ui/allocation/types';
 
 export interface SharedAllocationPanelProps {
@@ -13,7 +17,7 @@ export interface SharedAllocationPanelProps {
 
   // Strategy Details
   strategyTitle: string;
-  strategySubtitle?: string;
+  strategySubtitle?: SubtitlePart[] | string;
 
   // Visual Context
   directionLabel?: string | null;
