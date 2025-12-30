@@ -12,6 +12,19 @@ export interface SubtitlePart {
 }
 
 /**
+ * Helper functions for building subtitle parts with type safety
+ */
+const subtitle = {
+  /** Creates a normal (non-emphasized) subtitle part */
+  text: (text: string): SubtitlePart => ({ text }),
+  /** Creates an emphasized subtitle part */
+  emphasized: (text: string): SubtitlePart => ({ text, emphasis: true }),
+  /** Builds a complete subtitle from mixed text and emphasized parts */
+  build: (...parts: Array<string | SubtitlePart>): SubtitlePart[] =>
+    parts.map(p => (typeof p === 'string' ? { text: p } : p)),
+} as const;
+
+/**
  * Shared allocation states used across regime transitions.
  * Each state represents a unique portfolio composition in the flow.
  * Using shared objects ensures allocation consistency between connected regimes.
@@ -22,6 +35,22 @@ export const ALLOCATION_STATES = {
   PROFIT_TAKEN: { spot: 0, lp: 30, stable: 70 },
   BALANCED_LP: { spot: 60, lp: 10, stable: 30 },
 } as const;
+
+/**
+ * Shared protocol configurations by strategy type.
+ * Used to eliminate duplication across regime definitions.
+ */
+const LENDING_PROTOCOLS = {
+  stable: ['Morpho'],
+  lp: ['GMX (GM)'],
+  strategyType: 'lending' as const,
+};
+
+const PERPS_PROTOCOLS = {
+  stable: ['Aster ALP', 'Hyperliquid HLP'],
+  lp: ['GMX (GM)'],
+  strategyType: 'perps' as const,
+};
 
 export type RegimeId = 'ef' | 'f' | 'n' | 'g' | 'eg';
 
@@ -83,11 +112,7 @@ export const regimes: Regime[] = [
       gradient: 'from-emerald-400 to-green-500',
       icon: TrendingDown,
     },
-    protocols: {
-      stable: ['Morpho'],
-      lp: ['GMX (GM)'],
-      strategyType: 'lending',
-    },
+    protocols: LENDING_PROTOCOLS,
     strategies: {
       default: {
         title: 'Maximum Accumulation',
@@ -114,19 +139,15 @@ export const regimes: Regime[] = [
       gradient: 'from-green-400 to-teal-500',
       icon: TrendingDown,
     },
-    protocols: {
-      stable: ['Morpho'],
-      lp: ['GMX (GM)'],
-      strategyType: 'lending',
-    },
+    protocols: LENDING_PROTOCOLS,
     strategies: {
       fromLeft: {
         title: 'Monitor Market Recovery',
-        subtitle: [
-          { text: 'Zero rebalancing unless ' },
-          { text: 'risk', emphasis: true },
-          { text: ' spikes' },
-        ],
+        subtitle: subtitle.build(
+          'Zero rebalancing unless ',
+          subtitle.emphasized('risk'),
+          ' spikes'
+        ),
         useCase: {
           scenario: 'Bitcoin stabilizes after bouncing 12% from recent lows. FGI rises to 35.',
           userIntent: 'I want to hold my positions during early recovery.',
@@ -149,11 +170,7 @@ export const regimes: Regime[] = [
       },
       default: {
         title: 'Cautious Positioning',
-        subtitle: [
-          { text: 'Maintaining ' },
-          { text: 'defensive', emphasis: true },
-          { text: ' allocation' },
-        ],
+        subtitle: subtitle.build('Maintaining ', subtitle.emphasized('defensive'), ' allocation'),
       },
     },
   },
@@ -169,20 +186,16 @@ export const regimes: Regime[] = [
       gradient: 'from-yellow-400 to-amber-500',
       icon: Pause,
     },
-    protocols: {
-      stable: ['Aster ALP', 'Hyperliquid HLP'],
-      lp: ['GMX (GM)'],
-      strategyType: 'perps',
-    },
+    protocols: PERPS_PROTOCOLS,
     strategies: {
       default: {
         title: 'Maintaining Allocation',
-        subtitle: [
-          { text: 'Rotating Stables: ' },
-          { text: 'Lending', emphasis: true },
-          { text: ' ➔ ' },
-          { text: 'Perps', emphasis: true },
-        ],
+        subtitle: subtitle.build(
+          'Rotating Stables: ',
+          subtitle.emphasized('Lending'),
+          ' ➔ ',
+          subtitle.emphasized('Perps')
+        ),
         useCase: {
           scenario: 'FGI hovers between 46-54 for weeks.',
           userIntent: "I don't want to overtrade or pay fees.",
@@ -206,11 +219,7 @@ export const regimes: Regime[] = [
       gradient: 'from-orange-400 to-red-500',
       icon: TrendingUp,
     },
-    protocols: {
-      stable: ['Aster ALP', 'Hyperliquid HLP'],
-      lp: ['GMX (GM)'],
-      strategyType: 'perps',
-    },
+    protocols: PERPS_PROTOCOLS,
     strategies: {
       fromLeft: {
         title: 'Lock Gains into LP',
@@ -225,7 +234,7 @@ export const regimes: Regime[] = [
       },
       fromRight: {
         title: 'Take a Rest',
-        subtitle: [{ text: 'Holding positions; ' }, { text: 'risk off', emphasis: true }],
+        subtitle: subtitle.build('Holding positions; ', subtitle.emphasized('risk off')),
         useCase: {
           scenario: 'Bitcoin corrects 25% from peak. FGI drops to 65.',
           userIntent: 'I want to avoid catching falling knives.',
@@ -236,7 +245,7 @@ export const regimes: Regime[] = [
       },
       default: {
         title: 'Soft Profit-Taking',
-        subtitle: [{ text: 'Scaling out ' }, { text: 'slowly', emphasis: true }],
+        subtitle: subtitle.build('Scaling out ', subtitle.emphasized('slowly')),
       },
     },
   },
@@ -252,11 +261,7 @@ export const regimes: Regime[] = [
       gradient: 'from-red-400 to-orange-500',
       icon: TrendingUp,
     },
-    protocols: {
-      stable: ['Aster ALP', 'Hyperliquid HLP'],
-      lp: ['GMX (GM)'],
-      strategyType: 'perps',
-    },
+    protocols: PERPS_PROTOCOLS,
     strategies: {
       default: {
         title: 'Maximum Profit-Taking',
