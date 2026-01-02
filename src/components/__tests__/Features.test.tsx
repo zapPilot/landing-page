@@ -14,9 +14,7 @@ describe('Features', () => {
     it('should render the section subtitle', () => {
       render(<Features />);
 
-      expect(
-        screen.getByText("Built for the future of DeFi, designed for today's users")
-      ).toBeInTheDocument();
+      expect(screen.getByText('Simple, disciplined, and self-custodial.')).toBeInTheDocument();
     });
   });
 
@@ -24,39 +22,39 @@ describe('Features', () => {
     it('should render Sentiment-Driven Intelligence feature', () => {
       render(<Features />);
 
-      expect(screen.getByText('Sentiment-Driven Intelligence')).toBeInTheDocument();
-      expect(screen.getByText(/Monitors the Fear & Greed Index 24\/7/)).toBeInTheDocument();
+      expect(screen.getByText('Market Sentiment Engine')).toBeInTheDocument();
+      expect(screen.getByText(/We watch the market 24\/7/)).toBeInTheDocument();
     });
 
     it('should render Self-Custodial feature', () => {
       render(<Features />);
 
-      expect(screen.getByText('Self-Custodial. Always.')).toBeInTheDocument();
-      expect(screen.getByText(/Every token stays in your wallet/)).toBeInTheDocument();
+      expect(screen.getByText('Your Keys. Your Crypto.')).toBeInTheDocument();
+      expect(screen.getByText(/No deposits. You decide./)).toBeInTheDocument();
     });
 
     it('should render Gradual Execution feature', () => {
       render(<Features />);
 
-      expect(screen.getByText('Gradual, Disciplined Execution')).toBeInTheDocument();
-      expect(screen.getByText(/Rebalancing adapts to market intensity/)).toBeInTheDocument();
+      expect(screen.getByText('Smart Rebalancing')).toBeInTheDocument();
+      expect(screen.getByText(/No panic selling./)).toBeInTheDocument();
     });
 
     it('should render Transparent feature', () => {
       render(<Features />);
 
-      expect(screen.getByText('Transparent & Backtestable')).toBeInTheDocument();
-      expect(screen.getByText(/All parameters are visible and adjustable/)).toBeInTheDocument();
+      expect(screen.getByText('Transparent Strategy')).toBeInTheDocument();
+      expect(screen.getByText(/See exactly how it works./)).toBeInTheDocument();
     });
 
     it('should render exactly 4 feature cards', () => {
       render(<Features />);
 
       const featureTitles = [
-        'Sentiment-Driven Intelligence',
-        'Self-Custodial. Always.',
-        'Gradual, Disciplined Execution',
-        'Transparent & Backtestable',
+        'Market Sentiment Engine',
+        'Your Keys. Your Crypto.',
+        'Smart Rebalancing',
+        'Transparent Strategy',
       ];
 
       featureTitles.forEach(title => {
@@ -150,10 +148,10 @@ describe('Features', () => {
 
       // Each feature should have a paragraph description
       const descriptions = [
-        /Monitors the Fear & Greed Index/,
-        /Every token stays in your wallet/,
-        /Rebalancing adapts to market intensity/,
-        /All parameters are visible/,
+        /We watch the market 24\/7/,
+        /No deposits. You decide./,
+        /No panic selling./,
+        /See exactly how it works./,
       ];
 
       descriptions.forEach(desc => {

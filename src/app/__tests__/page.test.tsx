@@ -24,11 +24,11 @@ describe('HomePage', () => {
       expect(heroButtons.length).toBeGreaterThan(0);
 
       // Features section
-      expect(screen.getByText('Sentiment-Driven Intelligence')).toBeInTheDocument();
-      expect(screen.getByText('Self-Custodial. Always.')).toBeInTheDocument();
+      expect(screen.getByText('Market Sentiment Engine')).toBeInTheDocument();
+      expect(screen.getByText('Your Keys. Your Crypto.')).toBeInTheDocument();
 
       // CTA section
-      expect(screen.getByText(/Sentiment-Driven DeFi/i)).toBeInTheDocument();
+      expect(screen.getByText(/Start Rebalancing/i)).toBeInTheDocument();
 
       // Footer
       expect(screen.getByText(/Built with/)).toBeInTheDocument();
@@ -89,11 +89,11 @@ describe('HomePage', () => {
 
       // Hero should come before Features
       const heroIndex = content.indexOf('Connect Wallet');
-      const featuresIndex = content.indexOf('Sentiment-Driven Intelligence');
+      const featuresIndex = content.indexOf('Market Sentiment Engine');
       expect(heroIndex).toBeLessThan(featuresIndex);
 
       // Features should come before CTA
-      const ctaIndex = content.indexOf('Sentiment-Driven DeFi');
+      const ctaIndex = content.indexOf('Start Rebalancing');
       expect(featuresIndex).toBeLessThan(ctaIndex);
 
       // CTA should come before Footer
