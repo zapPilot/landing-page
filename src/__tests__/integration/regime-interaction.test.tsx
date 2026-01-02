@@ -43,7 +43,7 @@ describe('RegimeVisualizer Integration', () => {
       });
 
       // Should show section header
-      expect(screen.getByText('Market Sentiment Drives Every Decision')).toBeInTheDocument();
+      expect(screen.getByText('Buy Fear, Sell Greed. Systematically')).toBeInTheDocument();
     });
   });
 
