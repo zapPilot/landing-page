@@ -18,6 +18,7 @@ import { RegimeArc } from './RegimeArc';
 import { AllocationPanel } from './AllocationPanel';
 import { GlowFilter } from '@/components/ui';
 import { REGIME_VISUALIZER_CONFIG } from '@/config/regimeVisualizerConfig';
+import { MESSAGES } from '@/config/messages';
 
 interface RegimeVisualizerProps {
   autoPlayInterval?: number;
@@ -65,8 +66,8 @@ export function RegimeVisualizer({
         <section className="relative py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="py-20 text-center bg-gray-900/20 rounded-2xl border border-gray-800">
-              <p className="text-gray-300 mb-4">Unable to load regime visualizer</p>
-              <p className="text-gray-500 text-sm">Please refresh the page or try again later.</p>
+              <p className="text-gray-300 mb-4">{MESSAGES.regimeVisualizer.errorMessage}</p>
+              <p className="text-gray-500 text-sm">{MESSAGES.regimeVisualizer.errorRetry}</p>
             </div>
           </div>
         </section>
@@ -84,12 +85,11 @@ export function RegimeVisualizer({
           >
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
-                A Sentiment-Driven Strategy for Long-Term Crypto Investing
+                {MESSAGES.regimeVisualizer.title}
               </span>
             </h2>
             <p className="text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto">
-              Zap Pilot is a sentiment-driven rebalancing engine designed to help long-term BTC/ETH
-              holders allocate smarter, avoid emotional extremes, and invest with confidence.
+              {MESSAGES.regimeVisualizer.subtitle}
             </p>
           </motion.div>
 
@@ -102,7 +102,7 @@ export function RegimeVisualizer({
                   animate={{ rotate: 360 }}
                   transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
                 />
-                <p className="text-gray-300 text-sm">Loading regime visualizer...</p>
+                <p className="text-gray-300 text-sm">{MESSAGES.regimeVisualizer.loadingMessage}</p>
               </div>
             </div>
           ) : (
@@ -127,7 +127,7 @@ export function RegimeVisualizer({
                     repeat: REGIME_VISUALIZER_CONFIG.animation.interactionHint.repeat,
                   }}
                 >
-                  👆 Explore each regime to see how we respond
+                  {MESSAGES.regimeVisualizer.interactionHint}
                 </motion.div>
               )}
               <div className="w-full overflow-hidden">

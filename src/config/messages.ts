@@ -13,9 +13,20 @@ export const MESSAGES = {
   hero: {
     badge: '📊 Sentiment-Driven Rebalancing',
     subtitle:
-      'Zap Pilot helps you rebalance BTC & ETH at emotional extremes — directly from your own wallet.',
+      'Sentiment-driven rebalancing between BTC/ETH and stablecoins — fully self-custodial.',
     ctaPrimary: 'Connect Wallet',
     ctaSecondary: 'Watch Demo',
+  },
+
+  // Regime Visualizer section (second screen)
+  regimeVisualizer: {
+    title: 'Buy Fear, Sell Greed. Systematically',
+    subtitle:
+      "Zap Pilot helps you buy when the market is fearful and sell when it's greedy — powered by a sentiment-driven rebalancing engine, fully self-custodial.",
+    interactionHint: '👆 Explore each regime to see how we respond',
+    errorMessage: 'Unable to load regime visualizer',
+    errorRetry: 'Please refresh the page or try again later.',
+    loadingMessage: 'Loading regime visualizer...',
   },
 
   // Features section

@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import { RegimeVisualizer } from '@/components/regime';
+import { MESSAGES } from '@/config/messages';
 
 // Mock the ErrorBoundary to render children directly
 jest.mock('@/components/ErrorBoundary', () => ({
@@ -31,7 +32,7 @@ describe('RegimeVisualizer Integration', () => {
       render(<RegimeVisualizer />);
 
       // Should show loading spinner initially
-      expect(screen.getByText('Loading regime visualizer...')).toBeInTheDocument();
+      expect(screen.getByText(MESSAGES.regimeVisualizer.loadingMessage)).toBeInTheDocument();
     });
 
     it('should render content after loading', async () => {
@@ -43,9 +44,7 @@ describe('RegimeVisualizer Integration', () => {
       });
 
       // Should show section header
-      expect(
-        screen.getByText('A Sentiment-Driven Strategy for Long-Term Crypto Investing')
-      ).toBeInTheDocument();
+      expect(screen.getByText(MESSAGES.regimeVisualizer.title)).toBeInTheDocument();
     });
   });
 
