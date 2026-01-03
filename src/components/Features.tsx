@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { SectionHeader, CardGrid, CardItem } from './layout';
 import { rotatingBorder } from '@/lib/motion/animations';
 import { getFeatures, FEATURES_CONFIG } from '@/config/features';
+import { MESSAGES } from '@/config/messages';
 
 export function Features() {
   const features = getFeatures();
@@ -72,7 +73,7 @@ export function Features() {
                     href={FEATURES_CONFIG.learnMoreLink}
                     target="_blank"
                   >
-                    Learn more
+                    {MESSAGES.features.learnMore}
                   </a>
                   <motion.div
                     animate={{ x: [0, 5, 0] }}

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Github, Twitter, MessageCircle, Mail } from 'lucide-react';
 import Image from 'next/image';
 import { LINKS, NAVIGATION } from '@/config/links';
+import { MESSAGES } from '@/config/messages';
 
 interface LinkSectionProps {
   title: string;
@@ -52,15 +53,19 @@ export function Footer() {
             {/* Brand Section */}
             <div className="lg:col-span-1">
               <div className="flex items-center space-x-2 mb-6">
-                <Image src="/zap-pilot-icon.svg" alt="Zap Pilot Logo" width={48} height={48} />
+                <Image
+                  src="/zap-pilot-icon.svg"
+                  alt={MESSAGES.common.logoAlt}
+                  width={48}
+                  height={48}
+                />
                 <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                  Zap Pilot
+                  {MESSAGES.common.brandName}
                 </span>
               </div>
 
               <p className="text-gray-300 mb-6 leading-relaxed">
-                Sentiment-driven rebalancing for BTC/ETH investors. Disciplined, gradual, and always
-                self-custodial.
+                {MESSAGES.footer.brand.description}
               </p>
 
               {/* Social Links */}
@@ -81,10 +86,18 @@ export function Footer() {
             </div>
 
             {/* Product Links */}
-            <FooterLinkSection title="Product" links={productLinks} _delay={0.1} />
+            <FooterLinkSection
+              title={MESSAGES.footer.sections.product}
+              links={productLinks}
+              _delay={0.1}
+            />
 
             {/* Resources Links */}
-            <FooterLinkSection title="Resources" links={resourceLinks} _delay={0.2} />
+            <FooterLinkSection
+              title={MESSAGES.footer.sections.resources}
+              links={resourceLinks}
+              _delay={0.2}
+            />
           </div>
         </div>
 
@@ -93,12 +106,12 @@ export function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
             {/* Copyright */}
             <div className="text-gray-300 text-sm">
-              © {new Date().getFullYear()} Zap Pilot. All rights reserved.
+              {MESSAGES.footer.copyright.replace('{year}', new Date().getFullYear().toString())}
             </div>
 
             {/* Built with love */}
             <div className="text-gray-300 text-sm flex items-center space-x-1">
-              <span>Built with</span>
+              <span>{MESSAGES.footer.builtWith.prefix}</span>
               <motion.span
                 className="text-red-500"
                 animate={{
@@ -112,7 +125,7 @@ export function Footer() {
               >
                 ❤️
               </motion.span>
-              <span>for DeFi</span>
+              <span>{MESSAGES.footer.builtWith.suffix}</span>
             </div>
           </div>
         </div>

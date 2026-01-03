@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { ThreePartAllocationBar } from './ThreePartAllocationBar';
 import type { AllocationBreakdown, ProtocolInfo } from './types';
+import { MESSAGES } from '@/config/messages';
 
 interface AllocationTransitionProps {
   before: AllocationBreakdown;
@@ -28,7 +29,7 @@ export function AllocationTransition({
           onClick={() => setIsExpanded(!isExpanded)}
           className="flex items-center text-xs text-purple-400 hover:text-purple-300 transition-colors"
         >
-          {isExpanded ? 'Hide Transition' : 'Show Transition'}
+          {isExpanded ? MESSAGES.allocation.transition.hide : MESSAGES.allocation.transition.show}
           {isExpanded ? (
             <ChevronUp className="w-3 h-3 ml-1" />
           ) : (
@@ -72,7 +73,9 @@ export function AllocationTransition({
             />
           </div>
 
-          <div className="text-center text-xs text-gray-500 pt-2">Execution: Over 5-10 days</div>
+          <div className="text-center text-xs text-gray-500 pt-2">
+            Execution: {MESSAGES.allocation.timeframe}
+          </div>
         </div>
       ) : (
         /* Collapsed View - Only Target Allocation */

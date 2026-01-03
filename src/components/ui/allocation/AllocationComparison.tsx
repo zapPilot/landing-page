@@ -2,12 +2,13 @@
 
 import { AllocationTransition } from './AllocationTransition';
 import type { AllocationComparisonProps } from './types';
+import { MESSAGES } from '@/config/messages';
 
 export function AllocationComparison({
   before,
   after,
   protocols,
-  timeframe = 'Over 5-10 days',
+  timeframe = MESSAGES.allocation.timeframe,
   gradient: _gradient,
 }: AllocationComparisonProps) {
   return (

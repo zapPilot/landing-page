@@ -37,11 +37,11 @@ export function Hero() {
             className="text-6xl sm:text-7xl md:text-8xl font-bold mb-8 sm:mb-10 md:mb-12 leading-[1.1] tracking-tight"
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400 drop-shadow-[0_0_30px_rgba(168,85,247,0.4)]">
-              {MESSAGES.slogans.primaryLine1}
+              {MESSAGES.hero.title.line1}
             </span>
             <br />
             <span className="text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-              {MESSAGES.slogans.primaryLine2}
+              {MESSAGES.hero.title.line2}
             </span>
           </motion.h1>
 

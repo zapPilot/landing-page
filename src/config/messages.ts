@@ -1,9 +1,26 @@
 export const MESSAGES = {
-  // Primary slogans
+  // Common / Brand info
+  common: {
+    brandName: 'Zap Pilot',
+    logoAlt: 'Zap Pilot Logo',
+  },
+
+  // Navbar section
+  navbar: {
+    launchApp: 'Launch App',
+  },
+
+  // Error messages
+  errors: {
+    generic: {
+      title: 'Something went wrong',
+      description: 'We encountered an unexpected error. Please try refreshing the page.',
+      refreshButton: 'Refresh Page',
+    },
+  },
+
+  // Philosophy
   slogans: {
-    primary: 'Be Greedy. When Others Are Fearful.',
-    primaryLine1: 'Be Greedy.',
-    primaryLine2: 'When Others Are Fearful.',
     philosophy: 'Buy in fear. Defend in greed.',
     philosophyDescription:
       'A disciplined, sentiment-based strategy designed to help you allocate smarter, avoid extremes, and grow long-term BTC/ETH holdings with confidence.',
@@ -12,8 +29,13 @@ export const MESSAGES = {
   // Hero section
   hero: {
     badge: '📊 Sentiment-Driven Rebalancing',
+    title: {
+      primary: 'Be Greedy. When Others Are Fearful.',
+      line1: 'Be Greedy.',
+      line2: 'When Others Are Fearful.',
+    },
     subtitle:
-      'Sentiment-driven rebalancing between BTC/ETH and stablecoins — fully self-custodial.',
+      "A strategy that helps you buy when the market is fearful and sell when it's greedy — executed from your own wallet.",
     ctaPrimary: 'Connect Wallet',
     ctaSecondary: 'Watch Demo',
   },
@@ -22,7 +44,7 @@ export const MESSAGES = {
   regimeVisualizer: {
     title: 'Buy Fear, Sell Greed. Systematically',
     subtitle:
-      "Zap Pilot helps you buy when the market is fearful and sell when it's greedy — powered by a sentiment-driven rebalancing engine, fully self-custodial.",
+      'A sentiment-driven rebalancing engine that systematically adjusts exposure between BTC/ETH and stablecoins — fully self-custodial.',
     interactionHint: '👆 Explore each regime to see how we respond',
     errorMessage: 'Unable to load regime visualizer',
     errorRetry: 'Please refresh the page or try again later.',
@@ -33,6 +55,7 @@ export const MESSAGES = {
   features: {
     title: 'Why Zap Pilot?',
     subtitle: 'A smarter way to manage your crypto — without giving up control.',
+    learnMore: 'Learn more',
     items: [
       {
         title: 'Market Sentiment Engine',
@@ -91,10 +114,25 @@ export const MESSAGES = {
     ctaSecondary: 'Read Documentation',
   },
 
+  // Use Cases section
+  useCases: {
+    title: 'Use Cases',
+    subtitle: 'Real scenarios where Zap Pilot keeps you disciplined.',
+    bottomMessage: {
+      line1: 'Let market sentiment guide your decisions.',
+      line2: 'Zap Pilot handles the gradual execution — entirely within your wallet.',
+    },
+  },
+
   // Footer section
   footer: {
     brand: {
-      description: 'Buy Fear. Sell Greed. Stay in Control.',
+      description:
+        'Sentiment-driven rebalancing for BTC/ETH investors. Disciplined, gradual, and always self-custodial.',
+    },
+    sections: {
+      product: 'Product',
+      resources: 'Resources',
     },
     newsletter: {
       title: 'Stay Updated',
@@ -102,8 +140,33 @@ export const MESSAGES = {
       buttonText: 'Subscribe',
       disclaimer: 'No spam, unsubscribe anytime.',
     },
-    copyright: '© 2024 Zap Pilot. All rights reserved.',
-    builtWith: 'Built with ❤️ for DeFi',
+    copyright: '© {year} Zap Pilot. All rights reserved.',
+    builtWith: {
+      prefix: 'Built with',
+      suffix: 'for DeFi',
+    },
+  },
+
+  // Allocation visualizer
+  allocation: {
+    categories: {
+      spot: 'Spot',
+      stable: 'Stable',
+      lp: 'LP',
+    },
+    strategies: {
+      lending: 'Lending',
+      perps: 'Perps',
+    },
+    transition: {
+      show: 'Show Transition',
+      hide: 'Hide Transition',
+    },
+    timeframe: 'Over 5-10 days',
+    maintaining: {
+      message: 'Maintaining current allocation',
+      subtitle: 'Zero rebalancing — Holiday Mode',
+    },
   },
 
   // Core value propositions (reusable)

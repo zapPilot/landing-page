@@ -23,11 +23,8 @@ describe('Hero', () => {
     it('should render the main slogan', () => {
       render(<Hero />);
 
-      // The slogan is split by periods, so we check for the content
-      const sloganParts = MESSAGES.slogans.primary.split('.');
-      if (sloganParts[0]) {
-        expect(screen.getByText(sloganParts[0] + '.')).toBeInTheDocument();
-      }
+      expect(screen.getByText(MESSAGES.hero.title.line1)).toBeInTheDocument();
+      expect(screen.getByText(MESSAGES.hero.title.line2)).toBeInTheDocument();
     });
 
     it('should render the subtitle', () => {

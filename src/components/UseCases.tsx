@@ -8,6 +8,7 @@ import { transformRegimesToUseCases } from '@/lib/regimeTransformers';
 import { REGIME_VISUALIZER_CONFIG } from '@/config/regimeVisualizerConfig';
 import { USE_CASE_CONFIG } from '@/config/useCaseConfig';
 import { revealOnView } from '@/lib/motion/animations';
+import { MESSAGES } from '@/config/messages';
 
 export function UseCases() {
   const tabbedUseCases = transformRegimesToUseCases(regimes);
@@ -24,7 +25,7 @@ export function UseCases() {
               <span className="ml-3">Cases</span>
             </>
           }
-          subtitle="Real scenarios where Zap Pilot keeps you disciplined"
+          subtitle={MESSAGES.useCases.subtitle}
         />
 
         <div className="space-y-8 lg:space-y-12">
@@ -54,9 +55,9 @@ export function UseCases() {
           {...revealOnView({ delay: bottomMessageDelay, duration: slideIn.duration })}
           className="text-center mt-20"
         >
-          <p className="text-xl text-gray-300 mb-6">Let market sentiment guide your decisions.</p>
+          <p className="text-xl text-gray-300 mb-6">{MESSAGES.useCases.bottomMessage.line1}</p>
           <p className="text-2xl font-semibold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-            Zap Pilot handles the gradual execution — entirely within your wallet.
+            {MESSAGES.useCases.bottomMessage.line2}
           </p>
         </motion.div>
       </div>
