@@ -44,7 +44,7 @@ export const MESSAGES = {
   // How It Works section
   howItWorks: {
     title: 'How It Works',
-    subtitle: '3 Steps to Smarter Investing',
+    subtitle: '3 Steps to Sentiment Rebalancing',
     steps: [
       {
         number: 1,
@@ -111,28 +111,28 @@ export const MESSAGES = {
       {
         name: 'Morpho',
         category: 'Lending',
-        description: 'Earn yield on stablecoins. Transparent and audited.',
+        description: 'Earn yield on stablecoins via curated lending vaults.',
         logo: '/protocols/morpho.webp',
         link: 'https://morpho.org',
       },
       {
         name: 'GMX v2',
         category: 'LP Vaults',
-        description: 'Earn fees from trader activity. Backed by GM Pools.',
+        description: 'Earn fees from GM pools backing BTC/ETH perps.',
         logo: '/protocols/gmx-v2.webp',
         link: 'https://gmx.io',
       },
       {
         name: 'Hyperliquid',
         category: 'Delta-Neutral',
-        description: 'Earn from spreads on the fastest L1 perp DEX.',
+        description: 'Earn maker spreads on Hyperliquid L1 perps.',
         logo: '/protocols/hyperliquid.webp',
         link: 'https://hyperfoundation.org/',
       },
       {
         name: 'Aster',
         category: 'Yield',
-        description: 'Passive yield on your stablecoins.',
+        description: 'Passive yield via ALP stablecoin liquidity.',
         logo: '/protocols/aster.webp',
         link: 'https://www.asterdex.com/en',
       },
