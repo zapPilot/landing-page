@@ -12,7 +12,8 @@ export const MESSAGES = {
   // Hero section
   hero: {
     badge: '📊 Sentiment-Driven Rebalancing',
-    subtitle: 'Buy Fear. Sell Greed. Stay in Control.',
+    subtitle:
+      'Zap Pilot helps you rebalance BTC & ETH at emotional extremes — directly from your own wallet.',
     ctaPrimary: 'Connect Wallet',
     ctaSecondary: 'Watch Demo',
   },

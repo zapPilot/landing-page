@@ -43,7 +43,9 @@ describe('RegimeVisualizer Integration', () => {
       });
 
       // Should show section header
-      expect(screen.getByText('Buy Fear, Sell Greed. Systematically')).toBeInTheDocument();
+      expect(
+        screen.getByText('A Sentiment-Driven Strategy for Long-Term Crypto Investing')
+      ).toBeInTheDocument();
     });
   });
 

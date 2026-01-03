@@ -84,12 +84,12 @@ export function RegimeVisualizer({
           >
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
-                Buy Fear, Sell Greed. Systematically
+                A Sentiment-Driven Strategy for Long-Term Crypto Investing
               </span>
             </h2>
             <p className="text-xl sm:text-2xl text-gray-300 max-w-3xl mx-auto">
-              Zap Pilot analyzes the Fear & Greed Index to determine when to act — and when to hold
-              steady.
+              Zap Pilot is a sentiment-driven rebalancing engine designed to help long-term BTC/ETH
+              holders allocate smarter, avoid emotional extremes, and invest with confidence.
             </p>
           </motion.div>
 
