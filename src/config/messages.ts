@@ -32,7 +32,7 @@ export const MESSAGES = {
   // Features section
   features: {
     title: 'Why Zap Pilot?',
-    subtitle: 'Simple, disciplined, and self-custodial.',
+    subtitle: 'A smarter way to manage your crypto — without giving up control.',
     items: [
       {
         title: 'Market Sentiment Engine',
@@ -56,7 +56,7 @@ export const MESSAGES = {
   // How It Works section
   howItWorks: {
     title: 'How It Works',
-    subtitle: '3 Steps to Sentiment Rebalancing',
+    subtitle: '3 Steps to Sentiment Rebalancing.',
     steps: [
       {
         number: 1,
@@ -118,7 +118,7 @@ export const MESSAGES = {
   // Protocols section
   protocols: {
     title: 'Integrated Protocols',
-    subtitle: 'Powered by the Best in DeFi.',
+    subtitle: 'Where your stablecoins earn yield while you wait for the next move.',
     items: [
       {
         name: 'Morpho',

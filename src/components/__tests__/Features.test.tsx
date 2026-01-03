@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { Features } from '../Features';
+import { MESSAGES } from '@/config/messages';
 
 describe('Features', () => {
   describe('section header', () => {
@@ -14,7 +15,7 @@ describe('Features', () => {
     it('should render the section subtitle', () => {
       render(<Features />);
 
-      expect(screen.getByText('Simple, disciplined, and self-custodial.')).toBeInTheDocument();
+      expect(screen.getByText(MESSAGES.features.subtitle)).toBeInTheDocument();
     });
   });
 
